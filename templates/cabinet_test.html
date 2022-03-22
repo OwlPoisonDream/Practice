@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Тестовый кабинет
+{% endblock %}
+
+{% block body %}
+<div class = "container mt-5">
+    <h1>Личный кабинет пользователя</h1>
+
+    {% for el in users %}
+    <div class="alert alert-info">
+        <h2>{{el.name}}</h2>
+        <h3>{{el.nickname}}</h3>
+        <p><a href="vk.com">{{el.link_vk}}</a></p>
+        <p><b>{{el.inn}}</b></p>
+        <p>{{el.rek_data}}</p>
+        <p>{{el.password}}</p>
+        <p>{{el.login}}</p>
+        <p>{{el.phone_number}}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
