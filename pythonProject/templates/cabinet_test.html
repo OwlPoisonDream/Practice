@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<h1>Тестовый кабинет</h1>
+{% endblock %}
+
+{% block body %}
+<!-- Отображение данных словаря -->
+<div class = "container mt-5">
+    <h1>Личный кабинет пользователя</h1>
+
+    <div class="alert alert-info">
+        <h2>ФИО: {{person_account[url_sequence].name}}</h2>
+        <h3>Логин: {{person_account[url_sequence].nickname}}</h3>
+        <p>Ссылка на ВК: <a href="vk.com/poisonowl">VK</a></p>
+        <p>Ваш ИНН: <b>{{person_account[url_sequence].INN}}</b></p>
+        <p>Реквизиты банка: {{person_account[url_sequence].bank_details}}</p>
+        <p>Наименование банка: {{person_account[url_sequence].bank_name}}</p>
+        <p>Ваш пароль: {{person_account[url_sequence].password}}</p>
+        <p>Электронная почта: {{person_account[url_sequence].email}}</p>
+        <p>Номер телефона: {{person_account[url_sequence].phone_number}}</p>
+        <a href="info_change">Изменение данных</a>
+    </div>
+</div>
+{% endblock %}
