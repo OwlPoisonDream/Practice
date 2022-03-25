@@ -1,13 +1,36 @@
-<!doctype html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Регистрация профиля</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %}
+<h1>Регистрация</h1>
+{% endblock %}
+
+{% block body %}
+<div id="container_demo" >
+        <div id="wrapper" class="animate form">
+            <div class="login"> </div>
+            <div id="login">
+            <form  action="" method="post" id="login_form">
+                <h1><br> <br> РЕГИСТРАЦИЯ <br> <br></h1>
+                <p>
+                    <input id="username" name="emailsignup" required="required" type="text" placeholder="Почта" /> <br>
+                    <br>
+                </p>
+                <p>
+                    <br><input id="password" name="passwordsignup" required="required" type="password" placeholder="Пароль"/>
+                    <br> <br>
+                </p>
+                <p class="reg_button"><br> <br>
+                    <input type="submit" value="Зарегистрироваться" class="reg_but" /> <br> <br>
+                </p>
+                <p class="proposal">
+                    ИЛИ
+                </p>
+                <p class="change_link_back">
+                    Уже имеется аккаунт? Тогда
+                    <a href="login" class="login_form"> Добро пожаловать </a>
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

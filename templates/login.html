@@ -1,13 +1,41 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Окно входа</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+{% block title %}
+<h1>Вход в личный Кабинет</h1>
+{% endblock %}
+
+{% block body %}
+<div id="container_demo" >
+    <div id="wrapper">
+        <div class="login"> </div>
+        <div id="login">
+            <form  action="" method="post" id="login_form">
+                <h1><br> <br> ВХОД <br> <br></h1>
+                <p>
+                    <input id="username" name="username" required="required" type="text" placeholder="Ник" />
+                    <br> <br>
+                </p>
+                <p>
+                    <input id="password" name="password" required="required" type="password" placeholder="Пароль" />
+                    <br> <br>
+                </p>
+                <p class="keep_login">
+                    <input type="checkbox" name="loginkeeping" id="loginkeeping" value="loginkeeping" />
+                    <label for="loginkeeping">Запомнить меня <br> <br></label>
+                </p>
+                <p class="login_button">
+                    <input type="submit" value="Войти" class="log_but" /> <br> <br>
+                </p>
+                <p><a href="" class="pass_forget">Забыл пароль? Кликая сюда!</a></p>
+
+            </form>
+            <p class="change_link">
+        Ещё не зареган? Скорей
+        <a href="register" class="register_form">РЕГИСТРИРУЙСЯ</a>
+    </p>
+            </div>
+
+    </div>
+
+</div>
+{% endblock %}
