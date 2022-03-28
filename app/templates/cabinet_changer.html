@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<h1>Смена пароля</h1>
+{% endblock %}
+
+{% block body %}
+<!-- Форма для изменения данных -->
+<form action="" method="post">
+    <p>Имя: <input type="text" name="name"></p>
+    <p>Логин: <input type="text" name="nickname"></p>
+    <p>Ссылка на ВК: <input type="text" name="vk_link"></p>
+    <p>ИНН: <input type="text" name="inn"></p>
+    <p>Реквизиты банка: <input type="text" name="bank_details"></p>
+    <p>Имя банка: <input type="text" name="bank_name"></p>
+    <p>Старый пароль: <input type="text" name="old_pass"></p>
+    <p>Новый пароль: <input type="text" name="new_pass"></p>
+    <p>Повтор нового пароля: <input type="text" name="repeat_pass"></p>
+    <p>Почта: <input type="text" name="email"></p>
+    <p>Номер телефона: <input type="text" name="phone_number"></p>
+    <p><input type="submit"></p>
+</form>
+{% endblock %}

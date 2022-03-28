@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div>
+  <h1>Войти</h1>
+  <form method = "POST">
+    <input type="text" name="email" placeholder="Ваша почта ">
+    <input type="text" name="password" placeholder="Пароль">
+    <input type="submit" placeholder="Ввод">
+  </form>
+  <p>{{message}}</p>
+  <a href="register">Зарегестрироватся</a>
+</div>
+{% endblock %}
