@@ -3,52 +3,37 @@ import email
 from flask import Flask, render_template, request, redirect, url_for #для работы с интернетом
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import LoginManager, UserMixin, login_required, login_user,current_user,logout_user
-from app import app
-from app import models,db
+from app import app,models,db,forms
 
 #print("[log] обработка страниц запущена")
 
 
-
-@app.route('/',methods = ['POST', 'GET'])
+@app.route('/',methods = ['POST', 'GET']) #вход
 def index():
-    message = ''
-    if request.method == 'POST':
-        print(request.form)
-        email = request.form.get('email')
-        password = request.form.get('password')
-        q = models.User.query.filter_by(email = email).first()
-
-        if email == q.email and check_password_hash(password,q.password_hash):
-            message = "Вы вошли"
-            login_user(q)
-            return redirect(url_for('cabinet'))
-        else:
-            message = "Неправельно ввели логин или пароль"
-    return render_template('index.html',message = message)
+    if current_user.is_authenticated:
+        return redirect(url_for('cabinet'))
+    form = forms.LoginForm()
+    #if form.validate_on_submit():
+    #    user = db.session.query(models.User).filter(models.User.email == form.email.data).first()
+    #    print(user)
+    #    if user and user.check_password(form.password.data):
+    #      login_user(user, remember=form.remember.data)
+    #      return redirect(url_for('cabinet'))
+    #    return redirect(url_for('login'))  
+    return render_template('index.html', form=form)
 
 @app.route('/register',methods = ['POST', 'GET']) # регестрация 
 def register():
-    message = ''
-    if request.method == 'POST':
-        print(request.form)# смотрим, что вводит пользователь 
-
-        email = request.form.get('email') # почта в переменной
-        password = generate_password_hash(request.form.get('password')) #хеш пароля в переменной
-
-        q = models.User.query.filter_by(email = email).first() #запрос в БД на поиск пользователя
-
-        if q is None: # если запрос в БД == 0
-            message = "Вы зарегестрировались"
-            addUser(email,password)
-            q = models.User.query.get(email.data).first()
-            print(q)
-            login_user(email) #создание ссесии пользователя по email
-            return redirect(url_for('cabinet'))
-        else:
-            message = "Пользователь занят"
-        
-    return render_template('register.html',message = message)
+    if current_user.is_authenticated:
+        return redirect(url_for('cabinet'))
+    form = forms.RegistrationForm()
+    if form.validate_on_submit():
+        user = models.User(email=form.email.data)
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('register.html', form=form)
 
 @app.route('/logout')# выход из аккаунта 
 def logout():

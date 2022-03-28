@@ -1,6 +1,6 @@
 # сдесь находятся модели класса
 from werkzeug.security import generate_password_hash,  check_password_hash # для создание хеша паролей
-from flask_login import  LoginManager,UserMixin
+from flask_login import  UserMixin 
 from app import db,login_manager
 
 
