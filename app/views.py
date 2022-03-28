@@ -1,6 +1,6 @@
 #Обработчик ссылок
 import email
-from flask import Flask, render_template, request, redirect, url_for #для работы с интернетом
+from flask import Flask, render_template, request, redirect, url_for #для работы с Интернетом
 from werkzeug.security import generate_password_hash,check_password_hash
 from flask_login import LoginManager, UserMixin, login_required, login_user,current_user,logout_user
 from app import app,models,db,forms
@@ -22,7 +22,7 @@ def index():
     #    return redirect(url_for('login'))  
     return render_template('index.html', form=form)
 
-@app.route('/register',methods = ['POST', 'GET']) # регестрация 
+@app.route('/register',methods = ['POST', 'GET']) # регистрация 
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('cabinet'))
@@ -41,23 +41,23 @@ def logout():
     return redirect(url_for('index'))
 
 @app.route('/cabinet',methods = ['POST', 'GET'])
-@login_required #только зарегестрированный человек сможет зайти
+@login_required #только зарегистрированный человек сможет зайти
 def cabinet():
     return render_template('cabinet.html', email = email)
 
 @app.route('/cabinet_changer',methods = ['POST', 'GET'])
-@login_required #только зарегестрированный человек сможет зайти
+@login_required #только зарегистрированный человек сможет зайти
 def cabinet_changer():
     return render_template('cabinet_changer.html')
 
 @app.route('/admin',methods = ['POST', 'GET'])
-@login_required #только зарегестрированный человек сможет зайти
+@login_required #только зарегистрированный человек сможет зайти
 def admin():
     return render_template('admin.html')
 
 
 
-# функция для добовление пользователя, сейчас она сдесь 
+# функция для добавление пользователя, сейчас она здесь 
 def addUser(email = "none", password_hash = "none", name = "none", nickname = "none", link_vk = "none" , inn = "none", bank_details = "none", bankName = "none", phone_number = "none"):
     news = models.User(email = email, password_hash = password_hash, 
     name = name, nickname = nickname, link_vk = link_vk , 
