@@ -1,6 +1,6 @@
 #для создания БД и тестов над БД
 from app import db
-from models import User
+from app.models import User
 
 
 # добовление к таблице User
@@ -17,18 +17,20 @@ def addTasks(email = "none", password_hash = "none", name = "none", nickname = "
     news = 11
     db.session.add(news)# добавить новые записи в базу данных
     db.session.commit()# закрываем базу данных
+  # пример чтения БД 
+    #peter = User.query.filter_by(email = 'supe@fbfbf').first()
+    #print(peter.id)
 
-
-if __name__ == '__main__':
     #print("Версия SQLAlchemy:", sqlalchemy.__version__)# посмотреть версию SQLALchemy
     #print(db)# проверка пути БД
-    db.create_all()#создание БД
+if __name__ == '__main__':
 
-    # пример чтения БД 
-    peter = User.query.filter_by(email = 'supe@fbfbf').first()
-    print(peter.id)
-
-    # Обновление записи
+    # первая запись
+    db.create_all() #создаем БД
+    user = User(email="root",who = 3)
+    user.set_password("root")
+    db.session.add(user)
+    db.session.commit()
 
    
 

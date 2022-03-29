@@ -6,5 +6,14 @@
 
 {% block body %}
 <!-- Отображение данных словаря -->
-<h1>Ты зашел уебан: {{email}}</h1>
+<h1>Ваш email: {{current_user.email}}</h1>
+<h3>{{current_user.nickname}}</h3>
+<p><a href="{{current_user.link_vk}}">ссылка на ВК</a></p>
+<p><b>{{current_user.inn}}</b></p>
+<p>{{current_user.rek_data}}</p>
+<p>{{current_user.password}}</p>
+<p>{{current_user.login}}</p>
+<p>{{current_user.phone_number}}</p>
+<a href="/cabinet_changer">Изменить данные</a> 
+<a href="/logout">выход</a> 
 {% endblock %}
