@@ -6,6 +6,54 @@
     <link rel="stylesheet" href="{{ url_for ('static', filename='css/phoenix.css')}}">
 </head>
 <body>
+{% block cabinet %} <script>
+    if ({{current_user.who}}==0){
+        <div class="drop_menu_0">
+            <button class="dropbtn"><img src="" alt=""></button>
+            <div class="drop-content">
+                <h1>{{current_user.name}}</h1>
+                <p><a href="cabinet">Личный кабинет</a></p>
+                <p><a href="my_tasks">Мои задачи</a></p>
+                <p><a href="my_documents">Мои документы</a></p>
+                <p><a href="my_salary">Моя зарплата</a></p>
+                <a href="/logout">Выход</a>
+            </div>
+        </div>
+    }
+    if ({{current_user.who}}==1){
+        <div class="drop_menu_1">
+            <button class="dropbtn"><img src="" alt=""></button>
+            <div class="drop-content">
+                <h1>{{current_user.name}}</h1>
+                <p><a href="cabinet">Личный кабинет</a></p>
+                <p><a href="my_tasks">Мои задачи</a></p>
+                <p><a href="my_documents">Мои документы</a></p>
+                <p><a href="my_salary">Моя зарплата</a></p>
+                <p><a href="my_projects">Мои проекты</a></p>
+                <a href="/logout">Выход</a>
+            </div>
+        </div>
+    }
+    if ({{current_user.who}}==2){
+        <div class="drop_menu_2">
+            <button class="dropbtn"><img src="" alt=""></button>
+            <div class="drop-content">
+                <h1>{{current_user.name}}</h1>
+                <p><a href="cabinet">Личный кабинет</a></p>
+                <p><a href="my_tasks">Мои задачи</a></p>
+                <p><a href="my_documents">Мои документы</a></p>
+                <p><a href="my_salary">Зарплата</a></p>
+                <p><a href="employeers"> Список сотрудников </a></p>
+                <p><a href="complete_tasks"> Список выполненных задач по людям </a></p>
+                <p><a href="create_contract"> Создание договоров </a></p>
+                <a href="/logout">Выход</a>
+            </div>
+        </div>
+    }
+    else{
+        ERROR... ERROR... ERROR... QLIPHOTH IS GROWING... THE WORLD IS DESTRUCTION... ERROR... ERROR... ERROR...
+    }
+</script> {% endblock %}
     {% block body %} {% endblock %}
 </body>
 </html>
