@@ -4,41 +4,41 @@ from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 import email_validator
 from app.models import User
 
-class LoginForm(FlaskForm):
+class LoginForm(FlaskForm): # Форма для логина с запоминанием пользователя
     email = StringField("email", validators=[DataRequired()])
     password = PasswordField("password", validators=[DataRequired()])
     remember = BooleanField("remember Me")
     submit = SubmitField()
     
 
-class RegistrationForm(FlaskForm):
+class RegistrationForm(FlaskForm): # Форма регистрации
     email = StringField('email', validators=[DataRequired(), Email()])
     password = PasswordField('password', validators=[DataRequired()])
     password2 = PasswordField(
         'repeat password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('register')
 
-    def validate_username(self, username):
+    def validate_username(self, username): #Проверка на несовпадение имён пользователя
         user = User.query.filter_by(username=username.data).first()
         if user is not None:
             raise ValidationError('Пожалуйста, используйте другое имя пользователя.')
 
-    def validate_email(self, email):
+    def validate_email(self, email): #проверка на несовпадение электронных почт
         user = User.query.filter_by(email=email.data).first()
         if user is not None:
             raise ValidationError('Пожалуйста, используйте другой адрес электронной почты.')
 
-class ResetPasswordRequestForm(FlaskForm): # Форма востоновление пароля 
+class ResetPasswordRequestForm(FlaskForm): # Форма восстановления пароля 
     email = StringField('Email', validators=[DataRequired(), Email()])
     submit = SubmitField('Request Password Reset')
 
-class ResetPasswordForm(FlaskForm):
+class ResetPasswordForm(FlaskForm): # Форма сброса пароля
     password = PasswordField('Password', validators=[DataRequired()])
     password2 = PasswordField(
         'Repeat Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Request Password Reset')
 
-class PersonalForm(FlaskForm):
+class PersonalForm(FlaskForm): # Форма для заполнения таблицы users_Data
     name = StringField('ФИО', validators=[DataRequired()]) #ФИО
     nickname = StringField('прозвище', validators=[DataRequired()]) # прозвище
     link_vk = StringField('ссылка на вк', validators=[DataRequired()]) # ссылка на вк
