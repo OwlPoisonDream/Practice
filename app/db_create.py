@@ -3,7 +3,7 @@ from app import db
 from app.models import User
 
 
-# добовление к таблице User
+# добавление к таблице User
 def addUser(email = "none", password_hash = "none", name = "none", nickname = "none", link_vk = "none" , inn = "none", bank_details = "none", bankName = "none", phone_number = "none"):
     news = User(email = email, password_hash = password_hash, 
     name = name, nickname = nickname, link_vk = link_vk , 
@@ -12,7 +12,7 @@ def addUser(email = "none", password_hash = "none", name = "none", nickname = "n
     db.session.add(news)# добавить новые записи в базу данных
     db.session.commit()# закрываем базу данных
 
-# добовление к таблице User
+# добавление к таблице User
 def addTasks(email = "none", password_hash = "none", name = "none", nickname = "none", link_vk = "none" , inn = "none", bank_details = "none", bankName = "none", phone_number = "none"):
     news = 11
     db.session.add(news)# добавить новые записи в базу данных
@@ -21,7 +21,7 @@ def addTasks(email = "none", password_hash = "none", name = "none", nickname = "
     #peter = User.query.filter_by(email = 'supe@fbfbf').first()
     #print(peter.id)
 
-    #print("Версия SQLAlchemy:", sqlalchemy.__version__)# посмотреть версию SQLALchemy
+    #print("Версия SQLAlchemy:", sqlalchemy.__version__)# посмотреть версию SQLAlchemy
     #print(db)# проверка пути БД
 if __name__ == '__main__':
 
