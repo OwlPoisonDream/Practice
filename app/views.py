@@ -26,12 +26,12 @@ def index():
         user = db.session.query(models.User).filter(models.User.email == form.email.data).first()
         print(user)
         if user and user.check_password(form.password.data):
-          login_user(user, remember=form.remember.data)# запуск ссесии пользователя
+          login_user(user, remember=form.remember.data)# запуск сессии пользователя
           return redirect(url_for('cabinet'))
         return redirect(url_for('index'))  
     return render_template('index.html', form=form)
 
-@app.route('/register',methods = ['POST', 'GET']) # регестрация 
+@app.route('/register',methods = ['POST', 'GET']) # регистрация 
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('cabinet'))
@@ -56,7 +56,7 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
-@app.route('/reset_password_request', methods=['GET', 'POST'])
+@app.route('/reset_password_request', methods=['GET', 'POST']) #Страница просьбы о смене пароля
 def reset_password_request():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -69,7 +69,7 @@ def reset_password_request():
     return render_template('reset_password_request.html', form=form)
 
 
-@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+@app.route('/reset_password/<token>', methods=['GET', 'POST']) #Страница сброса пароля и обработка его смены 
 def reset_password(token):
     if current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -83,13 +83,13 @@ def reset_password(token):
         return redirect(url_for('login'))
     return render_template('reset_password.html', form=form)
 
-@app.route('/cabinet',methods = ['POST', 'GET'])
-@login_required #только зарегестрированный человек сможет зайти
+@app.route('/cabinet',methods = ['POST', 'GET']) #Личный кабинет
+@login_required #только зарегистрированный человек сможет зайти
 def cabinet():
     return render_template('cabinet.html')
 
-@app.route('/cabinet_changer',methods = ['POST', 'GET'])
-@login_required #только зарегестрированный человек сможет зайти
+@app.route('/cabinet_changer',methods = ['POST', 'GET']) #Страница для изменения данных в личном кабинете и вноса изменений в базу данных
+@login_required #только зарегистрированный человек сможет зайти
 def cabinet_changer():
     form = forms.PersonalForm()
     if form.validate_on_submit():
@@ -112,8 +112,36 @@ def cabinet_changer():
         return redirect(url_for('cabinet'))
     return render_template('cabinet_changer.html',form=form)
 
-@app.route('/admin',methods = ['POST', 'GET'])
-@login_required #только зарегестрированный человек сможет зайти
+@app.route('/my_tasks', methods=['GET', 'POST']) #Страница с задачами пользователя
+def my_tasks():
+    return render_template("my_tasks.html")
+
+@app.route('/my_documents', methods=['GET', 'POST']) #Страница с документами пользователя
+def my_documents():
+    return render_template("my_documents.html")
+
+@app.route('/my_projects' , methods=['GET', 'POST']) # Страница с проектами шоураннера
+def my_projects():
+    return render_template("my_projects.html") 
+    
+@app.route('/salary' , methods=['GET', 'POST']) # Страница с зарплатами. Менеджер видит и устанавливает
+def salary:
+    return render_template("salary.html")
+
+@app.route('/employeers' , methods=['GET', 'POST']) # Страница с сотрудниками компании. Доступна менеджеру
+def employeers():
+    return render_template("employeers.html")
+
+@app.route('/completed_tasks' , methods=['GET', 'POST']) # Страница с выполненными задачами по людям
+def completed_tasks:
+    return render_template("completed_tasks.html")
+
+@app.route('/create_contract' , methods=['GET', 'POST']) # Страница с созданием договоров. Для менеджера
+def create_contracts():
+    return render_template("create_contract.html")
+
+@app.route('/admin',methods = ['POST', 'GET']) #Страница, доступная ЛИШЬ админу
+@login_required #только зарегистрированный человек сможет зайти
 def admin():
     return render_template('admin.html')
 
