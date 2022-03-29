@@ -5,9 +5,11 @@
 {% endblock %}
 
 {% block body %}
+{% block cabinet %}
+{% endblock %}
 <!-- Отображение данных словаря -->
 <h1>Ваш email: {{current_user.email}}</h1>
-<h3>{{current_user.nickname}}</h3>
+<h3>{{current_user.who}}</h3>
 <p><a href="{{current_user.link_vk}}">ссылка на ВК</a></p>
 <p><b>{{current_user.inn}}</b></p>
 <p>{{current_user.rek_data}}</p>

@@ -78,13 +78,13 @@ class Users_Data(db.Model):
     id = db.Column(db.Integer, primary_key =True) #id
     idUser = db.Column(db.Integer)# id пользователя 
     name = db.Column(db.String(100), nullable=True) #ФИО
+    nickname = db.Column(db.String(20), nullable=True) # прозвище
+    link_vk = db.Column(db.String(50), nullable=True) # ссылка на вк
     birthDAy = db.Column(db.String(100), nullable=True)# Дата рождения 
     passport = db.Column(db.String(100), nullable=True)# номер паспорта
     passportData = db.Column(db.String(100), nullable=True)# дата выдачи 
     passportBy = db.Column(db.String(100), nullable=True)# кем выдан паспорт
     passportCod = db.Column(db.String(100), nullable=True)# код подразделения
-    nickname = db.Column(db.String(20), nullable=True) # прозвище
-    link_vk = db.Column(db.String(50), nullable=True) # ссылка на вк
     inn = db.Column(db.String(12), nullable=True) # инн
     bank_details = db.Column(db.String(100), nullable=True) # реквизиты банка  
     bankName = db.Column(db.String(100), nullable=True) # название банка

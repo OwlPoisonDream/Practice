@@ -76,7 +76,7 @@ def reset_password(token):
     user = models.User.verify_reset_password_token(token)
     if not user:
         return redirect(url_for('index'))
-    form = form.ResetPasswordForm()
+    form = forms.ResetPasswordForm()
     if form.validate_on_submit():
         user.set_password(form.password.data)
         db.session.commit()
@@ -86,12 +86,31 @@ def reset_password(token):
 @app.route('/cabinet',methods = ['POST', 'GET'])
 @login_required #только зарегестрированный человек сможет зайти
 def cabinet():
-    return render_template('cabinet.html', email = email)
+    return render_template('cabinet.html')
 
 @app.route('/cabinet_changer',methods = ['POST', 'GET'])
 @login_required #только зарегестрированный человек сможет зайти
 def cabinet_changer():
-    return render_template('cabinet_changer.html')
+    form = forms.PersonalForm()
+    if form.validate_on_submit():
+        user_data = db.session.query(models.Users_Data).filter_by(idUser = current_user.id).one() # выдает строку с id 2
+        user_data.name = form.name.data
+        user_data.birthDAy = form.birthDAy.data
+        user_data.passport = form.passport.data 
+        user_data.passportData = form.passportData.data 
+        user_data.passportBy = form.passportBy.data 
+        user_data.passportCod = form.passportCod.data
+        user_data.nickname = form.nickname.data
+        user_data.link_vk = form.link_vk.data
+        user_data.inn = form.inn.data
+        user_data.bank_details = form.bank_details.data
+        user_data.bankName = form.bankName.data
+        user_data.phone_number = form.phone_number.data
+
+        db.session.add(user_data) 
+        db.session.commit()
+        return redirect(url_for('cabinet'))
+    return render_template('cabinet_changer.html',form=form)
 
 @app.route('/admin',methods = ['POST', 'GET'])
 @login_required #только зарегестрированный человек сможет зайти

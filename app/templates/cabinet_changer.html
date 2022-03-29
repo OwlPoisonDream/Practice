@@ -7,17 +7,59 @@
 {% block body %}
 <!-- Форма для изменения данных -->
 <form action="" method="post">
-    <p>Имя: <input type="text" name="name"></p>
-    <p>Логин: <input type="text" name="nickname"></p>
-    <p>Ссылка на ВК: <input type="text" name="vk_link"></p>
-    <p>ИНН: <input type="text" name="inn"></p>
-    <p>Реквизиты банка: <input type="text" name="bank_details"></p>
-    <p>Имя банка: <input type="text" name="bank_name"></p>
-    <p>Старый пароль: <input type="text" name="old_pass"></p>
-    <p>Новый пароль: <input type="text" name="new_pass"></p>
-    <p>Повтор нового пароля: <input type="text" name="repeat_pass"></p>
-    <p>Почта: <input type="text" name="email"></p>
-    <p>Номер телефона: <input type="text" name="phone_number"></p>
-    <p><input type="submit"></p>
+    {{ form.hidden_tag() }}
+<p>
+    {{ form.name.label() }}
+    {{ form.name() }}
+</p>
+<p>
+    {{ form.nickname.label() }}
+    {{ form.nickname() }}
+</p>
+<p>
+    {{ form.link_vk.label() }}
+    {{ form.link_vk() }}
+</p>
+<p>
+    {{ form.birthDAy.label() }}
+    {{ form.birthDAy() }}
+</p>
+<p>
+    {{ form.passport.label() }}
+    {{ form.passport() }}
+</p>
+<p>
+    {{ form.passportData.label() }}
+    {{ form.passportData() }}
+</p>
+<p>
+    {{ form.passportBy.label() }}
+    {{ form.passportBy() }}
+</p>
+<p>
+    {{ form.passportCod.label() }}
+    {{ form.passportCod() }}
+</p>
+<p>
+    {{ form.inn.label()}}
+    {{ form.inn()}}
+</p>
+<p>
+    {{ form.bank_details.label() }}
+    {{ form.bank_details()}}
+</p>
+<p>
+    {{ form.bankName.label() }}
+    {{ form.bankName()}}
+</p>
+<p>
+    {{ form.phone_number.label() }}
+    {{ form.phone_number()}}
+</p>
+<p>
+    {{ form.submit() }}
+</p>
+
 </form>
+<a href ="cabinet">Перейти в кабинет без изменения</a>
 {% endblock %}

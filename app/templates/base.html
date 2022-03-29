@@ -3,8 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for ('static', filename='css/phoenix.css')}}">
 </head>
-<body align = "center">
-    {% block body %} {% endblock %}
+<body align="center"> 
+    {% if current_user.who == 1 %}
+                <div class="drop-content">
+                    <h1>{{current_user.name}}</h1>
+                    <p><a href="cabinet">Личный кабинет</a></p>
+                    <p><a href="my_tasks">Мои задачи</a></p>
+                    <p><a href="my_documents">Мои документы</a></p>
+                    <p><a href="my_salary">Моя зарплата</a></p>
+                    <p><a href="my_projects">Мои проекты</a></p>
+                    <a href="/logout">Выход</a>
+                </div>
+    {% endif %}
+    {% if current_user.who == 2 %}
+                <div class="drop-content">
+                    <h1>{{current_user.name}}</h1>
+                    <p><a href="cabinet">Личный кабинет</a></p>
+                    <p><a href="my_tasks">Мои задачи</a></p>
+                    <p><a href="my_documents">Мои документы</a></p>
+                    <p><a href="my_salary">Зарплата</a></p>
+                    <p><a href="employeers"> Список сотрудников </a></p>
+                    <p><a href="complete_tasks"> Список выполненных задач по людям </a></p>
+                    <p><a href="create_contract"> Создание договоров </a></p>
+                    <a href="/logout">Выход</a>
+                </div>
+    {% endif %}
+    {% if current_user.who == 0 %}
+                <div class="drop-content">
+                    <h1>{{current_user.name}}</h1>
+                    <p><a href="cabinet">Личный кабинет</a></p>
+                    <p><a href="my_tasks">Мои задачи</a></p>
+                    <p><a href="my_documents">Мои документы</a></p>
+                    <p><a href="my_salary">Моя зарплата</a></p>
+                    <a href="/logout">Выход</a>
+                </div>
+    {% endif %}
+
+    {% block body %}  {% endblock %}
 </body>
 </html>

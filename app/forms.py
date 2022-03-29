@@ -40,15 +40,15 @@ class ResetPasswordForm(FlaskForm):
 
 class PersonalForm(FlaskForm):
     name = StringField('ФИО', validators=[DataRequired()]) #ФИО
-    birthDAy = StringField('ФИО', validators=[DataRequired()])# Дата рождения 
-    passport = StringField('ФИО', validators=[DataRequired()])# номер паспорта
-    passportData = StringField('ФИО', validators=[DataRequired()])# дата выдачи 
-    passportBy = StringField('ФИО', validators=[DataRequired()])# кем выдан паспорт
-    passportCod = StringField('ФИО', validators=[DataRequired()])# код подразделения
-    nickname = StringField('ФИО', validators=[DataRequired()]) # прозвище
-    link_vk = StringField('ФИО', validators=[DataRequired()]) # ссылка на вк
-    inn = StringField('ФИО', validators=[DataRequired()]) # инн
-    bank_details = StringField('ФИО', validators=[DataRequired()]) # реквизиты банка  
-    bankName = StringField('ФИО', validators=[DataRequired()]) # название банка
+    nickname = StringField('прозвище', validators=[DataRequired()]) # прозвище
+    link_vk = StringField('ссылка на вк', validators=[DataRequired()]) # ссылка на вк
+    birthDAy = StringField('Дата рождения', validators=[DataRequired()])# Дата рождения 
+    passport = StringField('номер паспорта', validators=[DataRequired()])# номер паспорта
+    passportData = StringField('дата выдачи ', validators=[DataRequired()])# дата выдачи 
+    passportBy = StringField('кем выдан паспорт', validators=[DataRequired()])# кем выдан паспорт
+    passportCod = StringField('код подразделения', validators=[DataRequired()])# код подразделения
+    inn = StringField('инн', validators=[DataRequired()]) #инн
+    bank_details = StringField('реквизиты банка ', validators=[DataRequired()]) # реквизиты банка  
+    bankName = StringField('Название банка', validators=[DataRequired()]) # название банка
     phone_number = StringField('Номер телефона', validators=[DataRequired()]) # номер телефона
-
+    submit = SubmitField('Изменить форму')
