@@ -1,4 +1,4 @@
-# сдесь находятся модели класса
+# здесь находятся модели класса
 from werkzeug.security import generate_password_hash,  check_password_hash # для создание хеша паролей
 from flask_login import  UserMixin 
 import jwt
@@ -18,7 +18,7 @@ class User(db.Model,UserMixin):
     id = db.Column(db.Integer, primary_key =True) #id
     email = db.Column(db.String(20), nullable=False) # эмаил
     password_hash = db.Column(db.String(100), nullable=False) # пароль
-    who  = db.Column(db.Integer)# 0 - user, 1 - raner, 2- admin
+    who  = db.Column(db.Integer)# 0 - user, 1 - showrunner, 2- admin
     
 
     def __reduce_ex__(self): # id пользователя и его почта 
@@ -27,13 +27,13 @@ class User(db.Model,UserMixin):
     def check_password(self,  password): # проверка пароля от пользователя и хэш
         return check_password_hash(self.password_hash, password)
 
-    def get_reset_password_token(self, expires_in=600):
+    def get_reset_password_token(self, expires_in=600): #сброс пароля
         return jwt.encode(
             {'reset_password': self.id, 'exp': time() + expires_in},
             app.config['SECRET_KEY'], algorithm='HS256')
 
     @staticmethod
-    def verify_reset_password_token(token):
+    def verify_reset_password_token(token): #подтверждение сброса пароля
         try:
             id = jwt.decode(token, app.config['SECRET_KEY'],
                             algorithms=['HS256'])['reset_password']
@@ -56,8 +56,8 @@ class Tasks(db.Model):
     nameTask = db.Column(db.String(255))# имя задачи
     descTask = db.Column(db.String(255))# Описание задачи
     timeTask = db.Column(db.String(255))# время выполнения
-    manyTask = db.Column(db.String(255))# денги за задачу
-    statusСompleted = db.Column(db.String(255))#статус выполненияы
+    manyTask = db.Column(db.String(255))# деньги за задачу
+    statusСompleted = db.Column(db.String(255))#статус выполнения
     receipt = db.Column(db.Float)# проверка чека
     linkDisk = db.Column(db.String(255))# ссылка на диск
 
