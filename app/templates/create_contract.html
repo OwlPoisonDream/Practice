@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<h1>Создание договора</h1>
+{% endblock %}
+
+{% block body %}
+
+$name = mysql_query("SELECT Users.name Users.id FROM 'phoenix' ORDER BY `name` DESC ")
+$id = mysql_query("SELECT Users.id FROM 'phoenix' ORDER BY `name` DESC ")
+while($row = $result ->fetch_assoc()){
+    human[]=$row
+}
+<form action="" method="post">
+    <p>
+   <select name=\"human\">
+          <option>Выбрать человека</option>
+          while($row = $result ->fetch_assoc()){
+            human[]=$row
+            $final = mysql_fetch_array($result);
+            echo <option>$final[id] $final[name]</option>;
+           }
+</select>
+    <p><input type="submit">
+</form>
+{% endblock %}
