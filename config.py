@@ -5,12 +5,12 @@ app_dir = os.path.abspath(os.path.dirname(__file__)) # путь файла дл�
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') # Задаем токен для генерации cookie
-    SQLALCHEMY_TRACK_MODIFICATIONS = False # отключаем мадификацию
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///phoenix.db' #ссылка на Sql 
+    SQLALCHEMY_TRACK_MODIFICATIONS = False # отключаем модификацию SQLAlchemy
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///phoenix.db' #ссылка на SQL
 
     ##### настройка Flask-Mail #####
     ADMINS = ['fenix4dminproba@yandex.ru']
-    MAIL_SERVER = 'smtp.yandex.com'#название сервеса почты
+    MAIL_SERVER = 'smtp.yandex.com'#название сервиса почты
     MAIL_PORT = 465 #порт почты
     MAIL_USE_SSL = True
     MAIL_USERNAME = os.environ.get('fenix4dminproba@yandex.ru')# логин, а именно почта 
@@ -19,7 +19,7 @@ class Config:
     
 
 
-class DevelopementConfig(Config): # Конфишурация разработки
+class DevelopementConfig(Config): # Конфигурация разработки
     DEBUG = True #состояние дебага
 
 class TestingConfig(Config):# Конфиуграция для тестирования
