@@ -86,6 +86,9 @@ def reset_password(token):
 @app.route('/cabinet',methods = ['POST', 'GET']) #Личный кабинет
 @login_required #только зарегистрированный человек сможет зайти
 def cabinet():
+    print("--------------------")
+    print(current_user)
+    print("--------------------")
     return render_template('cabinet.html')
 
 @app.route('/cabinet_changer',methods = ['POST', 'GET']) #Страница для изменения данных в личном кабинете и вноса изменений в базу данных
@@ -125,7 +128,7 @@ def my_projects():
     return render_template("my_projects.html") 
     
 @app.route('/salary' , methods=['GET', 'POST']) # Страница с зарплатами. Менеджер видит и устанавливает
-def salary:
+def salary():
     return render_template("salary.html")
 
 @app.route('/employeers' , methods=['GET', 'POST']) # Страница с сотрудниками компании. Доступна менеджеру
@@ -133,7 +136,7 @@ def employeers():
     return render_template("employeers.html")
 
 @app.route('/completed_tasks' , methods=['GET', 'POST']) # Страница с выполненными задачами по людям
-def completed_tasks:
+def completed_tasks():
     return render_template("completed_tasks.html")
 
 @app.route('/create_contract' , methods=['GET', 'POST']) # Страница с созданием договоров. Для менеджера
