@@ -1,0 +1,20 @@
+pip install flask
+Импортируем основную библиотеку FLASK. Необходима для взаимодействия python с сервером
+pip install flask_sqlalchemy
+Импортирум библиотеку с базой данной SQL. Необходима для работы с базами данных
+pip install flask_login
+Импортируем библиотеку для аутентификации пользователя
+pip install flask_migrate
+Для работы с базой данных
+pip install flask_mail
+Для работы с почтами пользователей
+pip install werkzeug.security
+Проверка, шифрование и установка паролей
+pip install jwt
+Аутентификация пользователя
+pip install wtforms
+Необходима для создания и работ с формами и данными в них
+pip install wtforms.validators
+Проверяет формы
+pip install email_validator
+Проверка почты
