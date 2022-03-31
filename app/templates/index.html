@@ -1,12 +1,22 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход в личный Кабинет</title>
+	<link rel="stylesheet" href="{{ url_for ('static', filename='css/login.css')}}">
+</head>
 
-{% block body %}
+<body align="center">
+
 <div>
-  <h1>Войти</h1>
+  <div id="container_demo" >
+    <div id="wrapper">
+        <div class="login"> </div>
+        <div id="login">
   {% for category, message in  get_flashed_messages(with_categories=true) %}
 	<spam class="{{ category }}">{{ message }}</spam>
     {% endfor %}
-
+	<h1>Войти</h1>
     <form action="" method="post">
 	{{ form.csrf_token }}
 	<p>
@@ -37,8 +47,11 @@
     </form>
 	<a href="/register">Зарегестрироватся</a>
 	<p>
-		Забыл пароль ? Отсоси 
+		Забыл пароль ? 
 		<a href="{{ url_for('reset_password_request') }}">Нажми на меня</a>
 	</p>
+			</div>
+		</div>
+	</div>
 </div>
-{% endblock %}
+</body>
