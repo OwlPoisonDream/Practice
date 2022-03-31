@@ -19,7 +19,7 @@ class User(db.Model,UserMixin):
     email = db.Column(db.String(20), nullable=False) # эмаил
     password_hash = db.Column(db.String(100), nullable=False) # пароль
     who  = db.Column(db.Integer)# 0 - user, 1 - showrunner, 2- admin
-    
+    pr = db.relationship('Users_Data', backref='user', uselist = False)
 
     def __reduce_ex__(self): # id пользователя и его почта 
         return "<{}{}>".format(self.id, self.email)
