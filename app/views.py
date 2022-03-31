@@ -139,9 +139,39 @@ def employeers():
 def completed_tasks():
     return render_template("completed_tasks.html")
 
-@app.route('/create_contract' , methods=['GET', 'POST']) # Страница с созданием договоров. Для менеджера
-def create_contracts():
-    return render_template("create_contract.html")
+@app.route('/create_contract', methods=['POST', 'GET'])
+def contract():
+    name = ''
+    info = []
+    id_sel = '0'
+    id = 1
+    info = User.query.all()
+    if request.method == 'POST':
+        id_sel = request.form.get('human')
+        table = document.add_table(rows=1, cols=2)
+        hdr_cells = table.rows[0].cells
+        name = str(info[1].pr.name)
+        birth_date = str(info[1].pr.birthDAy)
+        INN = str(info[1].pr.inn)
+        passport_num = str(info[1].pr.passport)
+        passport_place = str(info[1].pr.passportBy)
+        passport_date = str(info[1].pr.passportData)
+        passport_code = str(info[1].pr.passportCod)
+        address = str(info[1].pr.address)
+        bank_account = str(info[1].pr.bankAccount)
+        bank_name = str(info[1].pr.bankName)
+        bank_details = str(info[1].pr.bank_details)
+        email = str(info[1].email)
+        hdr_cells[0].text = "Подрядчик" + "\n" + name + "\n" + birth_date + "\n" + INN + "\n" + passport_num + "\n" + \
+                            passport_place + "\n" + passport_date + "\n" + passport_code + "\n" + address + "\n" + \
+                            bank_account + "\n" + bank_name + "\n" + bank_details + "\n" + email
+        hdr_cells[1].text = "Заказчик:" +"\n" + "Индивидуальный предприниматель" + "\n"+"Нечитайло Фёдор Константинович" + "\n"\
+                            +"ИНН 616616300580 ОГРН 318619600017594" + "\n" + "Адрес: 344065, Ростовская обл., г. Ростов" \
+                                                                              "-на-Дону, ул. Вятская, д. 63/1, кв. 77" \
+                            + "\n" + "р/с 40802810000000405802 в АО «Тинькофф Банк»" + "\n"+"кор/сч 30101810145250000974"\
+                            + "\n" +"БИК 044525974" + "\n" +"fedorcomixvideo@gmail.com"
+        document.save('contract_example.docx')
+    return render_template('create_contract.html', name=name, id=id_sel, list = info)
 
 @app.route('/admin',methods = ['POST', 'GET']) #Страница, доступная ЛИШЬ админу
 @login_required #только зарегистрированный человек сможет зайти
