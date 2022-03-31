@@ -146,7 +146,11 @@ def create_contracts():
 @app.route('/admin',methods = ['POST', 'GET']) #Страница, доступная ЛИШЬ админу
 @login_required #только зарегистрированный человек сможет зайти
 def admin():
-    return render_template('admin.html')
+    info = []
+    info = User.query.all()
+    tasks = Tasks.query.all()
+    projects = Project.query.all()
+    return render_template('admin.html', list = info, tasks=tasks, projects=projects)
 
 # обработка ошибок
 @app.errorhandler(404)
