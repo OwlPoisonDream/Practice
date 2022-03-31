@@ -8,13 +8,20 @@
 {% block cabinet %}
 {% endblock %}
 
-<h3> Статус странички: {{current_user.who}}</h3>
-<p>Ваш email: {{current_user.email}}</p>
-<p><a href="{{current_user.link_vk}}">ссылка на ВК</a></p>
-<p><b>{{current_user.inn}}</b></p>
-<p>{{current_user.rek_data}}</p>
-<p>{{current_user.password}}</p>
-<p>{{current_user.login}}</p>
-<p>{{current_user.phone_number}}</p>
+<h2>ФИО: {{person_account[url_sequence].pr.name}}</h2>
+<h3>Логин: {{person_account[url_sequence].pr.nickname}}</h3>
+<h3>Статус странички: {{person_account[url_sequence].who}}</h3>
+<p>Дата рождения: {{person_account[url_sequence].pr.birthDAy</p>
+<p>Ваш email: {{person_account[url_sequence].email}}</p>
+<p><<a href="{{person_account[url_sequence].pr.link_vk}}">ссылка на ВК</a></p>
+<p><b>{{person_account[url_sequence].pr.INN}}</b></p>
+<p>Реквизиты банка: {{person_account[url_sequence].pr.bank_details}}</p>
+<p>Наименование банка: {{person_account[url_sequence].pr.bank_name}}</p>
+<p>Номер телефона: {{person_account[url_sequence].pr.phone_number}}</p>
+<p>Серия и номер паспорта: {{person_account[url_sequence].pr.passport}}</p>
+<p>Дата выдача: {{person_account[url_sequence].pr.passportData}}</p>
+<p>Кем выдан: {{person_account[url_sequence].pr.passportBy}}</p>
+<p>Код подразделения: {{person_account[url_sequence].pr.passportCod}}</p>
 <a href="/cabinet_changer">Изменить данные</a>  
 {% endblock %}
+{% extends 'base.html' %}
