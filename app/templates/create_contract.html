@@ -6,21 +6,15 @@
 
 {% block body %}
 
-$name = mysql_query("SELECT Users.name Users.id FROM 'phoenix' ORDER BY `name` DESC ")
-$id = mysql_query("SELECT Users.id FROM 'phoenix' ORDER BY `name` DESC ")
-while($row = $result ->fetch_assoc()){
-    human[]=$row
-}
 <form action="" method="post">
     <p>
-   <select name=\"human\">
-          <option>Выбрать человека</option>
-          while($row = $result ->fetch_assoc()){
-            human[]=$row
-            $final = mysql_fetch_array($result);
-            echo <option>$final[id] $final[name]</option>;
-           }
+   <select name="human">
+          <option selected>Выбрать человека</option>
+       {% for u in list %}
+       <option value="{{u.id}}">{{u.pr.name}}</option>
+       {% endfor %}
 </select>
+
     <p><input type="submit">
 </form>
 {% endblock %}

@@ -1,12 +1,53 @@
 {% extends 'base.html' %}
 
-{% block title %}Админ панель {% endblock %}
+{% block title %}
+<h1>Админ консоль</h1>
+{% endblock %}
 
 {% block body %}
-<h1>Пока в разработке</h1>
-<a href = "index">Вход</a>
-<a href = "register">Регистрация</a>
-<a href = "cabinet">Личный кабинет</a>
-<a href = "admin">Кабинет админа<a/>
-  <h1>Тут отображаем таблицы баз данных</h1>
+{% block content %}
+<ul>
+{% for u in list %}
+<li>id: {{u.id}}, email: {{u.email}}, password: {{u.password_hash}}, Access: {{u.who}}
+    <ul>
+        <li>Имя: {{u.pr.name}}</li>
+        <li>Дата рождения: {{u.pr.birthDAY}}</li>
+        <li>Серия и номер паспорта: {{u.pr.passport}}</li>
+        <li>Выдан: {{u.pr.passportData}}</li>
+        <li>Дата выдачи: {{u.pr.passportBy}}</li>
+        <li>Код подразделения: {{u.pr.passportCod}}</li>
+        <li>Никнейм: {{u.pr.nickname}}</li>
+        <li>Ссылка на ВК: {{u.pr.link_vk}}</li>
+        <li>ИНН: {{u.pr.inn}}</li>
+        <li>Реквизиты банка: {{u.pr.bank_details}}</li>
+        <li>Имя банка: {{u.pr.bankName}}</li>
+        <li>Номер телефона: {{u.pr.phone_number}} </li>
+    </ul>
+    <p><br></p>
+</li>
+{% endfor %}
+</ul>
+<ul>
+{% for u in tasks %}
+<li>id: {{u.id}}</li>
+    <li>User id: {{u.idUser}}</li>
+    <li>Project id: {{u.idProject}}</li>
+    <li>Task name: {{u.nameTask}}</li>
+    <li>Task description: {{u.descTask}}</li>
+    <li>time for task: {{u.timeTask}}</li>
+    <li>money for Task: {{u.manyTask}}</li>
+    <li>status: {{u.statusСompleted}}</li>
+    <li>receipt: {{u.receipt}}</li>
+    <li>link into disk: {{u.linkDisk}} <p></p></li>
+{% endfor %}
+</ul>
+<ul>
+{% for u in projects %}
+<li>id: {{u.id}}</li>
+    <li>project name: {{u.projectName}}</li>
+    <li>project description: {{u.descProject}}</li>
+    <li>link: {{u.linkDisk}} <p></p></li>
+{% endfor %}
+</ul>
+{% endblock %}
 {% endblock %}
