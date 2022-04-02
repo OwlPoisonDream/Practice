@@ -54,8 +54,24 @@ body{
 }
 #password{
     position:relative;
-    width: 80%;
+    width: 60%;
+    left: 40px;
+    height: 40px;
+    background: #A7AAE8;
+    border-radius: 15px;
+}
+#email{
+    position:relative;
+    width: 60%;
     left: 50px;
+    height: 40px;
+    background: #A7AAE8;
+    border-radius: 15px;
+}
+#password2{
+    position:relative;
+    width: 60%;
+    left: 20px;
     height: 40px;
     background: #A7AAE8;
     border-radius: 15px;

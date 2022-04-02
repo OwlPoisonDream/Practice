@@ -5,8 +5,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_required, login_user, current_user, logout_user
 from app import app, models, db, forms
 from app.email import send_password_reset_email
+from docx import Document
 
-
+document = Document()
 # print("[log] обработка страниц запущена")
 
 @app.route('/createDb')  # вход
@@ -91,13 +92,10 @@ def reset_password(token):
 @app.route('/cabinet', methods=['POST', 'GET'])  # Личный кабинет
 @login_required  # только зарегистрированный человек сможет зайти
 def cabinet():
-    person_account = {}
-    url_sequence = 'test'
     print("--------------------")
     print(current_user)
     print("--------------------")
-    person_account[url_sequence] = models.User.query.filter_by(current_user.id)
-    return render_template('cabinet.html', person_account = person_account, url_sequence = url_sequence)
+    return render_template('cabinet.html', current_user=current_user)
     
 
 
@@ -163,33 +161,30 @@ def contract():
     info = []
     id_sel = '0'
     id = 1
-    info = models.User.query.all()
+    info = models.User.query.all() #Получаем словарь с содержимым таблиц user и users_Data
     if request.method == 'POST':
-        id_sel = request.form.get('human')
-        table = document.add_table(rows=1, cols=2)
-        hdr_cells = table.rows[0].cells
-        name = str(info[1].pr.name)
-        birth_date = str(info[1].pr.birthDAy)
-        INN = str(info[1].pr.inn)
-        passport_num = str(info[1].pr.passport)
-        passport_place = str(info[1].pr.passportBy)
-        passport_date = str(info[1].pr.passportData)
-        passport_code = str(info[1].pr.passportCod)
-        address = str(info[1].pr.address)
-        bank_account = str(info[1].pr.bankAccount)
-        bank_name = str(info[1].pr.bankName)
-        bank_details = str(info[1].pr.bank_details)
-        email = str(info[1].email)
-        hdr_cells[0].text = "Подрядчик" + "\n" + name + "\n" + birth_date + "\n" + INN + "\n" + passport_num + "\n" + \
-                            passport_place + "\n" + passport_date + "\n" + passport_code + "\n" + address + "\n" + \
-                            bank_account + "\n" + bank_name + "\n" + bank_details + "\n" + email
-        hdr_cells[
-            1].text = "Заказчик:" + "\n" + "Индивидуальный предприниматель" + "\n" + "Нечитайло Фёдор Константинович" + "\n" \
-                      + "ИНН 616616300580 ОГРН 318619600017594" + "\n" + "Адрес: 344065, Ростовская обл., г. Ростов" \
-                                                                         "-на-Дону, ул. Вятская, д. 63/1, кв. 77" \
+        id_sel = request.form.get('human') # Получаем ID пользователя из html
+        table = document.add_table(rows=1, cols=2) #Создаём таблицу
+        hdr_cells = table.rows[0].cells #Устанавливем строку, которую планируем заполнять
+        name = str(info[id_sel].pr.name) # получаем имя из базы данных
+        birth_date = str(info[id_sel].pr.birthDAy)# Получаем дату рождения
+        INN = str(info[id_sel].pr.inn)#Получаем ИНН
+        passport_num = str(info[id_sel].pr.passport)# Получаем номер и серию паспорта
+        passport_place = str(info[id_sel].pr.passportBy)# Получаем место выдачи
+        passport_date = str(info[id_sel].pr.passportData)# Получаем дату выдачи
+        passport_code = str(info[id_sel].pr.passportCod)# Получаем код подразделения
+        address = str(info[id_sel].pr.address)# Получаем адрес
+        bank_account = str(info[id_sel].pr.bankAccount)# Получаем банковский счёт
+        bank_name = str(info[id_sel].pr.bankName)# Получаем наименование банка
+        bank_details = str(info[id_sel].pr.bank_details)# Получаем реквизиты банка
+        email = str(info[id_sel].email)# Получаем электронную почту
+        hdr_cells[0].text = "Подрядчик" + "\n" + name + "\n" + birth_date + "\n" + INN + "\n" + passport_num + "\n" + passport_place + "\n" + passport_date + "\n" + passport_code + "\n" + address + "\n" + \
+                            bank_account + "\n" + bank_name + "\n" + bank_details + "\n" + email # Заполняем первую ячейку
+        hdr_cells[1].text = "Заказчик:" + "\n" + "Индивидуальный предприниматель" + "\n" + "Нечитайло Фёдор Константинович" + "\n" \
+            + "ИНН 616616300580 ОГРН 318619600017594" + "\n" + "Адрес: 344065, Ростовская обл., г. Ростов-на-Дону, ул. Вятская, д. 63/1, кв. 77" \
                       + "\n" + "р/с 40802810000000405802 в АО «Тинькофф Банк»" + "\n" + "кор/сч 30101810145250000974" \
-                      + "\n" + "БИК 044525974" + "\n" + "fedorcomixvideo@gmail.com"
-        document.save('contract_example.docx')
+                      + "\n" + "БИК 044525974" + "\n" + "fedorcomixvideo@gmail.com" # Заполняем вторую ячейку
+        document.save('contract.docx') #Сохраняем документ
     return render_template('create_contract.html', name=name, id=id_sel, list=info)
 
 

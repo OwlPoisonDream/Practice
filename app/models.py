@@ -19,7 +19,7 @@ class User(db.Model,UserMixin):
     email = db.Column(db.String(20), nullable=False) # эмаил
     password_hash = db.Column(db.String(100), nullable=False) # пароль
     who  = db.Column(db.Integer)# 0 - user, 1 - showrunner, 2- admin
-    pr = db.relationship('Users_Data', backref='user', uselist=False)
+    pr = db.relationship('Users_Data', backref='user', uselist=False) #Связываем таблицу User с таблицей Users_Data, где первая - родитель, вторая - наследует
 
     def __reduce_ex__(self): # id пользователя и его почта 
         return "<{}{}>".format(self.id, self.email)
@@ -51,8 +51,8 @@ class Tasks(db.Model):
     __tablename__ = 'task'
 
     id = db.Column(db.Integer, primary_key=True)#id задачи
-    idUser = db.Column(db.Integer, db.ForeignKey('users.id'))  # id пользователя
-    idProject = db.Column(db.Integer, db.ForeignKey('projects.id'))  # id проекта
+    idUser = db.Column(db.Integer, db.ForeignKey('users.id'))  # id пользователя. Берёт из таблицы user
+    idProject = db.Column(db.Integer, db.ForeignKey('projects.id'))  # id проекта. Берёт из таблицы project
     nameTask = db.Column(db.String(255))# имя задачи
     descTask = db.Column(db.String(255))# Описание задачи
     timeTask = db.Column(db.String(255))# время выполнения
@@ -76,7 +76,7 @@ class Users_Data(db.Model):
     __tablename__ = 'users_Data'
 
     id = db.Column(db.Integer, primary_key =True) #id
-    idUser = db.Column(db.Integer, db.ForeignKey('users.id'))  # id пользователя
+    idUser = db.Column(db.Integer, db.ForeignKey('users.id'))  # id пользователя. Берёт из user
     name = db.Column(db.String(100), nullable=True) #ФИО
     nickname = db.Column(db.String(20), nullable=True) # прозвище
     link_vk = db.Column(db.String(50), nullable=True) # ссылка на вк
