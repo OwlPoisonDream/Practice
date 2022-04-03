@@ -1,0 +1,265 @@
+body{
+    background-image: url(../bg.png);
+    color: white;
+}
+/* Ячейка с параметрами */
+.main_cab{
+    width: 60%;
+    position: absolute;
+    left: 18%;
+    height: 75%;
+    background-color: #0a073ad2;
+    top:10%;
+    border-radius: 15px;
+}
+/* Для ФИО */
+.FIO{
+    position: absolute;
+    top:2%;
+    left:34%;
+}
+/* Для никнейма */
+.login{
+    position: absolute;
+    top:2.6%;
+    left:54%;
+}
+/* для отображения прав доступа */
+.status{
+    position: absolute;
+    top:6%;
+    left:39%;
+}
+/* для отображения даты Рождения */
+.birthday{
+    position: absolute;
+    top:22%;
+    left:10%;
+    width: 20%;
+}
+/* для отображения электронной почты */
+.email_cab{
+    position: absolute;
+    top:22%;
+    left:35%;
+    width: 30%;
+}
+/* для отображения ссылки на вк */
+.vk_link{
+    position: absolute;
+    top:22%;
+    left:70%;
+    width: 20%;
+}
+/* Для отображения ИНН */
+.inn_cab{
+    position: absolute;
+    top:42%;
+    left:15%;
+    width: 20%;
+}
+/* Для отображения реквизитов банка */
+.bank_details_cab{
+    position: absolute;
+    top:47%;
+    left:40%;
+    text-align: center;
+    width: 20%;
+}
+/* Для отображения имени банка */
+.bname{
+    position: absolute;
+    top:42%;
+    left:40%;
+    width: 20%;
+}
+/* для отображения номера телефона */
+.phone{
+    position: absolute;
+    top:42%;
+    left:70%;
+    width: 20%;
+}
+/* для отображения паспортных данных */
+.pass1{
+    position: absolute;
+    top:72%;
+    left:10%;
+    width: 20%;
+}
+.pass2{
+    position: absolute;
+    top:72%;
+    left:32%;
+    width: 20%;
+}
+.pass3{
+    position: absolute;
+    top:72%;
+    left:50%;
+    width: 20%;
+}
+.pass4{
+    position: absolute;
+    top:72%;
+    left:70%;
+    width: 20%;
+}
+/* Ссылка на изменение данных */
+.changing{
+    position: absolute;
+    top: 0%;
+    right: 1%;
+    color:white;
+}
+/* То же самое, но для смены данных */
+.name_ch{
+    position: absolute;
+    top:2%;
+    left:30%;
+}
+#name{
+    height: 40px;
+    background: #A7AAE8;
+    border-radius: 15px;
+}
+.nick_ch{
+    position: absolute;
+    top:2%;
+    left:50%;
+}
+#nickname{
+    height: 40px;
+    background: #A7AAE8;
+    border-radius: 15px;
+}
+.vk_ch{
+    position: absolute;
+    top:22%;
+    left:61%;
+    width: 30%;
+}
+#link_vk{
+    height: 40px;
+    background: #A7AAE8;
+    border-radius: 15px;
+}
+.birthday_ch{
+    position: absolute;
+    top: 22%;
+    left: 0%;
+    width: 30%;
+}
+#birthDAy{
+    height: 40px;
+    background: #A7AAE8;
+    border-radius: 15px;
+}
+
+.inn_ch{
+    position: absolute;
+    top:42%;
+    left:3%;
+    width: 30%;
+}
+#inn{
+    height: 40px;
+    background: #A7AAE8;
+    border-radius: 15px;
+}
+.bank_det_ch{
+    position: absolute;
+    top:50%;
+    left:32%;
+    text-align: center;
+    width: 30%;
+}
+#bank_details{
+    height: 40px;
+    background: #A7AAE8;
+    border-radius: 15px;
+}
+.bank_nam_ch{
+    position: absolute;
+    top:42%;
+    left:32%;
+    width: 30%;
+}
+#bankName{
+    height: 40px;
+    background: #A7AAE8;
+    border-radius: 15px;
+}
+.phone_ch{
+    position: absolute;
+    top:42%;
+    left:60%;
+    width: 30%;
+}
+#phone_number{
+    height: 40px;
+    background: #A7AAE8;
+    border-radius: 15px;
+}
+.pass1_ch{
+    position: absolute;
+    top:72%;
+    right:60%;
+    width: 30%;
+}
+#passport{
+    height: 40px;
+    background: #A7AAE8;
+    border-radius: 15px;
+}
+.pass2_ch{
+    position: absolute;
+    top:72%;
+    left:30%;
+    width: 70%;
+}
+#passportData{
+    height: 40px;
+    background: #A7AAE8;
+    border-radius: 15px;
+}
+.pass3_ch{
+    position: absolute;
+    top:82%;
+    right: 51%;
+    width: 50%;
+}
+#passportBy{
+    height: 40px;
+    background: #A7AAE8;
+    border-radius: 15px;
+}
+.pass4_ch{
+    position: absolute;
+    top:82%;
+    left:33%;
+    width: 60%
+}
+#passportCod{
+    height: 40px;
+    background: #A7AAE8;
+    border-radius: 15px;
+}
+.sub_ch{
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    color: white;
+}
+#submit{
+    height: 40px;
+    background: #A7AAE8;
+    border-radius: 15px;
+    color: white;
+}
+.back_to_cab{
+    position: absolute;
+    top: 86%;
+    left:40%;
+    color: white;
+}
