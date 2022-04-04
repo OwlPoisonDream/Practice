@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Мои проекты
+{% endblock %}
+
+{% block body %}
+<div id = "projekt"> 
+    <h1>Проекты</h1>
+    {% for u in projects %}
+    <div id="{{u.id}}"><li>ID проекта: {{u.id}}</li></div>
+    <li>Имя проекта: {{u.projectName}}</li>
+    <li>Описание проекта: {{u.descProject}}</li>
+    <li>Ссылка на проект: {{u.linkDisk}} <p></p></li>
+    <form action="" method="post">
+    <p>
+        <select name="human_project">
+               <option selected>Выбрать человека</option>
+            {% for j in list %}
+            <option value="{{j.id}}">{{j.pr.name}}</option>
+            {% endfor %}
+     </select>
+     <p><input type="submit">
+     </form>
+{% endfor %}
+</div>
+<div id = "create">
+<form accept="" method="post">
+    {{ form.hidden_tag() }}
+    
+    {{ form.projectName.label() }}<br>
+    {{ form.projectName() }}<br>
+
+    {{ form.descProject.label() }}<br>
+    {{ form.descProject() }}<br>
+
+    {{ form.linkDisk.label() }}<br>
+    {{ form.linkDisk() }}<br>
+
+    {{ form.submit() }}
+</form>
+</div>
+
+{% endblock %}

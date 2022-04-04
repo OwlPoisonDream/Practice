@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Смена данных</title>
+  <link rel="stylesheet" href="{{ url_for ('static', filename='css/cabinet.css')}}">
+</head>
+<body align="center">
+<!-- Форма для изменения данных -->
+<div class = "main_cab">
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+    <p>
+        <div class="name_ch">
+            {{ form.name.label() }}
+            {{ form.name() }}
+        </div>
+    </p>
+    <p>
+        <div class="nick_ch">
+            {{ form.nickname.label() }}
+            {{ form.nickname() }}
+        </div>
+    </p>
+    <p>
+        <div class="vk_ch">
+            {{ form.link_vk.label() }}
+            {{ form.link_vk() }}
+        </div>
+    </p>
+    <p>
+        <div class="birthday_ch">
+            {{ form.birthDAy.label() }}
+            {{ form.birthDAy() }}
+        </div>
+    </p>
+        <div class="pass1_ch">
+            {{ form.passport.label() }}
+            {{ form.passport() }}
+        </div>
+        <div class="pass2_ch">
+            {{ form.passportData.label() }}
+            {{ form.passportData() }}
+        </div>
+        <div class="pass3_ch">
+            {{ form.passportBy.label() }}
+            {{ form.passportBy() }}
+        </div>
+        <div class="pass4_ch">
+            {{ form.passportCod.label() }}
+            {{ form.passportCod() }}
+        </div>
+    <p>
+        <div class="inn_ch">
+            {{ form.inn.label()}}
+            {{ form.inn()}}
+        </div>
+    </p>
+    <p>
+        <div class="bank_det_ch">
+            {{ form.bank_details.label() }}
+            {{ form.bank_details()}}
+        </div>
+    </p>
+    <p>
+        <div class="bank_nam_ch">
+            {{ form.bankName.label() }}
+            {{ form.bankName()}}
+        </div>
+    </p>
+    <p>
+        <div class="phone_ch">
+            {{ form.phone_number.label() }}
+            {{ form.phone_number()}}
+        </div>
+    </p>
+    <p>
+        <div class="sub_ch">
+            {{ form.submit() }}
+        </div>
+    </p>
+    </div>
+    </form>
+    <a href ="cabinet" class="back_to_cab">Перейти в кабинет без изменения</a>
+</body>
