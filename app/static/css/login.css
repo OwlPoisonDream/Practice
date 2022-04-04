@@ -2,7 +2,6 @@ body{
     background-image: url(../bg.png);
     color: white;
 }
-/* Здесь устанавливаю фон для формы */
 .login{
     position: absolute;
     width:100%;
@@ -14,7 +13,6 @@ body{
     border-radius: 10%;
     opacity: 50%;
 }
-/* Устанавливаю размер и положение формы */
 #wrapper{
     width: 60%;
     height: 100%;
@@ -24,19 +22,17 @@ body{
     width: 500px;
     position: relative;
 }
-/* Устанавливаю характеристики для гиперссылки по восстановлению пароля */
+
 .pass_forget{
     color: white;
     opacity: 50%;
     position:relative;
     left:30%;
 }
-/* Форма регистрации */
 .register_form{
     color: white;
     opacity: 100%;
 }
-/* Форма для логина */
 #login{
     position: absolute;
     width:100%;
@@ -44,12 +40,10 @@ body{
     padding: 18px 6% 60px 6%;
     margin: 0 0 35px 0;
     top: 13%;
-}
-/* Текст для логина */
+    }
 #login h1{
     text-align: center;
 }
-/* параметры для поле ввода логина (почты), пароля и его повтора */
 #username{
     position:relative;
     width: 80%;
@@ -82,7 +76,6 @@ body{
     background: #A7AAE8;
     border-radius: 15px;
 }
-/* Для запоминания пользователя */
 .keep_login{
     position:relative;
     left:50px;
@@ -90,7 +83,6 @@ body{
     opacity:50%;
     width: 200px;
 }
-/* Кнопка входа */
 .log_but{
     position:relative;
     width: 50%;
@@ -100,7 +92,6 @@ body{
     color: white;
     border-radius: 15px;
 }
-/* Ссылка для возврата */
 .change_link_back{
     color: #A7AAE8;
     position:relative;
@@ -112,7 +103,6 @@ body{
     color: white;
     opacity: 100%;
 }
-/* Кнопка регистрации */
 .reg_but{
     position:relative;
     width: 50%;

@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <title>Смена данных</title>
-  <link rel="stylesheet" href="{{ url_for ('static', filename='css/cabinet.css')}}">
-</head>
-<body align="center">
-<!-- Форма для изменения данных -->
+{% extends 'base.html' %}
+
+{% block title %}
+Смена пароля
+{% endblock %}
+
+{% block body %}
+<link rel="stylesheet" href="{{ url_for ('static', filename='css/cabinet.css')}}">
 <div class = "main_cab">
     <form action="" method="post">
         {{ form.hidden_tag() }}
@@ -82,4 +81,4 @@
     </div>
     </form>
     <a href ="cabinet" class="back_to_cab">Перейти в кабинет без изменения</a>
-</body>
+{% endblock %}

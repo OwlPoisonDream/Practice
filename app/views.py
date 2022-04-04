@@ -1,11 +1,13 @@
 # Обработчик ссылок
 import email
+from venv import create
 from flask import Flask, render_template, request, redirect, url_for  # для работы с интернетом
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_required, login_user, current_user, logout_user
 from app import app, models, db, forms
 from app.email import send_password_reset_email
 from docx import Document
+import yadisk #для работы с яндекс диск
 
 document = Document()
 # print("[log] обработка страниц запущена")
@@ -99,8 +101,7 @@ def cabinet():
     
 
 
-@app.route('/cabinet_changer',
-           methods=['POST', 'GET'])  # Страница для изменения данных в личном кабинете и вноса изменений в базу данных
+@app.route('/cabinet_changer',methods=['POST', 'GET'])  # Страница для изменения данных в личном кабинете и вноса изменений в базу данных
 @login_required  # только зарегистрированный человек сможет зайти
 def cabinet_changer():
     form = forms.PersonalForm()
@@ -127,7 +128,13 @@ def cabinet_changer():
 
 @app.route('/my_tasks', methods=['GET', 'POST'])  # Страница с задачами пользователя
 def my_tasks():
-    return render_template("my_tasks.html")
+    form = forms.CreateTask()
+    if form.validate_on_submit(): # надо сделать завтра
+        createProjekt = models.Project(projectName = form.projectName.data, 
+        descProject = form.descProject.data,linkDisk = form.linkDisk.data)
+        db.session.add(createProjekt)
+        db.session.commit()
+    return render_template("my_tasks.html",form = form)
 
 
 @app.route('/my_documents', methods=['GET', 'POST'])  # Страница с документами пользователя
@@ -137,8 +144,21 @@ def my_documents():
 
 @app.route('/my_projects', methods=['GET', 'POST'])  # Страница с проектами шоураннера
 def my_projects():
-    return render_template("my_projects.html")
+    form = forms.CreateProject()
+    if form.validate_on_submit():
+        print("Кнопка нажата")
+        createProjekt = models.Project(projectName = form.projectName.data, 
+        descProject = form.descProject.data,linkDisk = form.linkDisk.data)
+        db.session.add(createProjekt)
+        db.session.commit()
+        return redirect(url_for('create_projekt'))
+    # отображение проектов
+    projects = models.Project.query.all()
+    return render_template("my_projects.html",form = form,projects = projects)
 
+@app.route('/create_projekt') 
+def create_projekt():
+    return redirect(url_for('my_projects'))
 
 @app.route('/salary', methods=['GET', 'POST'])  # Страница с зарплатами. Менеджер видит и устанавливает
 def salary():
@@ -197,6 +217,14 @@ def admin():
     projects = models.Project.query.all()
     return render_template('admin.html', list=info, tasks=tasks, projects=projects)
 
+@app.route('/proba', methods=['POST', 'GET'])
+def proba():
+    yToken = yadisk.YaDisk(token="AQAAAABetchDAAfIOoTtzk4Bd0cNm0VX3nt7gWs")#яндекс диск токен
+    print(yToken.get_upload_link("/proba"))
+    if request.method == 'POST':
+        file = request.files['file']
+        yToken.save_to_disk(yToken.get_upload_link("/proba"))
+    return render_template('proba.html')
 
 # обработка ошибок
 @app.errorhandler(404)

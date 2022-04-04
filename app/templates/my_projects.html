@@ -1,12 +1,34 @@
 {% extends 'base.html' %}
 
 {% block title %}
-<h1>Мои проекты</h1>
+Мои проекты
 {% endblock %}
 
 {% block body %}
+<div id = "projekt"> 
+    <h1>Проекты</h1>
+    {% for u in projects %}
+    <li>ID проекта: {{u.id}}</li>
+    <li>Имя проекта: {{u.projectName}}</li>
+    <li>Описание проекта: {{u.descProject}}</li>
+    <li>Ссылка на проект: {{u.linkDisk}} <p></p></li>
+{% endfor %}
+</div>
+<div id = "create">
+<form accept="" method="post">
+    {{ form.hidden_tag() }}
+    
+    {{ form.projectName.label() }}<br>
+    {{ form.projectName() }}<br>
 
-<h1>Создать проект</h1>
-<h1>Мои проекты:</h1>
-<h1>Всего проектов:</h1>
+    {{ form.descProject.label() }}<br>
+    {{ form.descProject() }}<br>
+
+    {{ form.linkDisk.label() }}<br>
+    {{ form.linkDisk() }}<br>
+
+    {{ form.submit() }}
+</form>
+</div>
+
 {% endblock %}
