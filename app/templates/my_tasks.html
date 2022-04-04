@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Мои задачи
+{% endblock %}
+
+{% block body %}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+  <!-- Скрипт плавного открытия и закрытия блока -->
+  <script type='text/javascript'> 
+    $(document).ready(function() { 
+      $("A#trigger").toggle(function() { 
+        // Отображаем скрытый блок 
+        $("DIV#box").fadeIn(); // fadeIn - плавное появление
+        return false; // не производить переход по ссылке
+      },  
+      function() { 
+        // Скрываем блок 
+        $("DIV#box").fadeOut(); // fadeOut - плавное исчезновение 
+        return false; // не производить переход по ссылке
+      }); // end of toggle() 
+    }); // end of ready() 
+  </script>
+
+<h1>Задачи</h1>
+<a href='#' id='trigger'>Создать Задачу</a> <!-- Всё происходит при нажатии на ссылку -->
+<div id='box' align ="center" style='display: none;padding:10px;background-color:#f1f1f1;margin:10px;width:210px;'>
+    <form accept="" method="post">
+            {{ form.hidden_tag() }}
+            
+            {{ form.idProject.label() }}<br>
+            {{ form.idProject() }}<br>
+        
+            {{ form.nameTask.label() }}<br>
+            {{ form.nameTask() }}<br>
+        
+            {{ form.descTask.label() }}<br>
+            {{ form.descTask() }}<br>
+
+            {{ form.timeTask.label() }}<br>
+            {{ form.timeTask() }}<br>
+
+            {{ form.manyTask.label() }}<br>
+            {{ form.manyTask() }}<br>
+
+            {{ form.linkDisk.label() }}<br>
+            {{ form.linkDisk() }}<br>
+        
+        {{ form.submit() }}
+    </form>
+</div> 
+
+{% endblock %}
