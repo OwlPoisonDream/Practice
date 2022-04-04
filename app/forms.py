@@ -52,3 +52,18 @@ class PersonalForm(FlaskForm): # Форма для заполнения табл
     bankName = StringField('Название банка', validators=[DataRequired()]) # название банка
     phone_number = StringField('Номер телефона', validators=[DataRequired()]) # номер телефона
     submit = SubmitField('Изменить форму')
+
+class CreateProject(FlaskForm):# создание задание
+    projectName = StringField('Имя проекта', validators=[DataRequired()])# имя проекта
+    descProject = StringField('Описание', validators=[DataRequired()])# описание проекта 
+    linkDisk = StringField('ссылка на гугл диск', validators=[DataRequired()])# ссылка на гугл диск
+    submit = SubmitField('+ Создать проект')
+
+class CreateTask(FlaskForm):
+    idProject = StringField('Id проекта', validators=[DataRequired()])  # id проекта. Берёт из таблицы project
+    nameTask = StringField('Имя задачи', validators=[DataRequired()])# имя задачи
+    descTask = StringField('Описание задачи', validators=[DataRequired()])# Описание задачи
+    timeTask = StringField('время выполнения', validators=[DataRequired()])# время выполнения
+    manyTask = StringField('сколько заплатят', validators=[DataRequired()])# деньги за задачу
+    linkDisk = StringField('ссылка на гугл диск', validators=[DataRequired()])# ссылка на гугл диск
+    submit = SubmitField('Создать задачу')
