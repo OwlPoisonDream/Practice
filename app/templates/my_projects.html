@@ -8,20 +8,22 @@
 <div id = "projekt"> 
     <h1>Проекты</h1>
     {% for u in projects %}
-    <div id="{{u.id}}"><li>ID проекта: {{u.id}}</li></div>
+    {% if u.id == True %}
+<form action="" method="post">
+    ID проекта: <input type="text" name="project_id">
+<select name="human_project">
+       <option selected>Выбрать человека</option>
+    {% for j in list %}
+    <option value="{{j.id}}">{{j.pr.name}}</option>
+    {% endfor %}
+</select>
+<input type="submit" value="Добавить человека"><p></p>
+</form>
+{% endif %}
+    <li>ID проекта: {{u.id}}</li>
     <li>Имя проекта: {{u.projectName}}</li>
     <li>Описание проекта: {{u.descProject}}</li>
     <li>Ссылка на проект: {{u.linkDisk}} <p></p></li>
-    <form action="" method="post">
-    <p>
-        <select name="human_project">
-               <option selected>Выбрать человека</option>
-            {% for j in list %}
-            <option value="{{j.id}}">{{j.pr.name}}</option>
-            {% endfor %}
-     </select>
-     <p><input type="submit">
-     </form>
 {% endfor %}
 </div>
 <div id = "create">

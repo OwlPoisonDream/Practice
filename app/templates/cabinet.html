@@ -9,7 +9,7 @@
     <div class = "main_cab">
         <div class="FIO"><h2>ФИО: {{current_user.pr.name}}</h2></div>
         <div class="login"><h3>Никнейм: {{current_user.pr.nickname}}</h3></div>
-        <div class="status"><h3>Статус странички: {{current_user.who}} {% if current_user.who==2 %}- Менеджер {% endif%} 
+        <div class="status"><h3>Статус странички: {{current_user.who}} {% if current_user.who==2 %}- Менеджер {% endif %} 
             {% if current_user.who==1 %}- Шоураннер {% endif %} 
             {% if current_user.who==0 %}- Исполнитель{% endif %}</h3></div>
         <div class="birthday"><p>Дата рождения: {{current_user.pr.birthDAy}}</p></div>

@@ -152,14 +152,13 @@ def my_projects():
     form = forms.CreateProject()
     if request.method == 'POST':
         id_sel = request.form.get('human_project') # Получаем ID пользователя из html
-        id_project = 123
+        id_project = request.form.get("project_id")
+        id_project = int(id_project)
         update_user_projects = models.Users_Projects(User_id=id_sel, Project_id=id_project)
         print("---------------------------------------------------------------")
-        print(id_project)
         print(update_user_projects)
-        print(id_sel)
         print("---------------------------------------------------------------")
-        # db.session.add(update_user_projects)
+        db.session.add(update_user_projects)
         db.session.commit()
         return redirect(url_for('my_projects'))
     
