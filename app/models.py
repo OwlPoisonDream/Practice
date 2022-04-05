@@ -89,3 +89,10 @@ class Users_Data(db.Model):
     bank_details = db.Column(db.String(100), nullable=True) # реквизиты банка  
     bankName = db.Column(db.String(100), nullable=True) # название банка
     phone_number = db.Column(db.String(11), nullable=True) # номер телефона
+
+class Users_Projects(db.Model):
+    __tablename__ = 'user_project'
+    
+    id = db.Column(db.Integer, primary_key = True)
+    User_id = db.Column(db.Integer, db.ForeignKey('users.id'))# id пользователя. Берёт из таблицы user
+    Project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))# id проекта. Берёт из таблицы project

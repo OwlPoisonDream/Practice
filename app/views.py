@@ -1,13 +1,18 @@
 # Обработчик ссылок
 import email
-from venv import create
+from turtle import update
 from flask import Flask, render_template, request, redirect, url_for  # для работы с интернетом
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_required, login_user, current_user, logout_user
 from app import app, models, db, forms
 from app.email import send_password_reset_email
+import yadisk
 from docx import Document
+import os
+import datetime
+from app import yToken
 
+now = datetime.datetime.now()
 document = Document()
 # print("[log] обработка страниц запущена")
 
@@ -100,7 +105,8 @@ def cabinet():
     
 
 
-@app.route('/cabinet_changer',methods=['POST', 'GET'])  # Страница для изменения данных в личном кабинете и вноса изменений в базу данных
+@app.route('/cabinet_changer',
+           methods=['POST', 'GET'])  # Страница для изменения данных в личном кабинете и вноса изменений в базу данных
 @login_required  # только зарегистрированный человек сможет зайти
 def cabinet_changer():
     form = forms.PersonalForm()
@@ -126,14 +132,24 @@ def cabinet_changer():
 
 
 @app.route('/my_tasks', methods=['GET', 'POST'])  # Страница с задачами пользователя
-def my_tasks():
+def my_tasks(): 
+    info = models.Tasks.query.all()
+    today = str(now.day) + "." + str(now.month) + "." + str(now.year)
+    print(today)
+    # print(list(yToken.listdir("")))
+    if request.method == "POST":
+        print(request.form.get("status_complete"))
+        # task = models.Tass(id = id, statusCompleted = "Complete")
+        # db.session.add(task)
+        # db.session.commit()
     form = forms.CreateTask()
     if form.validate_on_submit(): # надо сделать завтра
-        createProjekt = models.Project(projectName = form.projectName.data, 
-        descProject = form.descProject.data,linkDisk = form.linkDisk.data)
-        db.session.add(createProjekt)
+        createTask = models.Tasks(idUser = form.idUser.data, idProject = form.idProject.data, 
+        nameTask = form.nameTask.data,descTask = form.descTask.data,
+        timeTask = form.timeTask.data,manyTask = form.manyTask.data, statusСompleted = "Uncomplete", linkDisk = form.descTask.data)
+        db.session.add(createTask)
         db.session.commit()
-    return render_template("my_tasks.html",form = form)
+    return render_template("my_tasks.html",form = form, list=info, today=today, now=now, current_user = current_user)
 
 
 @app.route('/my_documents', methods=['GET', 'POST'])  # Страница с документами пользователя
@@ -143,21 +159,33 @@ def my_documents():
 
 @app.route('/my_projects', methods=['GET', 'POST'])  # Страница с проектами шоураннера
 def my_projects():
-    form = forms.CreateProject()
-    if form.validate_on_submit():
-        print("Кнопка нажата")
-        createProjekt = models.Project(projectName = form.projectName.data, 
-        descProject = form.descProject.data,linkDisk = form.linkDisk.data)
-        db.session.add(createProjekt)
-        db.session.commit()
-        return redirect(url_for('create_projekt'))
+    info = {}
     # отображение проектов
     projects = models.Project.query.all()
-    return render_template("my_projects.html",form = form,projects = projects)
+    user_project = models.Users_Projects.query.all()
+    info = models.User.query.all()
+    
+    if request.method == 'POST':
+        id_sel = request.form.get('human_project') # Получаем ID пользователя из html
+        id_project = request.form.get("project_id")# Получаем ID проекта из html
+        id_project = str(id_project)
+        update_user_projects = models.Users_Projects(User_id=id_sel, Project_id=id_project)# обновления таблицы Users_project
 
-@app.route('/create_projekt') 
-def create_projekt():
-    return redirect(url_for('my_projects'))
+        listForm = request.form.to_dict()
+        print(listForm)
+        createProjekt = models.Project(projectName = listForm['projectName'],
+        descProject=listForm['descProject'],linkDisk = listForm['linkDisk'])
+
+        
+
+        db.session.commit()# создание соеденения
+        createProjekt = models.Project()# переменная создания пароля 
+        db.session.add(update_user_projects)# запись в базу данных users_projekt
+        db.session.add(createProjekt)# запись в базу данных users_projekt
+        db.session.commit()# закрытие соеденения с бд
+        return redirect(url_for('my_projects'))
+    return render_template("my_projects.html", projects = projects, list = info, user_project = user_project)
+
 
 @app.route('/salary', methods=['GET', 'POST'])  # Страница с зарплатами. Менеджер видит и устанавливает
 def salary():
@@ -227,3 +255,6 @@ def not_found_error(error):
 def internal_error(error):
     db.session.rollback()
     return render_template('500.html'), 500
+    # Обработчик ссылок
+
+

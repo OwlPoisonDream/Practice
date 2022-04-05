@@ -40,26 +40,27 @@ class ResetPasswordForm(FlaskForm): # Форма сброса пароля
 
 class PersonalForm(FlaskForm): # Форма для заполнения таблицы users_Data
     name = StringField('ФИО', validators=[DataRequired()]) #ФИО
-    nickname = StringField('прозвище', validators=[DataRequired()]) # прозвище
-    link_vk = StringField('ссылка на вк', validators=[DataRequired()]) # ссылка на вк
-    birthDAy = StringField('Дата рождения', validators=[DataRequired()])# Дата рождения 
-    passport = StringField('номер паспорта', validators=[DataRequired()])# номер паспорта
-    passportData = StringField('дата выдачи ', validators=[DataRequired()])# дата выдачи 
-    passportBy = StringField('кем выдан паспорт', validators=[DataRequired()])# кем выдан паспорт
-    passportCod = StringField('код подразделения', validators=[DataRequired()])# код подразделения
-    inn = StringField('инн', validators=[DataRequired()]) #инн
-    bank_details = StringField('реквизиты банка ', validators=[DataRequired()]) # реквизиты банка  
+    nickname = StringField('Прозвище', validators=[DataRequired()]) # прозвище
+    link_vk = StringField('Ссылка на ВК', validators=[DataRequired()]) # ссылка на вк
+    birthDAy = StringField('Дата Рождения', validators=[DataRequired()])# Дата рождения 
+    passport = StringField('Номер паспорта', validators=[DataRequired()])# номер паспорта
+    passportData = StringField('Дата выдачи ', validators=[DataRequired()])# дата выдачи 
+    passportBy = StringField('Кем выдан паспорт', validators=[DataRequired()])# кем выдан паспорт
+    passportCod = StringField('Код подразделения', validators=[DataRequired()])# код подразделения
+    inn = StringField('ИНН', validators=[DataRequired()]) #инн
+    bank_details = StringField('Реквизиты банка ', validators=[DataRequired()]) # реквизиты банка  
     bankName = StringField('Название банка', validators=[DataRequired()]) # название банка
     phone_number = StringField('Номер телефона', validators=[DataRequired()]) # номер телефона
     submit = SubmitField('Изменить форму')
 
-class CreateProject(FlaskForm):# создание задание
+class CreateProject(FlaskForm):# создание проекта
     projectName = StringField('Имя проекта', validators=[DataRequired()])# имя проекта
     descProject = StringField('Описание', validators=[DataRequired()])# описание проекта 
     linkDisk = StringField('ссылка на гугл диск', validators=[DataRequired()])# ссылка на гугл диск
     submit = SubmitField('+ Создать проект')
 
-class CreateTask(FlaskForm):
+class CreateTask(FlaskForm):# создание задачи
+    idUser = StringField("ID пользователя", validators=[DataRequired()]) #id пользователя
     idProject = StringField('Id проекта', validators=[DataRequired()])  # id проекта. Берёт из таблицы project
     nameTask = StringField('Имя задачи', validators=[DataRequired()])# имя задачи
     descTask = StringField('Описание задачи', validators=[DataRequired()])# Описание задачи
@@ -67,3 +68,16 @@ class CreateTask(FlaskForm):
     manyTask = StringField('сколько заплатят', validators=[DataRequired()])# деньги за задачу
     linkDisk = StringField('ссылка на гугл диск', validators=[DataRequired()])# ссылка на гугл диск
     submit = SubmitField('Создать задачу')
+
+class ChangeTask(FlaskForm):# изменение задачи
+    id = StringField("Id задачи", validators=[DataRequired()]) #ID изменяемой задачи
+    idUser = StringField("ID пользователя", validators=[DataRequired()]) #id пользователя
+    idProject = StringField('Id проекта', validators=[DataRequired()])  # id проекта. Берёт из таблицы project
+    nameTask = StringField('Имя задачи', validators=[DataRequired()])# имя задачи
+    descTask = StringField('Описание задачи', validators=[DataRequired()])# Описание задачи
+    timeTask = StringField('время выполнения', validators=[DataRequired()])# время выполнения
+    manyTask = StringField('сколько заплатят', validators=[DataRequired()])# деньги за задачу
+    statusСompleted = StringField('Статус выполнения', validators=[DataRequired()]) # Статус выполнения
+    receipt = StringField('Чек', validators=[DataRequired()]) # Чек за работу
+    linkDisk = StringField('ссылка на гугл диск', validators=[DataRequired()])# ссылка на гугл диск
+    submit = SubmitField('Изменить задачу')

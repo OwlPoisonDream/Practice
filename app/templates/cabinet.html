@@ -1,26 +1,28 @@
 {% extends 'base.html' %}
 
-{% block title %}
-Личный кабинет
-{% endblock %}
+{% block title %} Личный кабинет {% endblock %}
 
 {% block body %}
-{% block cabinet %}
+    <div class = "main_cab">
+        <div class="FIO"><h2>ФИО: {{current_user.pr.name}}</h2></div>
+        <div class="login"><h3>Никнейм: {{current_user.pr.nickname}}</h3></div>
+        <div class="status"><h3>Статус странички: {{current_user.who}} {% if current_user.who==2 %}- Менеджер {% endif %} 
+            {% if current_user.who==1 %}- Шоураннер {% endif %} 
+            {% if current_user.who==0 %}- Исполнитель{% endif %}</h3></div>
+        <div class="birthday"><p>Дата рождения: {{current_user.pr.birthDAy}}</p></div>
+        <div class="email_cab"><p>Ваша электронная почта: {{current_user.email}}</p></div>
+        <div class="vk_link"><p><a href="{{current_user.pr.link_vk}}">ссылка на ВК</a></p></div>
+        <div class="inn_cab"><p><b>{{current_user.pr.INN}}</b></p></div>
+        <div class="bank_details_cab"><p>Реквизиты банка: {{current_user.pr.bank_details}}</p></div>
+        <div class="bname"><p>Наименование банка: {{current_user.pr.bank_name}}</p></div>
+        <div class="phone"><p>Номер телефона: {{current_user.pr.phone_number}}</p></div>
+        <div class="pass1"><p>Серия и номер паспорта: {{current_user.pr.passport}}</p></div>
+        <div class="pass2"><p>Дата выдача: {{current_user.pr.passportData}}</p></div>
+        <div class="pass3"><p>Кем выдан: {{current_user.pr.passportBy}}</p></div>
+        <div class="pass4"><p>Код подразделения: {{current_user.pr.passportCod}}</p></div>
+        <div class="changing"><a href="/cabinet_changer">Изменить данные</a></div>
+    </div>
 {% endblock %}
 
-<h2>ФИО: {{current_user.pr.name}}</h2>
-<h3>Логин: {{current_user.pr.nickname}}</h3>
-<h3>Статус странички: {{current_user.who}} {% if current_user.who==2 %}- Менеджер {% endif%} {% if current_user.who==1 %}- Шоураннер {% endif %} {% if current_user.who==0 %}- Испольнитель{% endif %}</h3>
-<p>Дата рождения: {{current_user.pr.birthDAy}}</p>
-<p>Ваш электронная почта: {{current_user.email}}</p>
-<p><a href="{{current_user.pr.link_vk}}">ссылка на ВК</a></p>
-<p><b>{{current_user.pr.INN}}</b></p>
-<p>Реквизиты банка: {{current_user.pr.bank_details}}</p>
-<p>Наименование банка: {{current_user.pr.bank_name}}</p>
-<p>Номер телефона: {{current_user.pr.phone_number}}</p>
-<p>Серия и номер паспорта: {{current_user.pr.passport}}</p>
-<p>Дата выдача: {{current_user.pr.passportData}}</p>
-<p>Кем выдан: {{current_user.pr.passportBy}}</p>
-<p>Код подразделения: {{current_user.pr.passportCod}}</p>
-<a href="/cabinet_changer">Изменить данные</a>  
-{% endblock %}
+
+

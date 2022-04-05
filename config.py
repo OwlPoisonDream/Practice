@@ -1,6 +1,7 @@
 # файл конфигурации 
 import os
 
+
 app_dir = os.path.abspath(os.path.dirname(__file__)) # путь файла для загрузки модуля 
 
 class Config:
@@ -16,6 +17,7 @@ class Config:
     MAIL_USERNAME = os.environ.get('fenix4dminproba@yandex.ru')# логин, а именно почта 
     MAIL_PASSWORD = os.environ.get('pmdufnoeqlwfnwbq')# пароль от почты 
     MAIL_DEFAULT_SENDER = MAIL_USERNAME #email отправителя
+     
     
 
 
