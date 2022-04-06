@@ -7,24 +7,25 @@
 </head>
 <body align="center">
     <input type="checkbox" id="nav-toggle" hidden>
-    {% if current_user.who == 1 %}
     <nav class="nav">
         <label for="nav-toggle" class="nav-toggle" onclick></label>
         <h2 class="logo"> 
             <a href="/cabinet">Личный кабинет</a> 
         </h2>
-        <ul>      
+        <ul> 
+    {% if current_user.who == 1 %}
+         
             <li><a href="cabinet">Личный кабинет</a>
             <li><a href="my_tasks">Мои задачи</a>
             <li><a href="my_documents">Мои документы</a>
             <li><a href="my_salary">Моя зарплата</a>
             <li><a href="my_projects">Мои проекты</a>
             <li><a href="/logout">Выход</a>
-        </ul>
-    </nav>
+   
           
     {% endif %}
-    {% if current_user.who == 2 %}
+    
+    {% if current_user.who == 2 %} 
                 
                 <li><a href="cabinet">Личный кабинет</a>
                 <li><a href="my_tasks">Мои задачи</a>
@@ -36,6 +37,7 @@
                 <li><a href="/logout">Выход</a>
         
     {% endif %}
+
     {% if current_user.who == 0 %}
  
                     <li><a href="cabinet">Личный кабинет</a>
@@ -44,6 +46,8 @@
                     <li><a href="my_salary">Моя зарплата</a>
                     <li><a href="/logout">Выход</a>
     {% endif %}
+</ul>
+</nav>
 
     {% block body %} 
 

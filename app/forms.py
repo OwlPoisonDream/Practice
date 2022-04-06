@@ -53,13 +53,14 @@ class PersonalForm(FlaskForm): # Форма для заполнения табл
     phone_number = StringField('Номер телефона', validators=[DataRequired()]) # номер телефона
     submit = SubmitField('Изменить форму')
 
-class CreateProject(FlaskForm):# создание задание
+class CreateProject(FlaskForm):# создание проекта
     projectName = StringField('Имя проекта', validators=[DataRequired()])# имя проекта
     descProject = StringField('Описание', validators=[DataRequired()])# описание проекта 
     linkDisk = StringField('ссылка на гугл диск', validators=[DataRequired()])# ссылка на гугл диск
     submit = SubmitField('+ Создать проект')
 
-class CreateTask(FlaskForm):
+class CreateTask(FlaskForm):# создание задачи
+    idUser = StringField("ID пользователя", validators=[DataRequired()]) #id пользователя
     idProject = StringField('Id проекта', validators=[DataRequired()])  # id проекта. Берёт из таблицы project
     nameTask = StringField('Имя задачи', validators=[DataRequired()])# имя задачи
     descTask = StringField('Описание задачи', validators=[DataRequired()])# Описание задачи
@@ -67,3 +68,16 @@ class CreateTask(FlaskForm):
     manyTask = StringField('сколько заплатят', validators=[DataRequired()])# деньги за задачу
     linkDisk = StringField('ссылка на гугл диск', validators=[DataRequired()])# ссылка на гугл диск
     submit = SubmitField('Создать задачу')
+
+class ChangeTask(FlaskForm):# изменение задачи
+    id = StringField("Id задачи", validators=[DataRequired()]) #ID изменяемой задачи
+    idUser = StringField("ID пользователя", validators=[DataRequired()]) #id пользователя
+    idProject = StringField('Id проекта', validators=[DataRequired()])  # id проекта. Берёт из таблицы project
+    nameTask = StringField('Имя задачи', validators=[DataRequired()])# имя задачи
+    descTask = StringField('Описание задачи', validators=[DataRequired()])# Описание задачи
+    timeTask = StringField('время выполнения', validators=[DataRequired()])# время выполнения
+    manyTask = StringField('сколько заплатят', validators=[DataRequired()])# деньги за задачу
+    statusСompleted = StringField('Статус выполнения', validators=[DataRequired()]) # Статус выполнения
+    receipt = StringField('Чек', validators=[DataRequired()]) # Чек за работу
+    linkDisk = StringField('ссылка на гугл диск', validators=[DataRequired()])# ссылка на гугл диск
+    submit = SubmitField('Изменить задачу')

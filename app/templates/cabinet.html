@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <title>Личный кабинет</title>
-  <link rel="stylesheet" href="{{ url_for ('static', filename='css/cabinet.css')}}">
-</head>
-<body align="center">
+{% extends 'base.html' %}
+
+{% block title %} Личный кабинет {% endblock %}
+
+{% block body %}
     <div class = "main_cab">
         <div class="FIO"><h2>ФИО: {{current_user.pr.name}}</h2></div>
         <div class="login"><h3>Никнейм: {{current_user.pr.nickname}}</h3></div>
@@ -25,7 +22,7 @@
         <div class="pass4"><p>Код подразделения: {{current_user.pr.passportCod}}</p></div>
         <div class="changing"><a href="/cabinet_changer">Изменить данные</a></div>
     </div>
-</body>
+{% endblock %}
 
 
 

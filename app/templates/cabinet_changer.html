@@ -1,3 +1,4 @@
+{% extends 'base.html' %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -7,6 +8,7 @@
 </head>
 <body align="center">
 <!-- Форма для изменения данных -->
+{% block body %}
 <div class = "main_cab">
     <form action="" method="post">
         {{ form.hidden_tag() }}
@@ -82,4 +84,5 @@
     </div>
     </form>
     <a href ="cabinet" class="back_to_cab">Перейти в кабинет без изменения</a>
-</body>
+</div>
+{% endblock %}
