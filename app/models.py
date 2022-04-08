@@ -85,6 +85,8 @@ class Users_Data(db.Model):
     passportData = db.Column(db.String(100), nullable=True)# дата выдачи 
     passportBy = db.Column(db.String(100), nullable=True)# кем выдан паспорт
     passportCod = db.Column(db.String(100), nullable=True)# код подразделения
+    address = db.Column(db.Text, nullable=True)
+    bankAccount = db.Column(db.Text, nullable=True)
     inn = db.Column(db.String(12), nullable=True) # инн
     bank_details = db.Column(db.String(100), nullable=True) # реквизиты банка  
     bankName = db.Column(db.String(100), nullable=True) # название банка
