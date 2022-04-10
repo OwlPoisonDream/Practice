@@ -159,7 +159,7 @@ def my_documents():
             print(list(yToken.listdir("/договора/")))
             list_yad=list(yToken.listdir("/договора/"))
 
-            print('Папка существовала и была удалена')
+            print('Папка обнаружена')
     else:
         print("Токен не сработал")
 
