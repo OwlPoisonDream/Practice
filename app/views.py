@@ -154,11 +154,13 @@ def my_tasks():
 
 @app.route('/my_documents', methods=['GET', 'POST'])  # Страница с документами пользователя
 def my_documents():
+    list_yad = ()
     if yToken.check_token()==True:
         if yToken.exists("/договора/") == False:
             print('Папка отсутствует')
         elif yToken.exists("/договора/") == True:
             print(list(yToken.listdir("/договора/")))
+            list_yad = list(yToken.listdir("/договора/"))
             list_yad=list(yToken.listdir("/договора/"))
 
             print('Папка существовала и была удалена')
