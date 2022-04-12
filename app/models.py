@@ -91,6 +91,7 @@ class Users_Data(db.Model):
     bank_details = db.Column(db.String(100), nullable=True) # реквизиты банка  
     bankName = db.Column(db.String(100), nullable=True) # название банка
     phone_number = db.Column(db.String(11), nullable=True) # номер телефона
+    tags = db.Column(db.Text, nullable=True);
 
 class Users_Projects(db.Model):
     __tablename__ = 'user_project'
