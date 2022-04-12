@@ -725,8 +725,6 @@ body{
     cursor: move;
   }
 
-
-
   .add-product {
     &.open {  
       background-color: #FAFAFA;
@@ -1160,3 +1158,22 @@ svg{
     bottom: 700px;
 	left:300px;
 } */
+
+iframe{
+  color: white;
+  background-color: #00838F;
+  position: absolute;
+  top:10%;
+  left:5%;
+}
+.spec_tags{
+  position: absolute;
+  top:60%;
+  left:70%;
+  width: 20%;
+}
+#tags{
+  height: 40px;
+  background: #A7AAE8;
+  border-radius: 15px;
+}
