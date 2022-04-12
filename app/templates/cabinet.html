@@ -49,7 +49,7 @@
                             </svg>
                             
                             <p><b>{{current_user.pr.INN}}</b></p></div>
-                     <div class="bank_details_cab"><!-- реквезиты банка-->
+                     <div class="bank_details_cab"><!-- реквизиты банка-->
                         <svg width="50" height="50" viewBox="0 0 50 50" fill="none" >
                             <path d="M25 50C38.8071 50 50 38.8071 50 25C50 11.1929 38.8071 0 25 0C11.1929 0 0 11.1929 0 25C0 38.8071 11.1929 50 25 50Z" fill="#9233B4"/>
                             <path opacity="0.3" d="M37.5 21.1469H14.0625V23.9545H37.5V21.1469Z" fill="black"/>
@@ -112,6 +112,12 @@
                             <circle cx="25" cy="25" r="25" fill="#1B4AEF"/>
                             </svg>
                             <p>Код подразделения: {{current_user.pr.passportCod}}</p></div>
+                    <div  class="spec_tags">
+                        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="25" cy="25" r="25" fill="#B1A4FE"/>
+                            </svg>
+                        <p>Специальность: {{current_user.pr.tags}}</p>
+                    </div>
               </div>
    <!-- <div class="changing"><a href="/cabinet_changer">Изменить данные</a></div> -->
     <div class="changing"> <!-- кнопка "изменить"-->
