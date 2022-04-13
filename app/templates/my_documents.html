@@ -28,11 +28,11 @@
    <!-- Поля после “file” игнорируются -->
    <input type="submit" name="submit" value="Загрузить" />
 </form>
-{% if current_user.id == documents.UserID%}
-   {% for u in documents %}
+{% for u in documents %}
+   {% if current_user.id == u.UserID%}
       <li>{{u.name}}</li>
       <li>{{u.link}}</li>
-   {% endfor %}
-{% endif %}
+   {% endif %}
+{% endfor %}
 <a href="create_contract">Перейти к созданию договора</a>
 {% endblock %}
