@@ -52,4 +52,10 @@
 </li>
 {% endfor %}
 </ul>
+{% for u in documents %}
+           <li>ID: {{u.id}}</li>
+         <li>Имя документа: {{u.name}}</li>
+         <li>Ссылка на документ: {{u.link}}</li>
+</li>
+{% endfor %}
 {% endblock %}

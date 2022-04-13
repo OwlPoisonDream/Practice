@@ -1,5 +1,6 @@
 # Обработчик ссылок
 import email
+from this import d
 from turtle import update
 from flask import Flask, render_template, request, redirect, url_for  # для работы с интернетом
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -166,18 +167,19 @@ def my_tasks():
 @app.route('/my_documents', methods=['GET', 'POST'])  # Страница с документами пользователя
 def my_documents():
     list_yad = ()
+    documents = models.Documents.query.all()
     if yToken.check_token()==True:
         if yToken.exists("/договора/") == False:
             print('Папка отсутствует')
         elif yToken.exists("/договора/") == True:
             print(list(yToken.listdir("/договора/")))
-            list_yad = list(yToken.listdir("/договора/"))
+            list_yad = list(yToken.get_files())
 
             print('Папка существует')
 
     yToken.clear_session_cache()
     info = models.User.query.all() #Получаем словарь с содержимым таблиц user и users_Data
-    return render_template("my_documents.html", current_user=current_user, yToken=yToken, list_yad=list_yad)
+    return render_template("my_documents.html", current_user=current_user, yToken=yToken, list_yad=list_yad, documents=documents)
 
 
 @app.route('/my_projects', methods=['GET', 'POST'])  # Страница с проектами шоураннера
@@ -264,7 +266,8 @@ def admin():
     info = models.User.query.all()
     tasks = models.Tasks.query.all()
     projects = models.Project.query.all()
-    return render_template('admin.html', list=info, tasks=tasks, projects=projects)
+    documents = models.Documents.query.all()
+    return render_template('admin.html', list=info, tasks=tasks, projects=projects, documents=documents)
 
 
 # обработка ошибок

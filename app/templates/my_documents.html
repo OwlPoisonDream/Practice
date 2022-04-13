@@ -5,10 +5,34 @@
 {% endblock %}
 
 {% block body %}
-
+<iframe src="{{ url_for ('static', filename='contract.pdf')}}" width=800 height=800>Ваш браузер не поддерживает плавающие фреймы</iframe> <br>
 {% if current_user.who == 2%}
 {% endif %}
 {% for u in list_yad %}
    <p>{{u}}</p>
 {% endfor%}
+<form action="https://storage.yandexcloud.net/{bucket-name}" method="post" enctype="multipart/form-data">
+   Ключ в хранилище:
+   <input type="input" name="key" value="object_key" /><br />
+   <!-- Свойства запроса -->
+   <input type="hidden" name="x-amz-credential" value="access_key_id/date/ru-central1/s3/aws4_request" />
+   <input type="hidden" name="acl" value="predefined-acl-name" />
+   <input type="hidden" name="x-amz-algorithm" value="AWS4-HMAC-SHA256" />
+   <input type="hidden" name="x-amz-date" value="date" />
+   <input type="hidden" name="success_action_redirect" value="some-URL" />
+   <input type="hidden" name="policy" value="base64-encoded-policy-document" />
+   <input type="hidden" name="x-amz-signature" value="signature-string" />
+   <!-- Прочие необходимые поля -->
+   Файл для загрузки:
+   <input type="file" name="file" /> <br />
+   <!-- Поля после “file” игнорируются -->
+   <input type="submit" name="submit" value="Загрузить" />
+</form>
+{% if current_user.id == documents.UserID%}
+   {% for u in documents %}
+      <li>{{u.name}}</li>
+      <li>{{u.link}}</li>
+   {% endfor %}
+{% endif %}
+<a href="create_contract">Перейти к созданию договора</a>
 {% endblock %}

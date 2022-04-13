@@ -99,3 +99,11 @@ class Users_Projects(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     User_id = db.Column(db.Integer, db.ForeignKey('users.id'))# id пользователя. Берёт из таблицы user
     Project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))# id проекта. Берёт из таблицы project
+    
+class Documents(db.Model):
+    __tablename__ = "documents"
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=True)
+    link = db.Column(db.Text, nullable=True)
+    UserID = db.Column(db.Integer, db.ForeignKey('users.id'))
