@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Создание договора
+{% endblock %}
+
+{% block body %}
+
+<!--<form action="" method="post">
+    <p>
+   <select name="human">
+          <option selected>Выбрать человека</option>
+       {% for u in list %}
+       <option value="{{u.id}}">{{u.pr.name}}</option>
+       {% endfor %}
+</select>
+
+    <p><input type="submit">
+</form>-->
+
+
+    <script>
+        function functionSearch() {
+          var input = document.getElementById("Search");
+          var filter = input.value.toLowerCase();
+          var nodes = document.getElementsByClassName('target');
+    
+      for (i = 0; i < nodes.length; i++) {
+        if (nodes[i].innerText.toLowerCase().includes(filter)) {
+          nodes[i].style.display = "block";
+        } else {
+          nodes[i].style.display = "none";
+        }
+      }
+    }
+    //выбор элемента
+    </script>
+    <style>
+    input[type=checkbox]{
+        display:none;
+      }
+      .check-box:hover::after{
+        color: black;
+      }
+    </style>
+      
+    <ul class="perchiki">
+    <input type="text" id="Search" onkeyup="functionSearch()" placeholder="Введите имя поиска">
+
+
+    <form>
+      <p><input type="submit" value="Создать договоры" ></p>
+    {% for u in list %}
+    
+    <div class = "target"  class="check-box">
+      
+        <li class="perchik1">
+            <div class="peravatar"> <img src="{{ url_for ('static', filename='x_06eb1977.jpg')}}"> </div> <!-- автарка-->
+            <div class="indicator" >
+                <p class="n">99</p>        
+            </div>
+                <div class="nikperchika">
+                    <!--<input type="checkbox" value="{{u.id}}">-->
+                    <!--<p>Id = {{u.id}}</p>-->
+                    <input type="checkbox" id="cbtest" value="{{u.id}}"/>
+                    <p>Почта: {{u.email}}</p>
+                    <h3><p class="nik"> {{u.pr.name}}</p></h3>
+                </div>
+        </li>
+    </div>
+    {% endfor %}
+    </ul>
+
+</form>
+{% endblock %}
