@@ -124,7 +124,7 @@ def cabinet_changer():
         user_data.bank_details = form.bank_details.data
         user_data.bankName = form.bankName.data
         user_data.phone_number = form.phone_number.data
-
+        user_data.tags = str(request.form.getlist('tags'))
         db.session.add(user_data)
         db.session.commit()
         return redirect(url_for('cabinet'))
@@ -241,6 +241,7 @@ def completed_tasks_changer(who):
         user_data.bank_details = form.bank_details.data
         user_data.bankName = form.bankName.data
         user_data.phone_number = form.phone_number.data
+        user_data.tags = str(request.form.getlist('tags'))
         db.session.add(user_data)
         db.session.commit()
         return redirect(url_for('completed_tasks',who = who))
