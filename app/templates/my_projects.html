@@ -37,7 +37,7 @@
 }
 </script>
 
-<div class = "leftBody"> 
+<div class = "leftBody">  <!-- тут лежит блок с проектами -->
   <h1>Проекты</h1> <br><br><br><br><br>
   {% for u in projects %}
   <div class="project"><p><li>ID проекта: {{u.id}}</li>
@@ -58,16 +58,16 @@
     <div class="target"><p><input type="checkbox" value="{{j.id}}" name = "id_sel" >{{j.pr.name}}</p></div>
     {% endfor %}
 
-    <input type="submit" value="Создать задачу">
+    <input type="submit" value="Создать проект">
   </form>
 </div> 
 </div>
-<div class = "leftBody2"> 
+<div class = "leftBody2">  <!-- Здесь лежат папки для проектов. Функционал не работает. Нужно привязать к каждому проекту по отдельности -->
   <h1>Папки</h1> <br><br><br><br><br>
   <!--{% for u in projects %}
   <div class="project"><p><li>ID проекта: {{u.id}}</li>
     <li>Имя проекта: {{u.projectName}}</li>
-    <li>Описание проекта: {{u.descProject}}</li>
+    <li>Описание проекта: {{u.descProject}}</li> Может пригодиться
     <li>Ссылка на проект: {{u.linkDisk}}</li>
     <li>Люди в проекте <br></li></p></div>
     {% endfor %}-->
@@ -87,7 +87,7 @@
   </form>
 </div> 
 </div>
-<div>Блок 1</div>
+<div>Блок 1</div> <!-- Тут лежат блоки за меню. Первый не различаю в фигме. И не понимаю, что там будет лежать-->
 <div>Блок 2</div>
 <div>Блок 3</div>
 {% endblock %}
