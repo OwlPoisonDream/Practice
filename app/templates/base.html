@@ -15,11 +15,11 @@
         <ul> 
     {% if current_user.who == 1 %}
          
-            <li><a href="cabinet">Личный кабинет</a>
-            <li><a href="my_tasks">Мои задачи</a>
-            <li><a href="my_documents">Мои документы</a>
-            <li><a href="my_salary">Моя зарплата</a>
-            <li><a href="my_projects">Мои проекты</a>
+            <li><a href="/cabinet">Личный кабинет</a>
+            <li><a href="/my_tasks">Мои задачи</a>
+            <li><a href="/my_documents">Мои документы</a>
+            <li><a href="/my_salary">Моя зарплата</a>
+            <li><a href="/my_projects">Мои проекты</a>
             <li><a href="/logout">Выход</a>
    
           
@@ -27,23 +27,23 @@
     
     {% if current_user.who == 2 %} 
                 
-                <li><a href="cabinet">Личный кабинет</a>
-                <li><a href="my_tasks">Мои задачи</a>
-                <li><a href="my_documents">Мои документы</a>
-                <li><a href="my_salary">Зарплата</a>
-                <li><a href="employeers"> Список сотрудников </a>
+                <li><a href="/cabinet">Личный кабинет</a>
+                <li><a href="/my_tasks">Мои задачи</a>
+                <li><a href="/my_documents">Мои документы</a>
+                <li><a href="/my_salary">Зарплата</a>
+                <li><a href="/employeers"> Список сотрудников </a>
                 <!--<li><a href="complete_tasks"> Список выполненных задач по людям </a>-->
-                <li><a href="create_contract"> Создание договоров </a>
+                <li><a href="/create_contract"> Создание договоров </a>
                 <li><a href="/logout">Выход</a>
         
     {% endif %}
 
     {% if current_user.who == 0 %}
  
-                    <li><a href="cabinet">Личный кабинет</a>
-                    <li><a href="my_tasks">Мои задачи</a>
-                    <li><a href="my_documents">Мои документы</a>
-                    <li><a href="my_salary">Моя зарплата</a>
+                    <li><a href="/cabinet">Личный кабинет</a>
+                    <li><a href="/my_tasks">Мои задачи</a>
+                    <li><a href="/my_documents">Мои документы</a>
+                    <li><a href="/my_salary">Моя зарплата</a>
                     <li><a href="/logout">Выход</a>
     {% endif %}
 </ul>

@@ -155,14 +155,17 @@ def my_tasks():
 @app.route('/my_documents', methods=['GET', 'POST'])  # Страница с документами пользователя
 def my_documents():
     list_yad = ()
-    if yToken.check_token()==True:
-        if yToken.exists("/договора/") == False:
+    
+    if yToken.check_token()==True:# проверка токена
+        if yToken.exists("/договора/") == False: # проверка на отсутсвие папки, или создание папки
             print('Папка отсутствует')
-        elif yToken.exists("/договора/") == True:
-            print(list(yToken.listdir("/договора/")))
-            list_yad = list(yToken.listdir("/договора/"))
-
+            print(yToken.mkdir("/договора"))# создание папки и вывод папки в консоли
+        elif yToken.exists("/договора/") == True:#если папка существует
             print('Папка существует')
+            #print( yToken.check_token()) #получаем информацию о диске
+            print (yToken.listdir("/договора"))#выводим содержимое папки дтговора
+
+
 
     yToken.clear_session_cache()
     info = models.User.query.all() #Получаем словарь с содержимым таблиц user и users_Data
@@ -173,7 +176,7 @@ def my_documents():
 def my_projects():
     info = {}
     # отображение проектов
-    projects = models.Project.query.all()
+    projects = models.Project.query.all() #запрос в базу данны
     user_project = models.Users_Projects.query.all()
     info = models.User.query.all()
     
@@ -213,8 +216,35 @@ def employeers():
 
 @app.route('/completed_tasks/<who>/', methods=['GET', 'POST'])  # Страница с выполненными задачами по людям
 def completed_tasks(who):
-    print(who)
-    return render_template("completed_tasks.html")
+    user = models.User.query.filter_by(id = who).first()
+    infoUser = models.Users_Data.query.filter_by(idUser = who).first()
+    return render_template("completed_tasks.html",user = user,infoUser = infoUser)
+
+@app.route('/cabinet_tasks_changer/<who>/', methods=['GET', 'POST'])  # Страница с выполненными задачами по людям
+def completed_tasks_changer(who):
+    form = forms.PersonalForm()
+    
+    user = models.User.query.filter_by(id = who).first()
+    infoUser = models.Users_Data.query.filter_by(idUser = who).first()
+    if form.validate_on_submit():
+        print("я нажал на кнопку")
+        user_data = db.session.query(models.Users_Data).filter_by(idUser=who).one()  # выдает строку с id 2
+        user_data.name = form.name.data
+        user_data.birthDAy = form.birthDAy.data
+        user_data.passport = form.passport.data
+        user_data.passportData = form.passportData.data
+        user_data.passportBy = form.passportBy.data
+        user_data.passportCod = form.passportCod.data
+        user_data.nickname = form.nickname.data
+        user_data.link_vk = form.link_vk.data
+        user_data.inn = form.inn.data
+        user_data.bank_details = form.bank_details.data
+        user_data.bankName = form.bankName.data
+        user_data.phone_number = form.phone_number.data
+        db.session.add(user_data)
+        db.session.commit()
+        return redirect(url_for('completed_tasks',who = who))
+    return render_template("completed_tasks_changer.html",user = user,infoUser = infoUser,form=form)
 
 
 @app.route('/create_contract', methods=['POST', 'GET'])

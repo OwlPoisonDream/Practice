@@ -39,19 +39,20 @@ class ResetPasswordForm(FlaskForm): # Форма сброса пароля
     submit = SubmitField('Request Password Reset')
 
 class PersonalForm(FlaskForm): # Форма для заполнения таблицы users_Data
-    name = StringField('ФИО', validators=[DataRequired()]) #ФИО
-    nickname = StringField('Прозвище', validators=[DataRequired()]) # прозвище
-    link_vk = StringField('Ссылка на ВК', validators=[DataRequired()]) # ссылка на вк
-    birthDAy = StringField('Дата Рождения', validators=[DataRequired()])# Дата рождения 
-    passport = StringField('Номер паспорта', validators=[DataRequired()])# номер паспорта
-    passportData = StringField('Дата выдачи ', validators=[DataRequired()])# дата выдачи 
-    passportBy = StringField('Кем выдан паспорт', validators=[DataRequired()])# кем выдан паспорт
-    passportCod = StringField('Код подразделения', validators=[DataRequired()])# код подразделения
-    inn = StringField('ИНН', validators=[DataRequired()]) #инн
-    bank_details = StringField('Реквизиты банка ', validators=[DataRequired()]) # реквизиты банка  
-    bankName = StringField('Название банка', validators=[DataRequired()]) # название банка
-    phone_number = StringField('Номер телефона', validators=[DataRequired()]) # номер телефона
-    submit = SubmitField('Изменить форму')
+    name = StringField('ФИО', validators=[]) #ФИО
+    nickname = StringField('Прозвище', validators=[]) # прозвище
+    link_vk = StringField('Ссылка на ВК', validators=[]) # ссылка на вк
+    birthDAy = StringField('Дата Рождения', validators=[])# Дата рождения 
+    passport = StringField('Номер паспорта', validators=[])# номер паспорта
+    passportData = StringField('Дата выдачи ', validators=[])# дата выдачи 
+    passportBy = StringField('Кем выдан паспорт', validators=[])# кем выдан паспорт
+    passportCod = StringField('Код подразделения', validators=[])# код подразделения
+    inn = StringField('ИНН', validators=[]) #инн
+    bank_details = StringField('Реквизиты банка ', validators=[]) # реквизиты банка  
+    bankName = StringField('Название банка', validators=[]) # название банка
+    phone_number = StringField('Номер телефона', validators=[]) # номер телефона
+    tags = StringField("Специальность", validators=[]) #Теги, отображающие специальности человека
+    submit = SubmitField('Изменить данные')
 
 class CreateProject(FlaskForm):# создание проекта
     projectName = StringField('Имя проекта', validators=[DataRequired()])# имя проекта
