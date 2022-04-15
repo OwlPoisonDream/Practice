@@ -6,24 +6,36 @@
 
     <div class = "main_cab"> <!-- основная панель-->
         <div class="avatar"> <img src="{{ url_for ('static', filename='x_06eb1977.jpg')}}"> </div> <!-- автарка-->
+        <div class="login"> <br>{{ form.nickname() }}</div>
             <div class="info"> <!-- инфа под автаркой-->
+            <h2>Личные данные</h2>
             <form action="" method="post">
                 {{ form.hidden_tag() }}
-                <p>{{ form.name.label() }}
-                {{ form.name() }}</p>
-                <p>{{ form.nickname.label() }}
-                {{ form.nickname() }}</p>
-                 <p class="status"><h3>Статус странички: {{current_user.who}} {% if current_user.who==2 %}- Менеджер {% endif %} 
-                     {% if current_user.who==1 %}- Шоураннер {% endif %} 
-                    {% if current_user.who==0 %}- Исполнитель{% endif %}</h3></p>
+                <p class="FIO"><h3>Ф.И.О</h3>{{ form.name() }}</p>
+                <p class="status"><h3>Статус странички: </h3>{% if current_user.who==2 %}Менеджер {% endif %} 
+                    {% if current_user.who==1 %}Шоураннер {% endif %} 
+                    {% if current_user.who==0 %}Исполнитель{% endif %}</p>
+                    <p class="birthday"><h3>Дата рождения </h3> {{ form.birthDAy() }}
             </div>
+            <div class="line_2"></div>
+            <div class="passport">
+                <h2>Паспортные данные</h2>
+                <p>Серия и номер паспорта:
+                    {{ form.passport() }}</p>
+                <p>Дата выдачи:
+                    {{ form.passportData() }}</p>
+                <p>Кем выдан:
+                    {{ form.passportBy() }}</p>
+                <p>Код подразделения:
+                    {{ form.passportCod() }}</p>
+            </div>
+            <div class="line_1"></div>
                  <div class="info-group"> <!-- основная инфа-->
-                     <div class="birthday"> <!-- дата рождения-->
-                        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="25" cy="25" r="25" fill="#EF1B8D"/>
-                            </svg>
-                            <p>{{ form.birthDAy.label() }}
-                            {{ form.birthDAy() }}</p></div>
+                    <h2 class="addrss">Связь со мной</h2>
+                    <h2 class="another">Прочее</h2>
+                    <h2 class="banks">Моя карта</h2>
+                    <div class="line_3"></div>
+                    <div class="line_4"></div>
                      <div class="email_cab"> <!-- почта-->
                         <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <rect width="50" height="50" fill="url(#pattern0)"/>
@@ -102,30 +114,6 @@
                             
                             <p>{{ form.phone_number.label() }}
                                 {{ form.phone_number()}}</p></div>
-                     <div class="pass1"> <!--серия и номер-->
-                        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="25" cy="25" r="25" fill="#45D654"/>
-                            </svg>
-                            <p>{{ form.passport.label() }}
-                                {{ form.passport() }}</p></div>
-                     <div class="pass2"> <!-- дата выдачи-->
-                        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="25" cy="25" r="25" fill="#B945D6"/>
-                            </svg>
-                            <p>{{ form.passportData.label() }}
-                                {{ form.passportData() }}</p></div>
-                     <div class="pass3"> <!-- кем выдан-->
-                        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="25" cy="25" r="25" fill="#31E7DC"/>
-                            </svg>
-                            <p>{{ form.passportBy.label() }}
-                                {{ form.passportBy() }}</p></div>
-                     <div class="pass4"> <!-- код подразделения-->
-                        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="25" cy="25" r="25" fill="#1B4AEF"/>
-                            </svg>
-                            <p>{{ form.passportCod.label() }}
-                                {{ form.passportCod() }}</p></div>
                     <div  class="spec_tags">
                         <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="25" cy="25" r="25" fill="#B1A4FE"/>
@@ -155,4 +143,4 @@
        </div>
         
     </div>
-{% endblock %}
+{% endblock %}      

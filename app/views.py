@@ -124,7 +124,7 @@ def cabinet_changer():
         user_data.bank_details = form.bank_details.data
         user_data.bankName = form.bankName.data
         user_data.phone_number = form.phone_number.data
-        user_data.tags = str(request.form.getlist('tags')) #Получение в виде строки списка с тегами
+        user_data.tags = str(request.form.getlist('tags'))
         db.session.add(user_data)
         db.session.commit()
         return redirect(url_for('cabinet'))
@@ -182,13 +182,13 @@ def my_projects():
     list_yad = ()
     
     if yToken.check_token()==True:# проверка токена
-        if yToken.exists("/Феникс проекты/") == False: # проверка на отсутствие папки, или создание папки
+        if yToken.exists("/Феникс проекты/") == False: # проверка на отсутсвие папки, или создание папки
             print('Папка отсутствует')
             print(yToken.mkdir("/Феникс проекты"))# создание папки и вывод папки в консоли
         elif yToken.exists("/Феникс проекты/") == True:#если папка существует
             print('Папка существует')
             #print( yToken.check_token()) #получаем информацию о диске
-            print (yToken.listdir("/Феникс проекты"))#выводим содержимое папки проектов
+            print (yToken.listdir("/Феникс проекты"))#выводим содержимое папки вдтгоора
     if request.method == 'POST':
         id_sel = request.form.get('human_project') # Получаем ID пользователя из html
         id_project = request.form.get("project_id")# Получаем ID проекта из html
@@ -201,7 +201,7 @@ def my_projects():
         elif yToken.exists("/Феникс проекты/"+ str(project_name)) == True:#если папка существует
             print('Папка существует')
             #print( yToken.check_token()) #получаем информацию о диске
-            print (yToken.listdir("/Феникс проекты"+ str(project_name)))#выводим содержимое папки конкретного проекта
+            print (yToken.listdir("/Феникс проекты"+ str(project_name)))#выводим содержимое папки вдтгоора
         listForm = request.form.to_dict()
         print(listForm)
         createProjekt = models.Project(projectName = listForm['projectName'],

@@ -52,7 +52,7 @@ class PersonalForm(FlaskForm): # Форма для заполнения табл
     bank_details = StringField('Реквизиты банка ', validators=[]) # реквизиты банка  
     bankName = StringField('Название банка', validators=[]) # название банка
     phone_number = StringField('Номер телефона', validators=[]) # номер телефона
-    tags = SelectMultipleField("Специальность",choices=[("Сценарист","Сценарист"), # Выпадающий список с несколькими вариантами
+    tags = SelectMultipleField("Специальность",choices=[("Сценарист","Сценарист"),
                                                 ("Раскадровщик","Раскадровщик"),
                                                 ("Черновая анимация","Черновая анимация"),
                                                 ("Клин","Клин"),

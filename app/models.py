@@ -103,7 +103,7 @@ class Users_Projects(db.Model):
 class Documents(db.Model):
     __tablename__ = "documents"
     
-    id = db.Column(db.Integer, primary_key=True) #id документа
-    name = db.Column(db.String(50), nullable=True) #Имя документа
-    link = db.Column(db.Text, nullable=True) #Ссылка на проект
-    UserID = db.Column(db.Integer, db.ForeignKey('users.id')) # ID пользователя, к кому обращён документ
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=True)
+    link = db.Column(db.Text, nullable=True)
+    UserID = db.Column(db.Integer, db.ForeignKey('users.id'))
