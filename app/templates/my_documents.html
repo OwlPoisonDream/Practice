@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Мои документы
+{% endblock %}
+
+{% block body %}
+<div>
+<h1>Договора:</h1>
+<p>{{error}}</p>
+{% for u in list %}
+<p> {{u}} <a href="{{"https://" + list[u]}}" download >скачать</a></p>
+{% endfor %}
+</div>
+{% endblock %}
