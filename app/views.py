@@ -1,21 +1,19 @@
 # Обработчик ссылок
 import email
 from turtle import update
-from flask import Flask, render_template, request, redirect, url_for
-from sqlalchemy import table  # для работы с интернетом
+from flask import Flask, render_template, request, redirect, url_for  # для работы с интернетом
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, UserMixin, login_required, login_user, current_user, logout_user
 from app import app, models, db, forms, create_contract
 from app.email import send_password_reset_email
 import yadisk
-from docxtpl import DocxTemplate # вставка данных в word 
-from docx import Document # вставка таблицы в word 
+from docx import Document
 import os
-from datetime import datetime
+import datetime
 from app import yToken
 
 
-now = datetime.now()
+now = datetime.datetime.now()
 # print("[log] обработка страниц запущена")
 
 @app.route('/createDb')  # вход
@@ -146,9 +144,12 @@ def my_tasks():
         # db.session.commit()
     form = forms.CreateTask()
     if form.validate_on_submit(): # надо сделать завтра
-        createTask = models.Tasks(idUser = form.idUser.data, idProject = form.idProject.data, 
-        nameTask = form.nameTask.data,descTask = form.descTask.data,
-        timeTask = form.timeTask.data,manyTask = form.manyTask.data, statusСompleted = "Uncomplete", linkDisk = form.descTask.data)
+        if len(form.timeTask.data)==2:
+            createTask = models.Tasks(idUser = form.idUser.data, idProject = form.idProject.data, 
+            nameTask = form.nameTask.data,descTask = form.descTask.data,
+            timeTask = form.timeTask.data,manyTask = form.manyTask.data, statusСompleted = "Uncomplete", linkDisk = form.descTask.data)
+        else:
+            print("Введите числовое значение месяца")
         db.session.add(createTask)
         db.session.commit()
     return render_template("my_tasks.html",form = form, list=info, today=today, now=now, current_user = current_user)
@@ -165,7 +166,7 @@ def my_documents():
         elif yToken.exists("/договора/") == True:#если папка существует
             print('Папка существует')
             #print( yToken.check_token()) #получаем информацию о диске
-            print (yToken.listdir("/договора"))#выводим содержимое папки договора
+            print (yToken.listdir("/договора"))#выводим содержимое папки дтговора
 
 
 
@@ -220,10 +221,17 @@ def my_projects():
     return render_template("my_projects.html", projects = projects, list = info, user_project = user_project)
 
 
-
 @app.route('/salary', methods=['GET', 'POST'])  # Страница с зарплатами. Менеджер видит и устанавливает
 def salary():
-    return render_template("salary.html")
+    tasks = models.Tasks.query.all()
+    total = 0
+    task_time = ""
+    for i in tasks:
+        if current_user.id == i.idUser:
+            total += int(i.manyTask)
+            task_time = datetime.datetime.strptime(i.timeTask,"%d.%m.%Y")
+            print(task_time)
+    return render_template("salary.html", tasks = tasks, current_user = current_user, total = total)
 
 
 @app.route('/employeers', methods=['GET', 'POST'])  # Страница с сотрудниками компании. Доступна менеджеру
@@ -269,49 +277,34 @@ def completed_tasks_changer(who):
 
 @app.route('/create_contract', methods=['POST', 'GET'])
 def contract():
-    info = models.User.query.all() #Получаем словарь с содержимым таблиц user и users_Data 
+    name = ''
+    info = []
+    tasks = models.Tasks.query.all()
+    items = {"Работы:": {}, "Сроки:": {}, "Цена:": {}}
+    id_sel = '0'
+    id = 1
+    info = models.User.query.all() #Получаем словарь с содержимым таблиц user и users_Data
     if request.method == 'POST':
-        listForm = request.form.to_dict()
-        datStart = datetime.strptime(request.form['start'],'%Y-%m-%d')
-        datEnd = datetime.strptime(request.form.get('end'),'%Y-%m-%d')
-        del listForm['start']#удаляем элемент времени из списка, что бы заработал цикл
-        del listForm['end']#удаляем элемент времени из списка, что бы заработал цикл
-        listFormKeys = listForm.keys()# выводим все ключи выбранных блоках
-        for id in listFormKeys:
-            user = models.Users_Data.query.filter_by(id = id).first()
-            email  = models.User.query.filter_by(id = id).first()
-            try:
-                userData = user.name + "\n" + user.birthDAy + "\n" + user.inn + "\n" + user.passport + "\n" + user.passportBy + "\n" + user.passportData + "\n" + user.passportCod + "\n" + user.address + "\n" + user.bankAccount + "\n" + user.bankName + "\n" + user.bank_details + "\n" + email.email
-            except TypeError:
-                
-                return render_template('create_contract.html',list=info, error="У " + user.name + " незаполнен личный кабинет")
-            doc = DocxTemplate("app/static/wordTemplates/шаблон.docx")# открываем шаблон
-            context = { #шаблон для записи 
-                'date' : now.today().strftime("%d.%m.%Y"), #дата
-                'name':user.name, #ФИО
-                'userData':userData, # реквезиты
-                } 
-            doc.render(context)#ввод всех данных
-            doc.save("шаблон-final.docx")#сохранение документа
-
-            docx = Document("app/static/wordTemplates/шаблон.docx")
-            task = models.Tasks.query.filter_by(id = id).first()
-            taskKey = task.keys()
-            print(task)
-            print(taskKey)
-            print(task.idUser)
-            for idUser in taskKey:
-                docx.tables[1]
-                docx.tables[3].cell(1,0).text = 'привет'# 1 столбец, 2 строка 
-                docx.tables[3].cell(1,1).text = '30 дней с момента подписания настоящего соглашения'
-                docx.tables[3].cell(1,2).text = 'пока'
-                docx.tables[3].add_row()
-            docx.save('table.docx')
-            
-            i += 1
-
-        return render_template('create_contract.html',list=info, error = "Документы созданны и внесены на яндекс диск и в личное дело")
-    return render_template('create_contract.html', list=info)
+        id_sel = request.form.get('human') # Получаем ID пользователя из html
+        for i in tasks:
+            if id_sel == models.Tasks.idUser:
+                cells = str(models.Tasks.nameTask) + str(models.Tasks.timeTask) + str(models.Tasks.manyTask)
+        id_sel = int(id_sel) - 1
+        name = str(info[int(id_sel)].pr.name) # получаем имя из базы данных
+        birth_date = str(info[int(id_sel)].pr.birthDAy)# Получаем дату рождения
+        INN = str(info[int(id_sel)].pr.inn)#Получаем ИНН
+        passport_num = str(info[int(id_sel)].pr.passport)# Получаем номер и серию паспорта
+        passport_place = str(info[int(id_sel)].pr.passportBy)# Получаем место выдачи
+        passport_date = str(info[int(id_sel)].pr.passportData)# Получаем дату выдачи
+        passport_code = str(info[int(id_sel)].pr.passportCod)# Получаем код подразделения
+        address = str(info[int(id_sel)].pr.address)# Получаем адрес
+        bank_account = str(info[int(id_sel)].pr.bankAccount)# Получаем банковский счёт
+        bank_name = str(info[int(id_sel)].pr.bankName)# Получаем наименование банка
+        bank_details = str(info[int(id_sel)].pr.bank_details)# Получаем реквизиты банка
+        email = str(info[int(id_sel)].email)# Получаем электронную почту
+        create_contract.create_contract(name, birth_date, INN, passport_num, passport_place, passport_date, passport_code, address, bank_account, bank_name, bank_details, email)
+        return redirect(url_for('cabinet'))
+    return render_template('create_contract.html', name=name, id=id_sel, list=info)
 
 
 @app.route('/admin', methods=['POST', 'GET'])  # Страница, доступная ЛИШЬ админу

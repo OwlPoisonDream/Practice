@@ -5,5 +5,15 @@
 {% endblock %}
 
 {% block body %}
-
+<p>
+    {% for u in tasks%}
+        {% if current_user.id == u.idUser %}
+            {% if u.statusСompleted == "Complete" %}
+                    Дата: {{u.timeTask}} <br>
+                    Получено: {{u.manyTask}} <br> <br>
+            {%endif%}
+        {% endif %}
+    {% endfor %}
+</p>
+<p class="total"> Всего: {{total}}</p>
 {% endblock %}
