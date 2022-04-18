@@ -1256,3 +1256,18 @@ iframe{
   border: #5e4dc1 solid 2px;
   opacity: 25%;
 }
+.year_task{
+  position: absolute;
+  top:5%;
+  left:5%;
+}
+.month_task{
+  position: absolute;
+  top:5%;
+  left:35%;
+}
+.day_task{
+  position: absolute;
+  top:5%;
+  left:65%;
+}
