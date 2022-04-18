@@ -1,5 +1,6 @@
+from tkinter.tix import Select
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectMultipleField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 import email_validator
 from app.models import User
@@ -51,7 +52,28 @@ class PersonalForm(FlaskForm): # Форма для заполнения табл
     bank_details = StringField('Реквизиты банка ', validators=[]) # реквизиты банка  
     bankName = StringField('Название банка', validators=[]) # название банка
     phone_number = StringField('Номер телефона', validators=[]) # номер телефона
-    tags = StringField("Специальность", validators=[]) #Теги, отображающие специальности человека
+    tags = SelectMultipleField("Специальность",choices=[("Сценарист","Сценарист"),
+                                                ("Раскадровщик","Раскадровщик"),
+                                                ("Черновая анимация","Черновая анимация"),
+                                                ("Клин","Клин"),
+                                                ("Фоновик","Фоновик"),
+                                                ("3D-шник","3D-шник"),
+                                                ("Композер","Композер"),
+                                                ("Лейаут","Лейаут"),
+                                                ("Художник общего профиля","Художник общего профиля"),
+                                                ("Монтажер","Монтажер"),
+                                                ("Оператор","Оператор"),
+                                                ("Актёр озвучки","Актёр озвучки"),
+                                                ("Саунд-дизайнер","Саунд-дизайнер"),
+                                                ("Композитор","Композитор"),
+                                                ("Сведение и чистка звука","Сведение и чистка звука"),
+                                                ("Бухгалтер","Бухгалтер"),
+                                                ("Юрист","Юрист"),
+                                                ("Менеджер","Менеджер"),
+                                                ("Шрифтовик","Шрифтовик"),
+                                                ("Супервайзер","Супервайзер"),
+                                                ("Режиссёр","Режиссёр"),
+                                                ("Программист","Программист")], validators=[]) #Теги, отображающие специальности человека
     submit = SubmitField('Изменить данные')
 
 class CreateProject(FlaskForm):# создание проекта

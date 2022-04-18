@@ -10,9 +10,9 @@
         <div class="info"> <!-- инфа под автаркой-->
              <p class="FIO"><h2>ФИО: {{infoUser.name}}</h2></p>
              <p class="login"><h3>Никнейм: {{infoUser.nickname}}</h3></p>
-             <p class="status"><h3>Статус странички: {{current_user.who}} {% if current_user.who==2 %}- Менеджер {% endif %} 
-                 {% if current_user.who==1 %}- Шоураннер {% endif %} 
-                {% if current_user.who==0 %}- Исполнитель{% endif %}</h3></p>
+             <p class="status"><h3>Статус странички: {{user.who}} {% if user.who==2 %}- Менеджер {% endif %} 
+                 {% if user.who==1 %}- Шоураннер {% endif %} 
+                {% if user.who==0 %}- Исполнитель{% endif %}</h3></p>
         </div>
              <div class="info-group"> <!-- основная инфа-->
                  <div class="birthday"> <!-- дата рождения-->
@@ -113,6 +113,17 @@
                         <circle cx="25" cy="25" r="25" fill="#1B4AEF"/>
                         </svg>
                         <p>Код подразделения: {{infoUser.passportCod}}</p></div>
+                <div  class="spec_tags">
+                    <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="25" cy="25" r="25" fill="#B1A4FE"/>
+                        </svg>
+                        <p>Специальность: <br> {{infoUser.tags}}</p>
+                    </div>
+                </div>
+                <div>
+                    <p>Договора:</p>
+                    <p>{{error}}</p>
+                </div>
           </div>
 <!-- <div class="changing"><a href="/cabinet_changer">Изменить данные</a></div> -->
 <!-- кнопка "изменить"-->
@@ -130,7 +141,7 @@
      </svg>
     </a>
    </div>
-    
-</div>
+
+
 
 {% endblock %}
