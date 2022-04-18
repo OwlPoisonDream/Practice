@@ -224,6 +224,7 @@ def my_projects():
 @app.route('/salary', methods=['GET', 'POST'])  # Страница с зарплатами. Менеджер видит и устанавливает
 def salary():
     tasks = models.Tasks.query.all()
+    total = 0
     total_year = 0
     total_month = 0
     total_day = 0
@@ -231,6 +232,7 @@ def salary():
     for i in tasks:
         if current_user.id == i.idUser:
             task_time = datetime.strptime(i.timeTask,"%d.%m.%Y")
+            total += i.manyTask
             if now.year-task_time.year<=1:
                 total_year += int(i.manyTask)
                 if now.month == task_time.month:
@@ -238,7 +240,7 @@ def salary():
                     if now.day == task_time.day:
                         total_day += int(i.manyTask)
     return render_template("salary.html", tasks = tasks, current_user = current_user, 
-                           total_year = total_year, total_month = total_month, total_day = total_day, now = now)
+                           total_year = total_year, total_month = total_month, total_day = total_day, now = now, total = total)
 
 
 @app.route('/employeers', methods=['GET', 'POST'])  # Страница с сотрудниками компании. Доступна менеджеру
