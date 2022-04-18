@@ -131,3 +131,12 @@ name + ', именуемый (-ая) в дальнейшем "Подрядчик
             '4.	Настоящий Акт является основанием для выплаты Подрядчику вознаграждения в срок и порядке, предусмотренные Договором.'+'\n'+
             '5.	Настоящий Акт является неотъемлемой частью Договора, составлен в 2 (двух) экземплярах, имеющих равную юридическую силу, по одному для каждой из Сторон.', style='List Number')
     document.save('app/static/contract.docx') #Сохраняем документ
+
+
+
+from docxtpl import DocxTemplate #для работы с word
+#работа с вордом
+def word(context):
+    doc = DocxTemplate("static/dock/hablon.docx")# открыть word докумен
+    doc.render(context)
+    doc.save("static/dock/шаблон-final.docx")# сохранить word докумен

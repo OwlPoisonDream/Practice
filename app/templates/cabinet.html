@@ -6,26 +6,19 @@
 
     <div class = "main_cab"> <!-- основная панель-->
         <div class="avatar"> <img src="{{ url_for ('static', filename='x_06eb1977.jpg')}}"> </div> <!-- автарка-->
-        <div class="login"><p><h2>{{current_user.pr.nickname}}</h2></p></div>
             <div class="info"> <!-- инфа под автаркой-->
-                <h2>Личные данные</h2>
-                <p class="FIO"><h3>Ф.И.О</h3> {{current_user.pr.name}}</p>
-                <p class="status"><h3>Статус странички: </h3>{% if current_user.who==2 %}Менеджер {% endif %} 
-                     {% if current_user.who==1 %}Шоураннер {% endif %} 
-                     {% if current_user.who==0 %}Исполнитель{% endif %}</p>
-                <p class="birthday"><h3>Дата рождения </h3>{{current_user.pr.birthDAy}}</p>
+                 <p class="FIO"><h2>ФИО: {{current_user.pr.name}}</h2></p>
+                 <p class="login"><h3>Никнейм: {{current_user.pr.nickname}}</h3></p>
+                 <p class="status"><h3>Статус странички: {{current_user.who}} {% if current_user.who==2 %}- Менеджер {% endif %} 
+                     {% if current_user.who==1 %}- Шоураннер {% endif %} 
+                    {% if current_user.who==0 %}- Исполнитель{% endif %}</h3></p>
             </div>
-            <div class="line_2"></div>
-            <div class="passport">
-                <h2>Паспортные данные</h2>
-                <p>Серия и номер паспорта: {{current_user.pr.passport}}</p>
-                <p>Дата выдачи: {{current_user.pr.passportData}}</p>
-                <p>Кем выдан: {{current_user.pr.passportBy}}</p>
-                <p>Код подразделения: {{current_user.pr.passportCod}}</p>
-            </div>
-            <div class="line_1"></div>
                  <div class="info-group"> <!-- основная инфа-->
-                    <h2 class="addrss">Связь со мной</h2>
+                     <div class="birthday"> <!-- дата рождения-->
+                        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="25" cy="25" r="25" fill="#EF1B8D"/>
+                            </svg>
+                        <p>Дата рождения: {{current_user.pr.birthDAy}}</p></div>
                      <div class="email_cab"> <!-- почта-->
                         <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <rect width="50" height="50" fill="url(#pattern0)"/>
@@ -42,13 +35,6 @@
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M24.0556 35.9648H26.0178C26.0178 35.9648 26.6105 35.8997 26.9131 35.5735C27.1916 35.274 27.1827 34.7116 27.1827 34.7116C27.1827 34.7116 27.1444 32.0787 28.3663 31.691C29.5709 31.3091 31.1178 34.2357 32.7573 35.3609C33.9971 36.2126 34.9392 36.0258 34.9392 36.0258L39.3231 35.9648C39.3231 35.9648 41.6164 35.8235 40.529 34.0204C40.4398 33.8729 39.8957 32.6866 37.2695 30.2489C34.5207 27.6975 34.8888 28.1102 38.2 23.697C40.2166 21.0093 41.0228 19.3684 40.771 18.6656C40.5308 17.9962 39.0476 18.1731 39.0476 18.1731L34.1116 18.2039C34.1116 18.2039 33.7458 18.154 33.4744 18.3162C33.2092 18.4753 33.0385 18.8461 33.0385 18.8461C33.0385 18.8461 32.2573 20.9259 31.2154 22.6947C29.0174 26.427 28.1386 26.624 27.7794 26.3922C26.9438 25.8521 27.1524 24.2224 27.1524 23.0646C27.1524 19.4477 27.701 17.9396 26.0842 17.5492C25.5476 17.4196 25.1528 17.334 23.7806 17.3202C22.0194 17.3019 20.5287 17.3255 19.6846 17.7391C19.1231 18.014 18.69 18.6268 18.9538 18.662C19.28 18.7057 20.0189 18.8612 20.4106 19.3947C20.9164 20.0827 20.8986 21.6283 20.8986 21.6283C20.8986 21.6283 21.1892 25.886 20.2199 26.415C19.5545 26.7777 18.6418 26.0371 16.6823 22.651C15.6783 20.9166 14.9202 18.9994 14.9202 18.9994C14.9202 18.9994 14.774 18.6411 14.5133 18.4494C14.1969 18.2173 13.7548 18.1433 13.7548 18.1433L9.06439 18.174C9.06439 18.174 8.36027 18.1936 8.10179 18.4998C7.87184 18.7721 8.08352 19.3354 8.08352 19.3354C8.08352 19.3354 11.7557 27.9266 15.9136 32.2561C19.7261 36.2255 24.0556 35.9648 24.0556 35.9648Z" fill="white"/>
                             </svg>
                             <p>ссылка на ВК</p> </a> </div>
-                    <div class="phone"> <!-- телефон-->
-                        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <circle cx="25" cy="25" r="25" fill="#FF5A5A"/>
-                        </svg>
-                            <p>Номер телефона: {{current_user.pr.phone_number}}</p></div>
-                        <div class="line_3"></div>
-                        <h2 class="banks">Моя карта</h2>
                      <div class="inn_cab"> <!--инн-->
                         <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M25 50C38.8071 50 50 38.8071 50 25C50 11.1929 38.8071 0 25 0C11.1929 0 0 11.1929 0 25C0 38.8071 11.1929 50 25 50Z" fill="#EA8E43"/>
@@ -99,8 +85,33 @@
                             <path d="M18.6269 34.3432C16.4626 34.3432 14.589 33.6286 13.4562 32.519C13.3507 32.7829 13.2886 33.0576 13.2886 33.3422C13.2886 35.2001 15.6786 36.7064 18.6269 36.7064C21.575 36.7064 23.9651 35.2001 23.9651 33.3422C23.9651 33.0577 23.9029 32.7831 23.7974 32.5191C22.6646 33.6287 20.7911 34.3432 18.6269 34.3432Z" fill="white"/>
                             </svg>
                             <p>Наименование банка: {{current_user.pr.bank_name}}</p></div>
-                        <div class="line_4"></div>
-                    <h2 class="another">Прочее</h2>
+
+                     <div class="phone"> <!-- телефон-->
+                        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="25" cy="25" r="25" fill="#FF5A5A"/>
+                            </svg>
+                            
+                            <p>Номер телефона: {{current_user.pr.phone_number}}</p></div>
+                     <div class="pass1"> <!--серия и номер-->
+                        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="25" cy="25" r="25" fill="#45D654"/>
+                            </svg>
+                            <p>Серия и номер паспорта: {{current_user.pr.passport}}</p></div>
+                     <div class="pass2"> <!-- дата выдачи-->
+                        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="25" cy="25" r="25" fill="#B945D6"/>
+                            </svg>
+                            <p>Дата выдача: {{current_user.pr.passportData}}</p></div>
+                     <div class="pass3"> <!-- кем выдан-->
+                        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="25" cy="25" r="25" fill="#31E7DC"/>
+                            </svg>
+                            <p>Кем выдан: {{current_user.pr.passportBy}}</p></div>
+                     <div class="pass4"> <!-- код подразделения-->
+                        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="25" cy="25" r="25" fill="#1B4AEF"/>
+                            </svg>
+                            <p>Код подразделения: {{current_user.pr.passportCod}}</p></div>
                     <div  class="spec_tags">
                         <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="25" cy="25" r="25" fill="#B1A4FE"/>
