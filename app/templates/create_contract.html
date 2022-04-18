@@ -33,28 +33,43 @@
         }
       }
     }
-    //выбор элемента
     </script>
-    <style>
-    input[type=checkbox]{
-        display:none;
-      }
-      .check-box:hover::after{
-        color: black;
-      }
-    </style>
+
+ <style>
+
+ input[type=checkbox] { /*убираем тег чекбокс*/
+    display: none;
+ }
+ 
+ input:checked + label {/* изменение выбранного блока */
+    color: purple;
+    animation: current-anim-name;
+    animation-duration: 2s;
+    background-color: #6288df;
+
+ }
+ input:checked + label>div > .perchik1{
+  background-color: #6288df;
+  }
+
+
+</style>
       
     <ul class="perchiki">
     <input type="text" id="Search" onkeyup="functionSearch()" placeholder="Введите имя поиска">
-
-
-    <form>
-      <p><input type="submit" value="Создать договоры" ></p>
-    {% for u in list %}
     
-    <div class = "target"  class="check-box">
-      
-        <li class="perchik1">
+    <!--<input id="apple" type="checkbox" name="apple" />
+    <label for="apple">Apple</label>-->
+    <p color = "red"> {{error}}</p>
+    <form method="post">
+      <p><input type="submit" value="Создать договоры" ></p>
+      <p> C <input type="date" name="start" > до <input type="date" name = "end" ></p>
+    {% for u in list %}
+
+    <input id="{{u.id}}" value="{{u.id}}" type="checkbox" name="{{u.id}}"/>
+    <label for="{{u.id}}">
+    <div class = "target" for="{{u.id}}">
+        <li class="perchik1" id = "{{u.id}}">
             <div class="peravatar"> <img src="{{ url_for ('static', filename='x_06eb1977.jpg')}}"> </div> <!-- автарка-->
             <div class="indicator" >
                 <p class="n">99</p>        
@@ -62,14 +77,13 @@
                 <div class="nikperchika">
                     <!--<input type="checkbox" value="{{u.id}}">-->
                     <!--<p>Id = {{u.id}}</p>-->
-                    <input type="checkbox" id="cbtest" value="{{u.id}}"/>
                     <p>Почта: {{u.email}}</p>
                     <h3><p class="nik"> {{u.pr.name}}</p></h3>
                 </div>
         </li>
     </div>
+  </label>
     {% endfor %}
     </ul>
-
 </form>
 {% endblock %}
