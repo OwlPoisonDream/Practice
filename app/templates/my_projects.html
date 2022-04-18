@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Мои проекты
+{% endblock %}
+
+{% block body %}
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+  <!-- Скрипт плавного открытия и закрытия блока -->
+  <script type='text/javascript'> 
+    $(document).ready(function() { 
+      $("A#trigger").toggle(function() { 
+        // Отображаем скрытый блок 
+        $("DIV#create").fadeIn(); // fadeIn - плавное появление
+        return false; // не производить переход по ссылке
+      },  
+      function() { 
+        // Скрываем блок 
+        $("DIV#create").fadeOut(); // fadeOut - плавное исчезновение 
+        return false; // не производить переход по ссылке
+      }); // end of toggle() 
+    }); // end of ready() 
+    // скрипт поиска
+    function functionSearch() {
+      var input = document.getElementById("Search");
+      var filter = input.value.toLowerCase();
+      var nodes = document.getElementsByClassName('target');
+    
+  for (i = 0; i < nodes.length; i++) {
+    if (nodes[i].innerText.toLowerCase().includes(filter)) {
+      nodes[i].style.display = "block";
+    } else {
+      nodes[i].style.display = "none";
+    }
+  }
+}
+</script>
+
+<div class = "leftBody"> 
+  <h1>Проекты</h1> <br><br><br><br><br>
+  {% for u in projects %}
+  <div class="project"><p><li>ID проекта: {{u.id}}</li>
+    <li>Имя проекта: {{u.projectName}}</li>
+    <li>Описание проекта: {{u.descProject}}</li>
+    <li>Ссылка на проект: {{u.linkDisk}}</li>
+    <li>Люди в проекте <br></li></p></div>
+    {% endfor %}
+    <a href='#' id='trigger'>Создать проект</a> <!-- Всё происходит при нажатии на ссылку -->
+<div id = "create"  style='display: none;'>
+  <form action="" method="post">
+    <input type="text" name="projectName" placeholder="Название проекта">
+    <input type="text" name="descProject" placeholder="Описание проекта">
+    <input type="text" name="linkDisk" placeholder="Ссылка на гугл диск проекта">
+    <h3>Выбрать человека</h3>
+    <input type="text" id="Search" onkeyup="functionSearch()" placeholder="Введите имя поиска">
+    {% for j in list %}
+    <div class="target"><p><input type="checkbox" value="{{j.id}}" name = "id_sel" >{{j.pr.name}}</p></div>
+    {% endfor %}
+
+    <input type="submit" value="Создать задачу">
+  </form>
+</div> 
+</div>
+<div class = "leftBody2"> 
+  <h1>Папки</h1> <br><br><br><br><br>
+  <!--{% for u in projects %}
+  <div class="project"><p><li>ID проекта: {{u.id}}</li>
+    <li>Имя проекта: {{u.projectName}}</li>
+    <li>Описание проекта: {{u.descProject}}</li>
+    <li>Ссылка на проект: {{u.linkDisk}}</li>
+    <li>Люди в проекте <br></li></p></div>
+    {% endfor %}-->
+    <a href='#' id='trigger'>Создать папку</a>
+<div id = "create"  style='display: none;'>
+  <form action="" method="post">
+    <input type="text" name="projectName" placeholder="Название проекта">
+    <input type="text" name="descProject" placeholder="Описание проекта">
+    <input type="text" name="linkDisk" placeholder="Ссылка на гугл диск проекта">
+    <h3>Выбрать человека</h3>
+    <input type="text" id="Search" onkeyup="functionSearch()" placeholder="Введите имя поиска">
+    {% for j in list %}
+    <div class="target"><p><input type="checkbox" value="{{j.id}}" name = "id_sel" >{{j.pr.name}}</p></div>
+    {% endfor %}
+
+    <input type="submit" value="Создать задачу">
+  </form>
+</div> 
+</div>
+<div>Блок 1</div>
+<div>Блок 2</div>
+<div>Блок 3</div>
+{% endblock %}
