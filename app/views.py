@@ -113,19 +113,32 @@ def cabinet_changer():
     form = forms.PersonalForm()
     if request.method == 'POST':
         user_data = db.session.query(models.Users_Data).filter_by(idUser=current_user.id).one()  # выдает строку с id 2
-        user_data.name = form.name.data
-        user_data.birthDAy = form.birthDAy.data
-        user_data.passport = form.passport.data
-        user_data.passportData = form.passportData.data
-        user_data.passportBy = form.passportBy.data
-        user_data.passportCod = form.passportCod.data
-        user_data.nickname = form.nickname.data
-        user_data.link_vk = form.link_vk.data
-        user_data.inn = form.inn.data
-        user_data.bank_details = form.bank_details.data
-        user_data.bankName = form.bankName.data
-        user_data.phone_number = form.phone_number.data
-        user_data.tags = str(request.form.getlist('tags'))
+        if form.name.data != "" or form.name.data != None :
+            user_data.name = form.name.data
+        if form.birthDAy.data != "" or form.birthDAy.data != None :
+            user_data.birthDAy = form.birthDAy.data
+        if form.passport.data != "" or form.passport.data != None :
+         user_data.passport = form.passport.data
+        if form.passportData.data != "" or form.passportData.data != None :
+            user_data.passportData = form.passportData.data
+        if form.passportBy.data != "" or form.passportBy.data != None :
+            user_data.passportBy = form.passportBy.data
+        if form.passportCod.data != "" or form.passportCod.data != None :
+            user_data.passportCod = form.passportCod.data
+        if form.nickname.data != "" or form.nickname.data != None :
+            user_data.nickname = form.nickname.data
+        if form.link_vk.data != "" or form.link_vk.data != None :
+            user_data.link_vk = form.link_vk.data
+        if form.inn.data != "" or form.inn.data != None :
+            user_data.inn = form.inn.data
+        if form.bank_details.data != "" or form.bank_details.data != None :
+            user_data.bank_details = form.bank_details.data
+        if form.bankName.data != "" or form.bankName.data != None :
+            user_data.bankName = form.bankName.data
+        if form.phone_number.data != "" or form.phone_number.data != None :
+            user_data.phone_number = form.phone_number.data
+        if str(request.form.getlist('tags')) != "[]":
+            user_data.tags = str(request.form.getlist('tags'))
         db.session.add(user_data)
         db.session.commit()
         return redirect(url_for('cabinet'))
@@ -264,19 +277,30 @@ def completed_tasks_changer(who):
         user_data = db.session.query(models.Users_Data).filter_by(idUser=who).one()  # выдает строку с id 2
         if form.name.data != "" or form.name.data != None :
             user_data.name = form.name.data
-        if form.birthDAy.data != "" or form.name.data != None :
+        if form.birthDAy.data != "" or form.birthDAy.data != None :
             user_data.birthDAy = form.birthDAy.data
-        user_data.passport = form.passport.data
-        user_data.passportData = form.passportData.data
-        user_data.passportBy = form.passportBy.data
-        user_data.passportCod = form.passportCod.data
-        user_data.nickname = form.nickname.data
-        user_data.link_vk = form.link_vk.data
-        user_data.inn = form.inn.data
-        user_data.bank_details = form.bank_details.data
-        user_data.bankName = form.bankName.data
-        user_data.phone_number = form.phone_number.data
-        user_data.tags = str(request.form.getlist('tags'))
+        if form.passport.data != "" or form.passport.data != None :
+         user_data.passport = form.passport.data
+        if form.passportData.data != "" or form.passportData.data != None :
+            user_data.passportData = form.passportData.data
+        if form.passportBy.data != "" or form.passportBy.data != None :
+            user_data.passportBy = form.passportBy.data
+        if form.passportCod.data != "" or form.passportCod.data != None :
+            user_data.passportCod = form.passportCod.data
+        if form.nickname.data != "" or form.nickname.data != None :
+            user_data.nickname = form.nickname.data
+        if form.link_vk.data != "" or form.link_vk.data != None :
+            user_data.link_vk = form.link_vk.data
+        if form.inn.data != "" or form.inn.data != None :
+            user_data.inn = form.inn.data
+        if form.bank_details.data != "" or form.bank_details.data != None :
+            user_data.bank_details = form.bank_details.data
+        if form.bankName.data != "" or form.bankName.data != None :
+            user_data.bankName = form.bankName.data
+        if form.phone_number.data != "" or form.phone_number.data != None :
+            user_data.phone_number = form.phone_number.data
+        if str(request.form.getlist('tags')) != "[]":
+            user_data.tags = str(request.form.getlist('tags'))
         db.session.add(user_data)
         db.session.commit()
         return redirect(url_for('completed_tasks',who = who))
