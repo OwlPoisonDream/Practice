@@ -189,20 +189,11 @@ def my_documents():
 def my_projects():
     info = {}
     # отображение проектов
-    projects = models.Project.query.all() #запрос в базу данны
-    user_project = models.Users_Projects.query.all()
-    info = models.User.query.all()
-    list_yad = ()
+    projects = models.Project.query.all() #запрос в базу данны для вывода проектов
+    user_project = models.Users_Projects.query.all()#запрос в базу данны для вывода людей
+    info = models.User.query.all() #запрос в базу данны для вывода людей
     
-    if yToken.check_token()==True:# проверка токена
-        if yToken.exists("/Феникс проекты/") == False: # проверка на отсутсвие папки, или создание папки
-            print('Папка отсутствует')
-            print(yToken.mkdir("/Феникс проекты"))# создание папки и вывод папки в консоли
-        elif yToken.exists("/Феникс проекты/") == True:#если папка существует
-            print('Папка существует')
-            #print( yToken.check_token()) #получаем информацию о диске
-            print (yToken.listdir("/Феникс проекты"))#выводим содержимое папки вдтгоора
-    if request.method == 'POST':
+    if request.method == 'POST': # обработка post
         id_sel = request.form.get('human_project') # Получаем ID пользователя из html
         id_project = request.form.get("project_id")# Получаем ID проекта из html
         id_project = str(id_project)
@@ -214,16 +205,16 @@ def my_projects():
         elif yToken.exists("/Феникс проекты/"+ str(project_name)) == True:#если папка существует
             print('Папка существует')
             #print( yToken.check_token()) #получаем информацию о диске
-            print (yToken.listdir("/Феникс проекты"+ str(project_name)))#выводим содержимое папки вдтгоора
+            print (yToken.listdir("/Феникс проекты/"+ str(project_name)))#выводим содержимое папки вдтгоора
         listForm = request.form.to_dict()
         print(listForm)
         createProjekt = models.Project(projectName = listForm['projectName'],
-        descProject=listForm['descProject'],linkDisk = listForm['linkDisk'])
+        descProject=listForm['descProject'], linkDisk = "/Феникс проекты/"+ str(project_name))
 
         
 
         db.session.commit()# создание соеденения
-        createProjekt = models.Project()# переменная создания пароля 
+        createProjekt = models.Project()# 
         db.session.add(update_user_projects)# запись в базу данных users_projekt
         db.session.add(createProjekt)# запись в базу данных users_projekt
         db.session.commit()# закрытие соеденения с бд
