@@ -5,7 +5,18 @@
 {% endblock %}
 
 {% block body %}
-<div>
+<style>
+    h1{
+        position: relative;
+    }
+    .tabs {
+        padding: 12px;
+        background: rgba(4, 7, 75, 0.3);
+        backdrop-filter: blur(30px);
+    }
+</style>
+
+<div class="tabs">
 <h1>Договора:</h1>
 <p>{{error}}</p>
 {% for u in list %}

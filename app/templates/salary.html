@@ -6,18 +6,18 @@
 
 {% block body %}
 <style>
-.lins{
-    background-color: rgba(144, 82, 206, 0.35);
-    border-radius: 5px;
+    .lins{
+        background-color: rgba(144, 82, 206, 0.35);
+        border-radius: 5px;
 }
-h1{
+    h1{
     position: relative;
-}
-.tabs { margin:5% 25% 0 25%;
+    }
+    .tabs { margin:5% 25% 0 25%;
         width:40%; }
 
-.tabs>input { display: none; }
-
+    .tabs>input { display: none; }
+        
 .tabs>div {
     display: none;
     padding: 12px;
@@ -63,7 +63,7 @@ h1{
 
     <div id="txt_1">
         {% for u in task %}
-            {% if u.timeTask >= a %}
+            {% if u.timeTask == a %}
             <h2 align = "left">{{u.timeTask}}</h2>
             <div class="lins">
             <p align = "left">{{u.nameTask}}</p> 
@@ -86,13 +86,27 @@ h1{
         {% endfor %}
     </div>
     <div id="txt_3">
-        {% for u in task %}
-            <p>{{u.nameTask}} {{u.manyTask}} </p>
-        {% endfor %}
+    {% for u in task %}
+        {% if  u.timeTask >= c %}
+            <h3 align = "left">{{u.timeTask}}</h3>
+            <div class="lins">
+            <p align = "left">{{u.nameTask}}</p>
+            <p align = "right">{{u.manyTask}} ₽</p>
+            <p align = "left">проект</p> 
+            </div>
+        {% endif %}
+    {% endfor %}
     </div>
     <div id="txt_4">
-        {% for u in task %}
-            <p>{{u.timeTask}}</p>
-        {% endfor %}
+    {% for u in task %}
+        {% if  u.timeTask >= d %}
+            <h3 align = "left">{{u.timeTask}}</h3>
+            <div class="lins">
+            <p align = "left">{{u.nameTask}}</p>
+            <p align = "right">{{u.manyTask}} ₽</p>
+            <p align = "left">проект</p> 
+            </div>
+        {% endif %}
+    {% endfor %}
     </div>
 {% endblock %}

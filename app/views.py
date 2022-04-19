@@ -1,4 +1,5 @@
 # Обработчик ссылок
+from calendar import month
 import email
 from flask import  render_template, request, redirect, url_for  # для работы с интернетом
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -9,7 +10,7 @@ import yadisk
 from docxtpl import DocxTemplate # вставка данных в word 
 from docx import Document # вставка таблицы в word 
 import os
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta,date
 from app import yToken
 
 
@@ -221,13 +222,12 @@ def my_projects():
 def salary():
     task = models.Tasks.query.filter_by(idUser = current_user.id).all()# поиск отмеченных пользователя
     for u in task:
-        u.timeTask = datetime.strptime(u.timeTask,'%d.%m.%Y')
-        print(type(u.timeTask))
-    a = now.today()# время сейчас
-    print(type(a))
-    b = now.today() - timedelta(days=31)#время месяц назад
-    
-    return render_template("salary.html", task = task, a = a, b = b)
+        u.timeTask = datetime.strptime(u.timeTask,'%d.%m.%Y').date()
+    a = date.today()# время сейчас
+    b = date.today() - timedelta(days=7)#время неделю назад
+    c = date.today() - timedelta(weeks = 4)#время месяц назад
+    d = date.today() - timedelta(weeks = 48)#время год назад
+    return render_template("salary.html", task = task, a = a, b = b, c = c, d = d)
 
 
 @app.route('/employeers', methods=['GET', 'POST'])  # Страница с сотрудниками компании. Доступна менеджеру
@@ -262,8 +262,10 @@ def completed_tasks_changer(who):
     if form.validate_on_submit():
         print("я нажал на кнопку")
         user_data = db.session.query(models.Users_Data).filter_by(idUser=who).one()  # выдает строку с id 2
-        user_data.name = form.name.data
-        user_data.birthDAy = form.birthDAy.data
+        if form.name.data != "" or form.name.data != None :
+            user_data.name = form.name.data
+        if form.birthDAy.data != "" or form.name.data != None :
+            user_data.birthDAy = form.birthDAy.data
         user_data.passport = form.passport.data
         user_data.passportData = form.passportData.data
         user_data.passportBy = form.passportBy.data
