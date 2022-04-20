@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>{% block title %} {% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for ('static', filename='css/style.css')}}">
+</head>
+<body align="center">
+    <input type="checkbox" id="nav-toggle" hidden>
+    <nav class="nav">
+        <label for="nav-toggle" class="nav-toggle" onclick></label>
+        <h2 class="logo"> 
+            <a href="/cabinet">Личный кабинет</a> 
+        </h2>
+        <ul> 
+    {% if current_user.who == 1 %}
+         
+            <li><a href="/cabinet">Личный кабинет</a>
+            <li><a href="/my_tasks">Мои задачи</a>
+            <li><a href="/my_documents">Мои документы</a>
+            <li><a href="/salary">Моя зарплата</a>
+            <li><a href="/my_projects">Мои проекты</a>
+            <li><a href="/logout">Выход</a>
+   
+          
+    {% endif %}
+    
+    {% if current_user.who == 2 %} 
+                
+                <li><a href="/cabinet">Личный кабинет</a>
+                <li><a href="/my_tasks">Мои задачи</a>
+                <li><a href="/my_documents">Мои документы</a>
+                <li><a href="/salary">Зарплата</a>
+                <li><a href="/employeers"> Список сотрудников </a>
+                <!--<li><a href="complete_tasks"> Список выполненных задач по людям </a>-->
+                <li><a href="/create_contract"> Создание договоров </a>
+                <li><a href="/logout">Выход</a>
+        
+    {% endif %}
+
+    {% if current_user.who == 0 %}
+ 
+                    <li><a href="/cabinet">Личный кабинет</a>
+                    <li><a href="/my_tasks">Мои задачи</a>
+                    <li><a href="/my_documents">Мои документы</a>
+                    <li><a href="/salary">Моя зарплата</a>
+                    <li><a href="/logout">Выход</a>
+    {% endif %}
+</ul>
+</nav>
+
+    {% block body %} 
+
+    {% endblock %}
+</body>
+</html>
