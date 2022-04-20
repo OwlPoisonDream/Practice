@@ -3,29 +3,42 @@
 {% block title %} Личный кабинет {% endblock %}
 
 {% block body %} 
-
-    <div class = "main_cab"> <!-- основная панель-->
-        <div class="avatar"> <img src="{{ url_for ('static', filename='x_06eb1977.jpg')}}"> </div> <!-- автарка-->
-        <div class="login"><p><h2>{{current_user.pr.nickname}}</h2></p></div>
-            <div class="info"> <!-- инфа под автаркой-->
-                <h2>Личные данные</h2>
-                <p class="FIO"><h3>Ф.И.О</h3> {{current_user.pr.name}}</p>
-                <p class="status"><h3>Статус странички: </h3>{% if current_user.who==2 %}Менеджер {% endif %} 
+<div class="container" max-width="1600px">
+ <!-- основная панель-->
+ <div class="info1"> 
+     <div class="avatar"> <img src="{{ url_for ('static', filename='x_06eb1977.jpg')}}">
+     </div> <!-- автарка-->
+        <div class="login">{{current_user.pr.nickname}}</div>
+    </div>
+            <div class="info">
+                <div class="personal_data"> <!-- инфа под автаркой-->
+                <h1>Личные данные</h1>
+                <h3>Ф.И.О:</h3> 
+                <p>{{current_user.pr.name}}</p>
+                <h3>Статус странички: </h3>
+                <p>{% if current_user.who==2 %}Менеджер {% endif %} 
                      {% if current_user.who==1 %}Шоураннер {% endif %} 
                      {% if current_user.who==0 %}Исполнитель{% endif %}</p>
-                <p class="birthday"><h3>Дата рождения </h3>{{current_user.pr.birthDAy}}</p>
+                <h3>Дата рождения: </h3>
+                <p>{{current_user.pr.birthDAy}}</p>
+                <h3>Место проживания: </h3>
+                <p>Улица пушкина, д Колотушкина</p>
             </div>
-            <div class="line_2"></div>
             <div class="passport">
-                <h2>Паспортные данные</h2>
-                <p>Серия и номер паспорта: {{current_user.pr.passport}}</p>
-                <p>Дата выдачи: {{current_user.pr.passportData}}</p>
-                <p>Кем выдан: {{current_user.pr.passportBy}}</p>
-                <p>Код подразделения: {{current_user.pr.passportCod}}</p>
+                <h1>Паспортные данные</h1>
+                <h3>Серия и номер паспорта:</h3>
+                <p class="infotext">{{current_user.pr.passport}}</p>
+                <h3>Дата выдачи:</h3> 
+                <p class="infotext">{{current_user.pr.passportData}}</p>
+                <h3>Кем выдан:</h3> 
+                <p class="infotext">{{current_user.pr.passportBy}}</p>
+                <h3>Код подразделения:</h3>
+                 <p class="infotext">{{current_user.pr.passportCod}}</p>
             </div>
-            <div class="line_1"></div>
+        </div>
+
+            <div class = "main_cab">
                  <div class="info-group"> <!-- основная инфа-->
-                    <h2 class="addrss">Связь со мной</h2>
                      <div class="email_cab"> <!-- почта-->
                         <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                             <rect width="50" height="50" fill="url(#pattern0)"/>
@@ -47,8 +60,6 @@
                             <circle cx="25" cy="25" r="25" fill="#FF5A5A"/>
                         </svg>
                             <p>Номер телефона: {{current_user.pr.phone_number}}</p></div>
-                        <div class="line_3"></div>
-                        <h2 class="banks">Моя карта</h2>
                      <div class="inn_cab"> <!--инн-->
                         <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M25 50C38.8071 50 50 38.8071 50 25C50 11.1929 38.8071 0 25 0C11.1929 0 0 11.1929 0 25C0 38.8071 11.1929 50 25 50Z" fill="#EA8E43"/>
@@ -99,8 +110,6 @@
                             <path d="M18.6269 34.3432C16.4626 34.3432 14.589 33.6286 13.4562 32.519C13.3507 32.7829 13.2886 33.0576 13.2886 33.3422C13.2886 35.2001 15.6786 36.7064 18.6269 36.7064C21.575 36.7064 23.9651 35.2001 23.9651 33.3422C23.9651 33.0577 23.9029 32.7831 23.7974 32.5191C22.6646 33.6287 20.7911 34.3432 18.6269 34.3432Z" fill="white"/>
                             </svg>
                             <p>Наименование банка: {{current_user.pr.bank_name}}</p></div>
-                        <div class="line_4"></div>
-                    <h2 class="another">Прочее</h2>
                     <div  class="spec_tags">
                         <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <circle cx="25" cy="25" r="25" fill="#B1A4FE"/>
@@ -108,7 +117,8 @@
                             <p>Специальность: <br> {{current_user.pr.tags}}</p>
                         </div>
               </div>
-   <!-- <div class="changing"><a href="/cabinet_changer">Изменить данные</a></div> -->
+            </div>
+        </div>
     <div class="changing"> <!-- кнопка "изменить"-->
         <a href="/cabinet_changer">
             <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" border="0">
@@ -125,6 +135,7 @@
        </div>
         
     </div>
+
 {% endblock %}
 
 

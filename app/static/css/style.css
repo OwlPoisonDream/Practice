@@ -1,8 +1,16 @@
+*{
+  margin: 0;
+  padding: 0;
+}
 
 body{
     background-image: url(../bg1.svg);
     background-color: rgb(0, 0, 0);
     color: white;
+    background-size: cover;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Open Sans', sans-serif;
 }
 
 
@@ -501,7 +509,7 @@ body{
   h1,
   button {
     margin-left: 5px;
-    font-family: 'PT Sans';
+    font-family: 'Open Sans', sans-serif;
   }
   
   h2 {
@@ -610,7 +618,7 @@ body{
     display: block;
     position: relative;
     list-style: none;
-    font-family: 'PT Sans';
+    font-family: 'Open Sans', sans-serif;
     min-height: 48px;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -828,77 +836,138 @@ body{
   }
   
 
-  * {
-    outline: none;
-    font-family: sans-serif;
-}
-
 a{
     text-decoration: none;
     color: white;
 }
-body{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-}
 
+/* ----------------------------------------------------------------------------- ЛИЧНЫЙ КАБИНЕТ --------------------------------------------------------------------*/
 /* автарка */
-.avatar{
-    display: flex;
-    position: absolute;
-    width: 150px;
-    height: 150px;
-    left: 14%;
-    top: 8%;
-    border-radius: 50%;
-    overflow: hidden;
+.container{
+  width: 1280px;
+  height: 100vh;
+  margin: 0px auto;
+  top: 10%;
+  padding-left: 5%;
 }
 
-/* параметры картинки в автарке */
-img {
-    position: static;
-    width: 100%;
+.info1{
+  position: relative;
+  top: 5%;
+  width: 100%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+
 }
-svg{
-    width: 100;
-    height: 100;
+.avatar{
+  display: flex;
+  justify-content: center;
+  width: 70%;
+  height: 70%;
 }
-.info{
+.avatar img{
+    position: relative;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+}
+/* Для никнейма */
+.login{
     position: absolute;
-    top: 1%;
-    left: 35%;
-    height: 50%;
-    flex-direction: column;
-    text-align: left;
+    font-size: 30pt;
+    font-weight: 700;
+    top: 80%;
 }
+/* параметры картинки в автарке */
+
+svg{
+    width: 100px;
+    height: 100px;
+}
+
 
 /* Ячейка с параметрами */
 .main_cab{
-    width: 60%;
-    height: 100%;
-    position: absolute;
-    background-color: #0a073ad2;
-    top:8%;
+    max-width: 100%;
+    height: 800px;
+    position: relative;
+    background-color: #0a073ae0;
+    top: 15%;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
     border-radius: 15px;
     box-shadow: -1px 3px 8px -1px rgba(0, 0, 0, 0.2);
-    z-index: 3;
+    font-size: 20px;
+    font-size: calc(14px + 6 * ((100vw - 320px) / (1600 - 320)));
+    text-align: center;
+}
+.info{
+  position: relative;
+  margin: 0px auto;
+  top: 10%;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 500px;
+  text-align: left;
+  display: flex;
+  
+}
+.personal_data{
+  position: relative;
+  background-color: #0a073ad2;
+  width: 49%;
+  border-radius: 15px;
+  font-size: 16px;
+  font-size: calc(10px + 6 * ((100vw - 320px) / (1600 - 320)));
+  flex-direction: column;
+}
+.passport{
+  position: relative;
+  background-color: #0a073ad2;
+  width: 49%;
+  left: 2%;
+  border-radius: 15px;
+  font-size: 16px;
+  font-size: calc(10px + 6 * ((100vw - 320px) / (1600 - 320)));
+  flex-direction: column;
+}
+h1{
+  position: relative;
+  font-size: 26px;
+  margin: 0px 40px 40px 0px;
+  font-size: calc(16px + 6 * ((100vw - 320px) / (1600 - 320)));
 }
 
+h3{
+  position: relative;
+  font-weight: 700;
+}
+p{
+  margin: 10px 0px 20px 20px;
+}
+
+@media (max-width: 1180px){
+  .container{
+    max-width: 767px;
+  }
+
+}
+
+@media (max-width: 750px){
+  .container{
+    max-width: 300px;
+  }
+}
 /* Для ФИО */
 .FIO{
     position: absolute;
     top:2%;
     left:34%;
 }
-/* Для никнейма */
-.login{
-    position: absolute;
-    top:24%;
-    left:11%;
-    font-size: 22pt;
-}
+
 /* для отображения прав доступа */
 .status{
     position: absolute;
@@ -907,10 +976,9 @@ svg{
 }
 .info-group{
     position: relative;
-    top: 40%;
-    flex-direction: column;
+    top: 10%;
     width: 100%;
-    height: 100%;
+    height: 60%;
 }
 /* для отображения даты Рождения */
 .birthday{
@@ -919,42 +987,40 @@ svg{
 /* для отображения электронной почты */
 .email_cab{
     position: absolute;
-    top:8%;
+    margin: 0 auto;
     left:70%;
     width: 20%;
 }
 /* для отображения ссылки на вк */
 .vk_link{
     position: absolute;
-    top:8%;
     left:10%;
     width: 20%;
 }
 /* Для отображения ИНН */
 .inn_cab{
     position: absolute;
-    top:28%;
+    top: 40%;
     left:70%;
     width: 20%;
 }
 /* Для отображения реквизитов банка */
 .bank_details_cab{
     position: absolute;
-    top:28%;
+    top:40%;
     left:40%;
     width: 20%;
 }
 /* Для отображения имени банка */
 .bname{
     position: absolute;
-    top:28%;
+    top: 40%;
     left:10%;
     width: 20%;
 }
 /* для отображения номера телефона */
 .phone{
     position: absolute;
-    top:8%;
     left:40%;
     width: 20%;
 }
@@ -976,6 +1042,18 @@ svg{
   flex-shrink: 0;
   transition: 0.5s;
  }
+ .spec_tags{
+  position: absolute;
+  top:80%;
+  left:10%;
+  width: 20%;
+}
+#tags{
+  height: 35px;
+  background: #A7AAE8;
+  border-radius: 15px;
+}
+
 /* То же самое, но для смены данных */
 .name_ch{
     position: absolute;
@@ -1193,81 +1271,4 @@ iframe{
   position: absolute;
   top:10%;
   left:5%;
-}
-.spec_tags{
-  position: absolute;
-  top:47%;
-  left:10%;
-  width: 20%;
-}
-#tags{
-  height: 35px;
-  background: #A7AAE8;
-  border-radius: 15px;
-}
-.passport{
-  position: absolute;
-  top: 1%;
-  left: 65%;
-  text-align: left;
-  width:45%;
-}
-.addrss{
-  position: absolute;
-  top:1%;
-  left:12%;
-}
-.banks{
-  position: absolute;
-  top:21%;
-  left:12%;
-}
-.another{
-  position: absolute;
-  top:42%;
-  left:12%;
-}
-.line_1{
-  position: absolute;
-  top: 38%;
-  width:99.5%;
-  border: #5e4dc1 solid 2px;
-  opacity: 25%;
-}
-.line_2{
-  position: absolute;
-  left: 63%;
-  top:1.5%;
-  height: 35%;
-  opacity: 25%;
-  border: #5e4dc1 solid 2px;
-}
-.line_3{
-  position: absolute;
-  top: 22%;
-  width:99.5%;
-  border: #5e4dc1 solid 2px;
-  opacity: 25%;
-}
-.line_4{
-  position: absolute;
-  top: 43%;
-  width:99.5%;
-  border: #5e4dc1 solid 2px;
-  opacity: 25%;
-}
-.year_task{
-  position: absolute;
-  top:5%;
-  left:5%;
-}
-.month_task{
-  position: absolute;
-  top:5%;
-  left:35%;
-}
-.day_task{
-  position: absolute;
-  top:5%;
-  left:65%;
 }
