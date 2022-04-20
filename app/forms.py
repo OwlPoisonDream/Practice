@@ -1,6 +1,7 @@
 from tkinter.tix import Select
+from wsgiref.validate import validator
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectMultipleField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectMultipleField,FileField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 import email_validator
 from app.models import User
@@ -42,6 +43,8 @@ class ResetPasswordForm(FlaskForm): # Форма сброса пароля
 class PersonalForm(FlaskForm): # Форма для заполнения таблицы users_Data
     name = StringField('ФИО', validators=[]) #ФИО
     nickname = StringField('Прозвище', validators=[]) # прозвище
+    address = StringField('Адрес', validators=[])
+    avatar = FileField("Аватарка", validators=[])
     link_vk = StringField('Ссылка на ВК', validators=[]) # ссылка на вк
     birthDAy = StringField('Дата Рождения', validators=[])# Дата рождения 
     passport = StringField('Номер паспорта', validators=[])# номер паспорта

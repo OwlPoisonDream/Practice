@@ -3,6 +3,7 @@ from calendar import month
 import email
 from flask import  render_template, request, redirect, url_for  # для работы с интернетом
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.utils import secure_filename
 from flask_login import login_required, login_user, current_user, logout_user
 from app import app, models, db, forms
 from app.email import send_password_reset_email
@@ -13,7 +14,7 @@ import os
 from datetime import datetime, timedelta,date
 from app import yToken
 
-
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 now = datetime.now()
 # print("[log] обработка страниц запущена")
 
@@ -106,8 +107,7 @@ def cabinet():
     
 
 
-@app.route('/cabinet_changer',
-           methods=['POST', 'GET'])  # Страница для изменения данных в личном кабинете и вноса изменений в базу данных
+@app.route('/cabinet_changer',methods=['POST', 'GET'])  # Страница для изменения данных в личном кабинете и вноса изменений в базу данных
 @login_required  # только зарегистрированный человек сможет зайти
 def cabinet_changer():
     form = forms.PersonalForm()
@@ -139,6 +139,10 @@ def cabinet_changer():
             user_data.phone_number = form.phone_number.data
         if str(request.form.getlist('tags')) != "[]":
             user_data.tags = str(request.form.getlist('tags'))
+        if form.avatar.data != "" or form.avatar.data !=None:
+            avatar_file = form.avatar.data
+        print(avatar_file)
+        avatar_file.save("app/static/" + "x_06eb1977" + ".jpg")
         db.session.add(user_data)
         db.session.commit()
         return redirect(url_for('cabinet'))
@@ -169,12 +173,18 @@ def my_tasks():
     return render_template("my_tasks.html",form = form, list=info, today=today, now=now, current_user = current_user)
 
 
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
 @app.route('/my_documents', methods=['GET', 'POST'])  # Страница с документами пользователя
 def my_documents():
     user = models.Users_Data.query.filter_by(id = current_user.id ).first()#поиск юзера
+    List = {}
     if request.method == 'POST':
-        file = request.files('f')
-        file.save("app/static/checkTemplates/" + nameFail + ".pdf")
+        file = request.files['file']
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join('static', filename))
         listForm = request.form.to_dict()
         listFormKeys = listForm.keys()# выводим все ключи выбранных блоках
         # вставка данных
@@ -197,7 +207,6 @@ def my_documents():
         return render_template('my_documents.html',list=user, error = "Чек прикреплён и внесен на яндекс диск")
     try:
         docList = list(yToken.listdir("/чеки/" + user.name))
-        List = {}
         a = 0
         for i in docList:
             d = {docList[a].name : docList[a].file}
@@ -208,24 +217,16 @@ def my_documents():
     return render_template("my_documents.html", list = List)
 
 
+
 @app.route('/my_projects', methods=['GET', 'POST'])  # Страница с проектами шоураннера
 def my_projects():
     info = {}
     # отображение проектов
-    projects = models.Project.query.all() #запрос в базу данны
-    user_project = models.Users_Projects.query.all()
-    info = models.User.query.all()
-    list_yad = ()
+    projects = models.Project.query.all() #запрос в базу данны для вывода проектов
+    user_project = models.Users_Projects.query.all()#запрос в базу данны для вывода людей
+    info = models.User.query.all() #запрос в базу данны для вывода людей
     
-    if yToken.check_token()==True:# проверка токена
-        if yToken.exists("/Феникс проекты/") == False: # проверка на отсутсвие папки, или создание папки
-            print('Папка отсутствует')
-            print(yToken.mkdir("/Феникс проекты"))# создание папки и вывод папки в консоли
-        elif yToken.exists("/Феникс проекты/") == True:#если папка существует
-            print('Папка существует')
-            #print( yToken.check_token()) #получаем информацию о диске
-            print (yToken.listdir("/Феникс проекты"))#выводим содержимое папки вдтгоора
-    if request.method == 'POST':
+    if request.method == 'POST': # обработка post
         id_sel = request.form.get('human_project') # Получаем ID пользователя из html
         id_project = request.form.get("project_id")# Получаем ID проекта из html
         id_project = str(id_project)
@@ -237,16 +238,16 @@ def my_projects():
         elif yToken.exists("/Феникс проекты/"+ str(project_name)) == True:#если папка существует
             print('Папка существует')
             #print( yToken.check_token()) #получаем информацию о диске
-            print (yToken.listdir("/Феникс проекты"+ str(project_name)))#выводим содержимое папки вдтгоора
+            print (yToken.listdir("/Феникс проекты/"+ str(project_name)))#выводим содержимое папки вдтгоора
         listForm = request.form.to_dict()
         print(listForm)
         createProjekt = models.Project(projectName = listForm['projectName'],
-        descProject=listForm['descProject'],linkDisk = listForm['linkDisk'])
+        descProject=listForm['descProject'], linkDisk = "/Феникс проекты/"+ str(project_name))
 
         
 
         db.session.commit()# создание соеденения
-        createProjekt = models.Project()# переменная создания пароля 
+        createProjekt = models.Project()# 
         db.session.add(update_user_projects)# запись в базу данных users_projekt
         db.session.add(createProjekt)# запись в базу данных users_projekt
         db.session.commit()# закрытие соеденения с бд
