@@ -219,12 +219,15 @@ def my_projects():
     if request.method == 'POST': # обработка post
         id_sel = request.form.get('human_project') # Получаем ID пользователя из html
         id_project = request.form.get("project_id")# Получаем ID проекта из html
-        id_project = str(id_project)
-        project_name=request.form.get("projectName")
+        id_project = str(id_project)#переводим в страку 
+        project_name=request.form.get("projectName")#получаем имя проекта
+
         update_user_projects = models.Users_Projects(User_id=id_sel, Project_id=id_project)# обновления таблицы Users_project
+        
         if yToken.exists("/Феникс проекты/" + str(project_name)):
             print('Папка отсутствует')
-            print(yToken.mkdir("/Феникс проекты" + str(project_name)))# создание папки и вывод папки в консоли
+            yToken.mkdir("/Феникс проекты/" + str(project_name))# создание папки и вывод папки в консоли
+        
         elif yToken.exists("/Феникс проекты/"+ str(project_name)) == True:#если папка существует
             print('Папка существует')
             #print( yToken.check_token()) #получаем информацию о диске
