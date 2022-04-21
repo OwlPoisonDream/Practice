@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Зарплата
+{% endblock %}
+
+{% block body %}
+<style>
+    .lins{
+        background-color: rgba(144, 82, 206, 0.35);
+        border-radius: 5px;
+}
+    h1{
+    position: relative;
+    }
+    .tabs { margin:5% 25% 0 25%;
+        width:40%; }
+
+    .tabs>input { display: none; }
+        
+.tabs>div {
+    display: none;
+    padding: 12px;
+    background: rgba(4, 7, 75, 0.3);
+    backdrop-filter: blur(30px);
+}
+.tabs>label {
+    display: inline-block;
+    padding: 7px;
+    margin: 0 -5px -1px 0;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+}
+.tabs>input:checked + label {
+    color: #000000;
+    border: 1px solid #C0C0C0;
+    border-bottom: 1px solid #FFFFFF;
+    background: #FFFFFF;
+    text-decoration: underline;
+}
+#tab_1:checked ~ #txt_1,
+#tab_2:checked ~ #txt_2,
+#tab_3:checked ~ #txt_3,
+#tab_4:checked ~ #txt_4 { display: block; }
+</style>
+
+
+<div class="tabs" class = "target">
+    <h1 align = "center">Доходы:</h1>
+    <p align = "center">Всего за всё время выплачено: {{total}}</p>
+    <input type="radio" name="inset" value="" id="tab_1" checked>
+    <label for="tab_1">День</label>
+
+    <input type="radio" name="inset" value="" id="tab_2">
+    <label for="tab_2">Неделя</label>
+
+    <input type="radio" name="inset" value="" id="tab_3">
+    <label for="tab_3">Месяц</label>
+
+    <input type="radio" name="inset" value="" id="tab_4">
+    <label for="tab_4">Год</label>
+
+    <div id="txt_1">
+        {% for u in task %}
+            {% if u.timeTask == a %}
+            <h2 align = "left">{{u.timeTask}}</h2>
+            <div class="lins">
+            <p align = "left">{{u.nameTask}}</p> 
+            <p align = "left">проект</p> 
+            <p align = "right">{{u.manyTask}} ₽</p>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div id="txt_2">
+        {% for u in task %}
+            {% if  u.timeTask >= b %}
+                <h3 align = "left">{{u.timeTask}}</h3>
+                <div class="lins">
+                <p align = "left">{{u.nameTask}}</p>
+                <p align = "right">{{u.manyTask}} ₽</p>
+                <p align = "left">проект</p> 
+                </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    <div id="txt_3">
+    {% for u in task %}
+        {% if  u.timeTask >= c %}
+            <h3 align = "left">{{u.timeTask}}</h3>
+            <div class="lins">
+            <p align = "left">{{u.nameTask}}</p>
+            <p align = "right">{{u.manyTask}} ₽</p>
+            <p align = "left">проект</p> 
+            </div>
+        {% endif %}
+    {% endfor %}
+    </div>
+    <div id="txt_4">
+    {% for u in task %}
+        {% if  u.timeTask >= d %}
+            <h3 align = "left">{{u.timeTask}}</h3>
+            <div class="lins">
+            <p align = "left">{{u.nameTask}}</p>
+            <p align = "right">{{u.manyTask}} ₽</p>
+            <p align = "left">проект</p> 
+            </div>
+        {% endif %}
+    {% endfor %}
+    </div>
+{% endblock %}
