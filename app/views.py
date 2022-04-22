@@ -12,12 +12,15 @@ from docx import Document # вставка таблицы в word
 import os
 from datetime import datetime, timedelta,date
 from app import yToken
+from flask_wtf.file import FileField, FileRequired
+from werkzeug.utils import secure_filename
 
 
 now = datetime.now()
 # print("[log] обработка страниц запущена")
 
 @app.route('/createDb')  # вход
+@login_required  # только зарегистрированный человек сможет зайти
 def createDb():
     db.create_all()  # создаем БД
     user = models.User(email="root", who=2)
@@ -111,40 +114,92 @@ def cabinet():
 def cabinet_changer():
     form = forms.PersonalForm()
     if request.method == 'POST':
-        user_data = db.session.query(models.Users_Data).filter_by(idUser=current_user.id).one()  # выдает строку с id 2
-        if form.name.data != "" or form.name.data != None :
+        user_data = db.session.query(models.Users_Data).filter_by(idUser=current_user.id).one()  # выдает строку с id
+        if form.name.data and form.name.data.strip() and form.name.data != None :
             user_data.name = form.name.data
-        if form.birthDAy.data != "" or form.birthDAy.data != None :
+
+        if form.birthDAy.data and form.birthDAy.data.strip() and form.birthDAy.data != None :
             user_data.birthDAy = form.birthDAy.data
-        if form.passport.data != "" or form.passport.data != None :
+
+        if form.passport.data and form.passport.data.strip() and form.passport.data != None :
          user_data.passport = form.passport.data
-        if form.passportData.data != "" or form.passportData.data != None :
+
+        if form.passportData.data and form.passportData.data.strip() and form.passportData.data != None :
             user_data.passportData = form.passportData.data
-        if form.passportBy.data != "" or form.passportBy.data != None :
+
+        if form.passportBy.data and form.passportBy.strip() and form.passportBy.data != None :
             user_data.passportBy = form.passportBy.data
-        if form.passportCod.data != "" or form.passportCod.data != None :
+
+        if form.passportCod.data and form.passportCod.strip() and form.passportCod.data != None and len(form.passportCod.data)==6:
             user_data.passportCod = form.passportCod.data
-        if form.nickname.data != "" or form.nickname.data != None :
+
+        if form.nickname.data and form.nickname.strip() and form.nickname.data != None :
             user_data.nickname = form.nickname.data
-        if form.link_vk.data != "" or form.link_vk.data != None :
+            
+        if form.link_vk.data and form.link_vk.strip() and form.link_vk.data != None :
             user_data.link_vk = form.link_vk.data
-        if form.inn.data != "" or form.inn.data != None :
+
+        if form.inn.data and form.inn.strip() and form.inn.data != None and len(form.inn.data)==12:
             user_data.inn = form.inn.data
-        if form.bank_details.data != "" or form.bank_details.data != None :
+
+        if form.bank_details.data and form.bank_details.strip() and form.bank_details.data != None :
             user_data.bank_details = form.bank_details.data
-        if form.bankName.data != "" or form.bankName.data != None :
+
+        if form.bankName.data and form.bankName.strip() and form.bankName.data != None :
             user_data.bankName = form.bankName.data
-        if form.phone_number.data != "" or form.phone_number.data != None :
+
+        if form.phone_number.data and form.phone_number.strip() and form.phone_number.data != None and len(form.phone_number.data)<=18:
             user_data.phone_number = form.phone_number.data
+
         if str(request.form.getlist('tags')) != "[]":
             user_data.tags = str(request.form.getlist('tags'))
+        print(user_data)
+
+        if form.photo.data != None :
+            # загрузка фото
+            f = form.photo.data
+            filename = secure_filename(f.filename)
+            f.save(os.path.join(
+            "app", 'static/photos', filename
+            ))
+            if yToken.exists("/Фотки для профиля/" + str(current_user.pr.name)) == False:
+                yToken.mkdir("/Фотки для профиля/"+ str(current_user.pr.name)) # создание папки
+                try:
+                    yToken.upload("app/static/photos/" + filename , "/Фотки для профиля/"+ str(current_user.pr.name) + "/" + filename)
+                    
+                    if os.path.isfile("app/static/wordTemplates/"+ filename): 
+                        os.remove("app/static/wordTemplates/"+ filename) 
+                        print("удалил") 
+                    else: 
+                        print("файла и небыло")
+
+                except yadisk.exceptions.PathExistsError:
+                    return render_template('cabinet_changer.html', error="Проблема с яндекс диском")
+            elif yToken.exists("/Фотки для профиля/" + str(current_user.pr.name)) == True: #если папка существует
+                try:
+                    yToken.upload("app/static/wordTemplates/"+ filename, "/Фотки для профиля/"+ str(current_user.pr.name) + "/" + filename)
+                    
+                    if os.path.isfile("app/static/wordTemplates/"+ filename): 
+                        os.remove("app/static/wordTemplates/"+ filename) 
+                        print("удалил") 
+                    else: 
+                        print("файла и небыло")
+
+                except yadisk.exceptions.PathExistsError:
+                    return render_template('cabinet_changer.html', error="Проблема с яндекс диском")
+
+            user_data.avatar = form.photo.data.filename
+
         db.session.add(user_data)
         db.session.commit()
+        
         return redirect(url_for('cabinet'))
-    return render_template('cabinet_changer.html', form=form)
+    error = "ошибка"
+    return render_template('cabinet_changer.html', form=form, error = error)
 
 
 @app.route('/my_tasks', methods=['GET', 'POST'])  # Страница с задачами пользователя
+@login_required  # только зарегистрированный человек сможет зайти
 def my_tasks(): 
     info = models.Tasks.query.all()
     today = str(now.day) + "." + str(now.month) + "." + str(now.year)
@@ -169,6 +224,7 @@ def my_tasks():
 
 
 @app.route('/my_documents', methods=['GET', 'POST'])  # Страница с документами пользователя
+@login_required  # только зарегистрированный человек сможет зайти
 def my_documents():
     user = models.Users_Data.query.filter_by(id = current_user.id ).first()#поиск юзера
     List = {}
@@ -209,6 +265,7 @@ def my_documents():
 
 
 @app.route('/my_projects', methods=['GET', 'POST'])  # Страница с проектами шоураннера
+@login_required  # только зарегистрированный человек сможет зайти
 def my_projects():
     info = {}
     # отображение проектов
@@ -249,6 +306,7 @@ def my_projects():
 
 
 @app.route('/salary', methods=['GET', 'POST'])  # Страница с зарплатами. Менеджер видит и устанавливает
+@login_required  # только зарегистрированный человек сможет зайти
 def salary():
     task = models.Tasks.query.filter_by(idUser = current_user.id).all()# поиск отмеченных пользователя
     for u in task:
@@ -261,12 +319,14 @@ def salary():
 
 
 @app.route('/employeers', methods=['GET', 'POST'])  # Страница с сотрудниками компании. Доступна менеджеру
+@login_required  # только зарегистрированный человек сможет зайти
 def employeers():
     info = models.User.query.all()
     return render_template("employeers.html", list = info)
 
 
 @app.route('/completed_tasks/<who>/', methods=['GET', 'POST'])  # Страница с выполненными задачами по людям
+@login_required  # только зарегистрированный человек сможет зайти
 def completed_tasks(who):
     user = models.User.query.filter_by(id = who).first()
     infoUser = models.Users_Data.query.filter_by(idUser = who).first()
@@ -284,6 +344,7 @@ def completed_tasks(who):
     return render_template("completed_tasks.html",user = user,infoUser = infoUser, list = List)
 
 @app.route('/cabinet_tasks_changer/<who>/', methods=['GET', 'POST'])  # Страница с выполненными задачами по людям
+@login_required  # только зарегистрированный человек сможет зайти
 def completed_tasks_changer(who):
     form = forms.PersonalForm()
     
@@ -292,32 +353,44 @@ def completed_tasks_changer(who):
     if form.validate_on_submit():
         print("я нажал на кнопку")
         user_data = db.session.query(models.Users_Data).filter_by(idUser=who).one()  # выдает строку с id 2
-        if form.name.data != "" or form.name.data != None :
+        if form.name.data and form.name.data.strip() and form.name.data != None :
             user_data.name = form.name.data
-        if form.birthDAy.data != "" or form.birthDAy.data != None :
+
+        if form.birthDAy.data and form.birthDAy.data.strip() and form.birthDAy.data != None :
             user_data.birthDAy = form.birthDAy.data
-        if form.passport.data != "" or form.passport.data != None :
+
+        if form.passport.data and form.passport.data.strip() and form.passport.data != None :
          user_data.passport = form.passport.data
-        if form.passportData.data != "" or form.passportData.data != None :
+
+        if form.passportData.data and form.passportData.data.strip() and form.passportData.data != None :
             user_data.passportData = form.passportData.data
-        if form.passportBy.data != "" or form.passportBy.data != None :
+
+        if form.passportBy.data and form.passportBy.strip() and form.passportBy.data != None :
             user_data.passportBy = form.passportBy.data
-        if form.passportCod.data != "" or form.passportCod.data != None :
+
+        if form.passportCod.data and form.passportCod.strip() and form.passportCod.data != None and len(form.passportCod.data)==6:
             user_data.passportCod = form.passportCod.data
-        if form.nickname.data != "" or form.nickname.data != None :
+
+        if form.nickname.data and form.nickname.strip() and form.nickname.data != None :
             user_data.nickname = form.nickname.data
-        if form.link_vk.data != "" or form.link_vk.data != None :
+            
+        if form.link_vk.data and form.link_vk.strip() and form.link_vk.data != None :
             user_data.link_vk = form.link_vk.data
-        if form.inn.data != "" or form.inn.data != None :
+
+        if form.inn.data and form.inn.strip() and form.inn.data != None and len(form.inn.data)==12:
             user_data.inn = form.inn.data
-        if form.bank_details.data != "" or form.bank_details.data != None :
+
+        if form.bank_details.data and form.bank_details.strip() and form.bank_details.data != None :
             user_data.bank_details = form.bank_details.data
-        if form.bankName.data != "" or form.bankName.data != None :
+
+        if form.bankName.data and form.bankName.strip() and form.bankName.data != None :
             user_data.bankName = form.bankName.data
-        if form.phone_number.data != "" or form.phone_number.data != None :
+
+        if form.phone_number.data and form.phone_number.strip() and form.phone_number.data != None and len(form.phone_number.data)<=18:
             user_data.phone_number = form.phone_number.data
         if str(request.form.getlist('tags')) != "[]":
             user_data.tags = str(request.form.getlist('tags'))
+        print(user_data)
         db.session.add(user_data)
         db.session.commit()
         return redirect(url_for('completed_tasks',who = who))
@@ -325,6 +398,7 @@ def completed_tasks_changer(who):
 
 
 @app.route('/create_contract', methods=['POST', 'GET'])
+@login_required  # только зарегистрированный человек сможет зайти
 def contract():
     info = models.User.query.all() #Получаем словарь с содержимым таблиц user и users_Data 
     if request.method == 'POST':
@@ -386,11 +460,22 @@ def contract():
 @app.route('/admin', methods=['POST', 'GET'])  # Страница, доступная ЛИШЬ админу
 @login_required  # только зарегистрированный человек сможет зайти
 def admin():
-    info = []
-    info = models.User.query.all()
-    tasks = models.Tasks.query.all()
-    projects = models.Project.query.all()
-    return render_template('admin.html', list=info, tasks=tasks, projects=projects)
+    if current_user.who == 2:
+        info = []
+        info = models.User.query.all()
+        tasks = models.Tasks.query.all()
+        projects = models.Project.query.all()
+        if request.method == "POST":
+            user = models.Users_Data.query.filter_by(id = id).first()#поиск юзера
+            task = models.Tasks.query.filter_by(idUser=id).all()
+            user_project= models.Users_Projects.query.filter_by(User_id=id).all()
+            db.session.delete(user)
+            db.session.delete(task)
+            db.session.delete(user_project)
+            db.session.commit()
+        return render_template('admin.html', list=info, tasks=tasks, projects=projects)
+    else:
+        return render_template('cabinet.html')
 
 
 # обработка ошибок

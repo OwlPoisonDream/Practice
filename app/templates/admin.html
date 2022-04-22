@@ -28,6 +28,7 @@
            <li>Номер телефона: {{u.pr.phone_number}}</li>
            <li>Адрес: {{u.pr.address}} <p></p></li>
          </ul>
+         <form method = "post"> <input type="button" value="Удалить пользователя" name = "{{u.id}}" id = "{{u.id}}" class="delete_user"></form>
 </li>
 {% endfor %}
 </ul>

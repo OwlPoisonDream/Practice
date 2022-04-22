@@ -1,9 +1,15 @@
 from tkinter.tix import Select
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectMultipleField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectMultipleField, DateField, IntegerField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
+from flask_wtf.file import FileField, FileRequired, FileAllowed
+#from flask_uploads import UploadSet,IMAGES
+from werkzeug.utils import secure_filename
+from werkzeug.datastructures import  FileStorage
 import email_validator
 from app.models import User
+
+#images = UploadSet('images', IMAGES)
 
 class LoginForm(FlaskForm): # Форма для логина с запоминанием пользователя
     email = StringField("email", validators=[DataRequired()])
@@ -43,16 +49,21 @@ class PersonalForm(FlaskForm): # Форма для заполнения табл
     name = StringField('ФИО', validators=[]) #ФИО
     nickname = StringField('Прозвище', validators=[]) # прозвище
     link_vk = StringField('Ссылка на ВК', validators=[]) # ссылка на вк
-    birthDAy = StringField('Дата Рождения', validators=[])# Дата рождения 
-    passport = StringField('Номер паспорта', validators=[])# номер паспорта
-    passportData = StringField('Дата выдачи ', validators=[])# дата выдачи 
+    birthDAy = DateField('Дата Рождения', validators=[])# Дата рождения 
+    passport = IntegerField('Номер паспорта', validators=[])# номер паспорта
+    passportData = DateField('Дата выдачи ', validators=[])# дата выдачи 
     passportBy = StringField('Кем выдан паспорт', validators=[])# кем выдан паспорт
-    passportCod = StringField('Код подразделения', validators=[])# код подразделения
-    inn = StringField('ИНН', validators=[]) #инн
+    passportCod = IntegerField('Код подразделения', validators=[])# код подразделения
+    inn = IntegerField('ИНН', validators=[]) #инн
     bank_details = StringField('Реквизиты банка ', validators=[]) # реквизиты банка  
     bankName = StringField('Название банка', validators=[]) # название банка
     phone_number = StringField('Номер телефона', validators=[]) # номер телефона
-    tags = SelectMultipleField("Специальность",choices=[("Сценарист","Сценарист"),
+    email = StringField('Email', validators=[Email()]) # почта
+    photo = FileField(validators=[
+        FileRequired(),
+        FileAllowed(['jpg', 'png', 'jpeg', 'webp', 'svg'], 'Images only')
+        ])
+    tags = SelectMultipleField("Специальность",choices=[("Сценарист","Сценарист"),# специальность
                                                 ("Раскадровщик","Раскадровщик"),
                                                 ("Черновая анимация","Черновая анимация"),
                                                 ("Клин","Клин"),
@@ -83,23 +94,23 @@ class CreateProject(FlaskForm):# создание проекта
     submit = SubmitField('+ Создать проект')
 
 class CreateTask(FlaskForm):# создание задачи
-    idUser = StringField("ID пользователя", validators=[DataRequired()]) #id пользователя
-    idProject = StringField('Id проекта', validators=[DataRequired()])  # id проекта. Берёт из таблицы project
+    idUser = IntegerField("ID пользователя", validators=[DataRequired()]) #id пользователя
+    idProject = IntegerField('Id проекта', validators=[DataRequired()])  # id проекта. Берёт из таблицы project
     nameTask = StringField('Имя задачи', validators=[DataRequired()])# имя задачи
     descTask = StringField('Описание задачи', validators=[DataRequired()])# Описание задачи
-    timeTask = StringField('время выполнения', validators=[DataRequired()])# время выполнения
-    manyTask = StringField('сколько заплатят', validators=[DataRequired()])# деньги за задачу
+    timeTask = DateField('время выполнения', validators=[DataRequired()])# время выполнения
+    manyTask = IntegerField('сколько заплатят', validators=[DataRequired()])# деньги за задачу
     linkDisk = StringField('ссылка на гугл диск', validators=[DataRequired()])# ссылка на гугл диск
     submit = SubmitField('Создать задачу')
 
 class ChangeTask(FlaskForm):# изменение задачи
-    id = StringField("Id задачи", validators=[DataRequired()]) #ID изменяемой задачи
-    idUser = StringField("ID пользователя", validators=[DataRequired()]) #id пользователя
-    idProject = StringField('Id проекта', validators=[DataRequired()])  # id проекта. Берёт из таблицы project
+    id = IntegerField("Id задачи", validators=[DataRequired()]) #ID изменяемой задачи
+    idUser = IntegerField("ID пользователя", validators=[DataRequired()]) #id пользователя
+    idProject = IntegerField('Id проекта', validators=[DataRequired()])  # id проекта. Берёт из таблицы project
     nameTask = StringField('Имя задачи', validators=[DataRequired()])# имя задачи
     descTask = StringField('Описание задачи', validators=[DataRequired()])# Описание задачи
-    timeTask = StringField('время выполнения', validators=[DataRequired()])# время выполнения
-    manyTask = StringField('сколько заплатят', validators=[DataRequired()])# деньги за задачу
+    timeTask = DateField('время выполнения', validators=[DataRequired()])# время выполнения
+    manyTask = IntegerField('сколько заплатят', validators=[DataRequired()])# деньги за задачу
     statusСompleted = StringField('Статус выполнения', validators=[DataRequired()]) # Статус выполнения
     receipt = StringField('Чек', validators=[DataRequired()]) # Чек за работу
     linkDisk = StringField('ссылка на гугл диск', validators=[DataRequired()])# ссылка на гугл диск

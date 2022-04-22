@@ -2,7 +2,8 @@
 
 {% block title %} Личный кабинет {% endblock %}
 
-{% block body %} 
+{% block body %}
+<link rel="stylesheet" href="{{ url_for ('static', filename='css/cabinet.css')}}">
 <div class="container" max-width="1600px">
  <!-- основная панель-->
  <div class="info1"> 

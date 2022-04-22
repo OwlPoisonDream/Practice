@@ -71,7 +71,7 @@ class Project(db.Model):
     linkDisk = db.Column(db.String(255))# ссылка на гугл диск
 
 
-
+# Модель Users_Data - модель для юзера
 class Users_Data(db.Model):
     __tablename__ = 'users_Data'
 
@@ -91,7 +91,8 @@ class Users_Data(db.Model):
     bank_details = db.Column(db.String(100), nullable=True) # реквизиты банка  
     bankName = db.Column(db.String(100), nullable=True) # название банка
     phone_number = db.Column(db.String(11), nullable=True) # номер телефона
-    tags = db.Column(db.Text, nullable=True);
+    tags = db.Column(db.Text, nullable=True)
+    avatar = db.Column(db.String(100), nullable=True)
 
 class Users_Projects(db.Model):
     __tablename__ = 'user_project'
