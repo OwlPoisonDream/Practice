@@ -71,7 +71,7 @@ class Project(db.Model):
     linkDisk = db.Column(db.String(255))# ссылка на гугл диск
 
 
-
+# Модель Users_Data - модель для юзера
 class Users_Data(db.Model):
     __tablename__ = 'users_Data'
 
@@ -91,7 +91,8 @@ class Users_Data(db.Model):
     bank_details = db.Column(db.String(100), nullable=True) # реквизиты банка  
     bankName = db.Column(db.String(100), nullable=True) # название банка
     phone_number = db.Column(db.String(11), nullable=True) # номер телефона
-    tags = db.Column(db.Text, nullable=True);
+    tags = db.Column(db.Text, nullable=True)
+    avatar = db.Column(db.String(100), nullable=True)
 
 class Users_Projects(db.Model):
     __tablename__ = 'user_project'
@@ -103,7 +104,7 @@ class Users_Projects(db.Model):
 class Documents(db.Model):
     __tablename__ = "documents"
     
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(50), nullable=True)
+    id = db.Column(db.Integer, primary_key=True) # id документа
+    name = db.Column(db.String(50), nullable=True) # имя документа
     link = db.Column(db.Text, nullable=True)
     UserID = db.Column(db.Integer, db.ForeignKey('users.id'))

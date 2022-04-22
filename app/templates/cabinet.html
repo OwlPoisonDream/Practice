@@ -2,11 +2,12 @@
 
 {% block title %} Личный кабинет {% endblock %}
 
-{% block body %} 
+{% block body %}
+<link rel="stylesheet" href="{{ url_for ('static', filename='css/cabinet.css')}}">
 <div class="container" max-width="1600px">
  <!-- основная панель-->
  <div class="info1"> 
-     <div class="avatar"> <img src="{{ url_for ('static', filename='x_06eb1977.jpg')}}">
+     <div class="avatar"> <img proxy src="https://4.downloader.disk.yandex.ru/preview/2d81a26d20f6e6f21835ee6b7214639fa6d00e75feb5f448b68b98aacaee2c9b/inf/71W0MkUWU59NsiMVCGvDQ5QIxH8NLkD28TPdAl1bl9qZYRQw99HEyoGEQlYtq95V0PdJ0WXVw6t9k6Krl5GwXg%3D%3D?uid=1588971587&filename=acf2b163-498a-46ef-96d4-e47ab7444260.jpg&disposition=inline&hash=&limit=0&content_type=image%2Fjpeg&owner_uid=1588971587&tknv=v2&size=1851x903">
      </div> <!-- автарка-->
         <div class="login">{{current_user.pr.nickname}}</div>
     </div>
@@ -22,7 +23,7 @@
                 <h3>Дата рождения: </h3>
                 <p>{{current_user.pr.birthDAy}}</p>
                 <h3>Место проживания: </h3>
-                <p>{{current_user.pr.address}}</p>
+                <p>Улица пушкина, д Колотушкина</p>
             </div>
             <div class="passport">
                 <h1>Паспортные данные</h1>
@@ -73,7 +74,7 @@
                             <path d="M29.8394 20.4761V13.5967H19.5181V18.857H24.4955L31.4585 25.82V30.1666H36.7188V20.4761H29.8394Z" fill="white"/>
                             </svg>
                             
-                            <p>ИНН: <br><b> {{current_user.pr.INN}}</b></p></div>
+                            <p><b>{{current_user.pr.INN}}</b></p></div>
                      <div class="bank_details_cab"><!-- реквезиты банка-->
                         <svg width="50" height="50" viewBox="0 0 50 50" fill="none" >
                             <path d="M25 50C38.8071 50 50 38.8071 50 25C50 11.1929 38.8071 0 25 0C11.1929 0 0 11.1929 0 25C0 38.8071 11.1929 50 25 50Z" fill="#9233B4"/>

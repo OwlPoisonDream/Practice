@@ -59,14 +59,14 @@
 <p color = "red"> {{error}}</p>
 <form method="post">
   <p><input type="submit" value="Прикрепить чек" ></p>
+  <p> C <input type="date" name="start" required> до <input type="date" name = "end" required></p>
 {% for u in list %}
 
 <input id="{{u.id}}" value="{{u.id}}" type="checkbox" name="{{u.id}}"/>
 <p>{{error}}</p>
 <p> {{u}} <a href="{{"https://" + list[u]}}" download >скачать</a></p>
-
+<input type="file" name="f">
 {% endfor %}
-<input type="file" name="file">
 </ul>
 </form>
 {% endblock %}
