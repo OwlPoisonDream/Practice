@@ -167,8 +167,8 @@ def cabinet_changer():
                 try:
                     yToken.upload("app/static/photos/" + filename , "/Фотки для профиля/"+ str(current_user.pr.name) + "/" + filename)
                     
-                    if os.path.isfile("app/static/wordTemplates/"+ filename): 
-                        os.remove("app/static/wordTemplates/"+ filename) 
+                    if os.path.isfile("app/static/photos/"+ filename): 
+                        os.remove("app/static/photos/"+ filename) 
                         print("удалил") 
                     else: 
                         print("файла и небыло")
@@ -177,10 +177,10 @@ def cabinet_changer():
                     return render_template('cabinet_changer.html', error="Проблема с яндекс диском")
             elif yToken.exists("/Фотки для профиля/" + str(current_user.pr.name)) == True: #если папка существует
                 try:
-                    yToken.upload("app/static/wordTemplates/"+ filename, "/Фотки для профиля/"+ str(current_user.pr.name) + "/" + filename)
+                    yToken.upload("app/static/photos/" + filename , "/Фотки для профиля/"+ str(current_user.pr.name) + "/" + filename)
                     
-                    if os.path.isfile("app/static/wordTemplates/"+ filename): 
-                        os.remove("app/static/wordTemplates/"+ filename) 
+                    if os.path.isfile("app/static/photos/"+ filename): 
+                        os.remove("app/static/photos/"+ filename) 
                         print("удалил") 
                     else: 
                         print("файла и небыло")
