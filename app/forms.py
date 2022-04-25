@@ -52,9 +52,9 @@ class PersonalForm(FlaskForm): # Форма для заполнения табл
     name = StringField('ФИО', validators=[]) #ФИО
     nickname = StringField('Прозвище', validators=[]) # прозвище
     link_vk = StringField('Ссылка на ВК', validators=[]) # ссылка на вк
-    birthDAy = DateField('Дата Рождения', default=now, validators=[])# Дата рождения 
+    birthDAy = DateField('Дата Рождения', validators=[])# Дата рождения 
     passport = IntegerField('Номер паспорта', validators=[])# номер паспорта
-    passportData = DateField('Дата выдачи ', default=now, validators=[])# дата выдачи 
+    passportData = DateField('Дата выдачи ', validators=[])# дата выдачи 
     passportBy = StringField('Кем выдан паспорт', validators=[])# кем выдан паспорт
     passportCod = IntegerField('Код подразделения', validators=[])# код подразделения
     inn = IntegerField('ИНН', validators=[]) #инн
@@ -118,3 +118,4 @@ class ChangeTask(FlaskForm):# изменение задачи
     receipt = StringField('Чек', validators=[DataRequired()]) # Чек за работу
     linkDisk = StringField('ссылка на гугл диск', validators=[DataRequired()])# ссылка на гугл диск
     submit = SubmitField('Изменить задачу')
+    

@@ -57,15 +57,16 @@
 <!--<input id="apple" type="checkbox" name="apple" />
 <label for="apple">Apple</label>-->
 <p color = "red"> {{error}}</p>
-<form method="post">
-  <p><input type="submit" value="Прикрепить чек" ></p>
+<form method="post" enctype="multipart/form-data">
+  <p><input type="file" name="file" ></p>
   <p> C <input type="date" name="start" required> до <input type="date" name = "end" required></p>
+  <p><input type="submit" value="Прикрепить чек" ></p>
 {% for u in list %}
 
 <input id="{{u.id}}" value="{{u.id}}" type="checkbox" name="{{u.id}}"/>
 <p>{{error}}</p>
 <p> {{u}} <a href="{{"https://" + list[u]}}" download >скачать</a></p>
-<input type="file" name="f">
+
 {% endfor %}
 </ul>
 </form>

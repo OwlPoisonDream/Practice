@@ -495,6 +495,8 @@ body{
     background-color: #EEEEEE;
     color: #607D8B;
     width: 100%;
+    position: relative;
+    bottom: 0%;
   }
   
   .list > button.addbutt {
@@ -557,6 +559,7 @@ body{
     background: #fff;
     padding: 1em;
     border-radius: 2px;
+    color: #5e4dc1;
   }
   
   .dd-item {
@@ -572,7 +575,7 @@ body{
     -ms-flex-direction: column;
     flex-direction: column;
     font-size: 16px;
-    min-height: 120px;
+    min-height: 240px;
     overflow: hidden;
     z-index: 1;
     position: relative;
@@ -615,6 +618,8 @@ body{
     color: #B0BEC5;
     padding: 8px;
     box-sizing: border-box;
+    position: absolute;
+    bottom: 0%;
   }
   
   

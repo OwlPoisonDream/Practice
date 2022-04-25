@@ -16,6 +16,7 @@
 }
 </script>
 <link rel="stylesheet" href="{{ url_for ('static', filename='css/cabinet.css')}}">
+
 <div class="container" max-width="1600px">
     <form action="" method="post" enctype="multipart/form-data">
     {{ form.hidden_tag() }}   
@@ -24,6 +25,7 @@
         <div class="avatar">
                 <!--<img for="photo" src="{{ url_for ('static', filename='x_06eb1977.jpg')}}">-->
                 {{form.photo}}
+                <label for="photo" ></label>
         </div> <!-- автарка-->
            <div class="login">Просто введите, что хотите изменить<br>
             {{error}}

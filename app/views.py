@@ -1,7 +1,7 @@
 # Обработчик ссылок
 from calendar import month
 import email
-from flask import  render_template, request, redirect, url_for  # для работы с интернетом
+from flask import  render_template, flash, request, redirect, url_for  # для работы с интернетом
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import login_required, login_user, current_user, logout_user
 from app import app, models, db, forms
@@ -15,10 +15,15 @@ from app import yToken
 from flask_wtf.file import FileField, FileRequired
 from werkzeug.utils import secure_filename
 
-
+ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg'}
 now = datetime.now()
 # print("[log] обработка страниц запущена")
 
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+           
+           
 @app.route('/createDb')  # вход
 @login_required  # только зарегистрированный человек сможет зайти
 def createDb():
@@ -201,16 +206,23 @@ def cabinet_changer():
 @app.route('/my_tasks', methods=['GET', 'POST'])  # Страница с задачами пользователя
 @login_required  # только зарегистрированный человек сможет зайти
 def my_tasks(): 
-    info = models.Tasks.query.all()
-    today = str(now.day) + "." + str(now.month) + "." + str(now.year)
+    tasks = models.Tasks.query.all()# таблица задачь
+    today = str(now.day)
+    if now.month <10:
+        today = today + ".0" + str(now.month) + "." + str(now.year)
+    form = forms.CreateTask()# форма создания задачь
+    task = db.session.query(models.Tasks).filter_by(id = 8).one()
+    print(task.timeTask)
     print(today)
     # print(list(yToken.listdir("")))
     if request.method == "POST":
-        print(request.form.get("status_complete"))
-        # task = models.Tass(id = id, statusCompleted = "Complete")
-        # db.session.add(task)
-        # db.session.commit()
-    form = forms.CreateTask()
+        print(request.form.get("task"))
+        task_id=request.form.get("task")
+        task = db.session.query(models.Tasks).filter_by(id = task_id).one()
+        task.statusСompleted = "Complete"
+        db.session.add(task)
+        db.session.commit()
+        return render_template("my_tasks.html",form = form, tasks=tasks, today=today, now=now, current_user = current_user)
     if form.validate_on_submit(): # надо сделать завтра
         if len(form.timeTask.data)==2:
             createTask = models.Tasks(idUser = form.idUser.data, idProject = form.idProject.data, 
@@ -220,7 +232,7 @@ def my_tasks():
             print("Введите числовое значение месяца")
         db.session.add(createTask)
         db.session.commit()
-    return render_template("my_tasks.html",form = form, list=info, today=today, now=now, current_user = current_user)
+    return render_template("my_tasks.html",form = form, tasks=tasks, today=today, now=now, current_user = current_user)
 
 
 @app.route('/my_documents', methods=['GET', 'POST'])  # Страница с документами пользователя
@@ -229,8 +241,6 @@ def my_documents():
     user = models.Users_Data.query.filter_by(id = current_user.id ).first()#поиск юзера
     List = {}
     if request.method == 'POST':
-        file = request.files('f')
-        file.save("app/static/checkTemplates/" + nameFail + ".pdf")
         listForm = request.form.to_dict()
         listFormKeys = listForm.keys()# выводим все ключи выбранных блоках
         # вставка данных
@@ -238,6 +248,17 @@ def my_documents():
             user = models.Users_Data.query.filter_by(id = id).first()#поиск юзера
             nameFail = user.name + " " + now.today().strftime("%d.%m.%Y")#имя файла
             print("привет я начал работать с яндекс диском")
+            if 'file' not in request.files:
+                flash('No file part')
+                return redirect(request.url)
+            file = request.files['file']
+            if file.filename == '':
+                flash('No selected file')
+                return render_template('my_documents.html',list=user, error = "Чек не прикреплён")
+            if file and allowed_file(file.filename):
+                nameFail = secure_filename(file.filename)
+                file.save("app/static/checkTemplates/" + nameFail + ".pdf")
+                return render_template('my_documents.html',list=user, error = "Чек загружен на сервер")
             if yToken.exists("/чеки/" + str(user.name)) == False:
                 yToken.mkdir("/чеки/"+ str(user.name))# создание папки
                 try:
@@ -270,8 +291,10 @@ def my_projects():
     info = {}
     # отображение проектов
     projects = models.Project.query.all() #запрос в базу данны для вывода проектов
-    user_project = models.Users_Projects.query.all()#запрос в базу данны для вывода людей
+    user_project = models.Users_Projects.query.all()#запрос в базу данны для вывода какой человек к каому проекту
     info = models.User.query.all() #запрос в базу данны для вывода людей
+    
+    #folders = models.folders.query.all()
     
     if request.method == 'POST': # обработка post
         id_sel = request.form.get('human_project') # Получаем ID пользователя из html
@@ -302,7 +325,7 @@ def my_projects():
         db.session.add(createProjekt)# запись в базу данных users_projekt
         db.session.commit()# закрытие соеденения с бд
         return redirect(url_for('my_projects'))
-    return render_template("my_projects.html", projects = projects, list = info, user_project = user_project)
+    return render_template("my_projects.html", projects = projects, list = info, user_project = user_project, folders = "хуй")
 
 
 @app.route('/salary', methods=['GET', 'POST'])  # Страница с зарплатами. Менеджер видит и устанавливает
