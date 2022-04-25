@@ -201,16 +201,19 @@ def cabinet_changer():
 @app.route('/my_tasks', methods=['GET', 'POST'])  # Страница с задачами пользователя
 @login_required  # только зарегистрированный человек сможет зайти
 def my_tasks(): 
-    info = models.Tasks.query.all()
+    tasks = models.Tasks.query.all()# таблица задачь
     today = str(now.day) + "." + str(now.month) + "." + str(now.year)
+    form = forms.CreateTask()# форма создания задачь
     print(today)
     # print(list(yToken.listdir("")))
     if request.method == "POST":
-        print(request.form.get("status_complete"))
-        # task = models.Tass(id = id, statusCompleted = "Complete")
-        # db.session.add(task)
-        # db.session.commit()
-    form = forms.CreateTask()
+        print(request.form.get("task"))
+        task_id=request.form.get("task")
+        task = db.session.query(models.Tasks).filter_by(id = task_id).one()
+        task.statusСompleted = "Complete"
+        db.session.add(task)
+        db.session.commit()
+        return render_template("my_tasks.html",form = form, tasks=tasks, today=today, now=now, current_user = current_user)
     if form.validate_on_submit(): # надо сделать завтра
         if len(form.timeTask.data)==2:
             createTask = models.Tasks(idUser = form.idUser.data, idProject = form.idProject.data, 
@@ -220,7 +223,7 @@ def my_tasks():
             print("Введите числовое значение месяца")
         db.session.add(createTask)
         db.session.commit()
-    return render_template("my_tasks.html",form = form, list=info, today=today, now=now, current_user = current_user)
+    return render_template("my_tasks.html",form = form, tasks=tasks, today=today, now=now, current_user = current_user)
 
 
 @app.route('/my_documents', methods=['GET', 'POST'])  # Страница с документами пользователя
@@ -270,8 +273,10 @@ def my_projects():
     info = {}
     # отображение проектов
     projects = models.Project.query.all() #запрос в базу данны для вывода проектов
-    user_project = models.Users_Projects.query.all()#запрос в базу данны для вывода людей
+    user_project = models.Users_Projects.query.all()#запрос в базу данны для вывода какой человек к каому проекту
     info = models.User.query.all() #запрос в базу данны для вывода людей
+    
+    #folders = models.folders.query.all()
     
     if request.method == 'POST': # обработка post
         id_sel = request.form.get('human_project') # Получаем ID пользователя из html
@@ -302,7 +307,7 @@ def my_projects():
         db.session.add(createProjekt)# запись в базу данных users_projekt
         db.session.commit()# закрытие соеденения с бд
         return redirect(url_for('my_projects'))
-    return render_template("my_projects.html", projects = projects, list = info, user_project = user_project)
+    return render_template("my_projects.html", projects = projects, list = info, user_project = user_project, folders = "хуй")
 
 
 @app.route('/salary', methods=['GET', 'POST'])  # Страница с зарплатами. Менеджер видит и устанавливает

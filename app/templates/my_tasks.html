@@ -33,66 +33,62 @@
       <h1><i class="material-icons"></i></h1></div>
 <div class="dd">
 
- 
+  
   <ol class="kanban progress">
     <h2><i class="material-icons"></i>В процессе</h2>
-    {% for u in list%}
-    {% if current_user.id == u.idUser and u.statusСompleted == Uncomplete%}
-      <li class="dd-item" data-id="5">
-      <h3 class="title dd-handle"><i class=" material-icons "></i>{{u.nameTask}}</h3>
-        <div class="text" contenteditable="true">{{u.descTask}}</div><div class="actions">
-       
-        <div class="actions">
-          <button class="addbutt"><i class="material-icons"></i>Сдать задачу</button>
-        </div>
-    </li>
-    {% endif %}
+    {% for u in tasks %}
+    {% if current_user.id == u.idUser %}
+       {% if u.statusСompleted == "Uncomplete" %}
+        <li class="dd-item" data-id="5">
+        <h3 class="title dd-handle"><i class=" material-icons "></i>{{u.nameTask}}</h3>
+          <div class="text" contenteditable="true">{{u.descTask}}</div>
+          <form method="post"><div class="actions">
+            <button class="addbutt" value="{{u.id}}" name="task"><i class="material-icons"></i> Сдать задачу</button>
+            </div></form>
+      </li>
+      {% endif %}
+      {% endif %}
     {% endfor %}
     
   </ol>
+  
+    
   <ol class="kanban  Done">
     <h2><i class="material-icons"></i>Сделано</h2>
-    {% for u in list%}
-    {% if current_user.id == u.idUser and u.statusСompleted == Complete%}
-      <li class="dd-item" data-id="5">
-      <h3 class="title dd-handle"><i class=" material-icons "></i>{{u.nameTask}}</h3>
-        <div class="text" contenteditable="true">{{u.descTask}} </div><div class="actions">
-        <i class="material-icons"></i><i class="material-icons"></i><i class="material-icons"></i><i class="material-icons"></i></div>
-    </li>
-    {%endif%}
-    {%endfor%}
+    {% for u in tasks %}
+      {% if current_user.id == u.idUser %}
+        {% if u.statusСompleted == "Complete" %}
+          <li class="dd-item" data-id="5">
+          <h3 class="title dd-handle"><i class=" material-icons "></i>{{u.nameTask}}</h3>
+            <div class="text" contenteditable="true">{{u.descTask}} </div><div class="actions">
+            <i class="material-icons"></i><i class="material-icons"></i><i class="material-icons"></i><i class="material-icons"></i></div>
+        </li>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
   </ol>
+  
+    
   <ol class="kanban Gone">
     <h2><i class="material-icons"></i>Дедлайн</h2>
-    {% for u in list%}
-    {% if current_user.id == u.idUser and u.statusСompleted == Uncomplete and u.timeTask == today%}
-     <li class="dd-item" data-id="5">
-      <h3 class="title dd-handle"><i class=" material-icons "></i>{{u.nameTask}}</h3>
-        <div class="text" contenteditable="true">{{u.descTask}} </div><div class="actions">
-        
-        <div class="actions">
-          <button class="addbutt"><i class="material-icons"></i> Сдать задачу</button>
-        </div>
-    </li>
-    {%endif%}
-    {%endfor%}
+    {% for u in tasks %}
+      {% if current_user.id == u.idUser %}
+        {%if u.statusСompleted == "Uncomplete" %} 
+        {%if u.timeTask == today %}
+          <li class="dd-item" data-id="5">
+          <h3 class="title dd-handle"><i class=" material-icons "></i>{{u.nameTask}}</h3>
+            <div class="text" contenteditable="true">{{u.descTask}} </div>
+            <form method="post"><div class="actions">
+          <button class="addbutt" value="{{u.id}}" name="task"><i class="material-icons"></i> Сдать задачу</button>
+          </div></form>
+        </li>
+        {% endif %}
+        {% endif %}
+        {% endif %}
+        {% endfor %}
   </ol>
-
+  
     
 </div>
 
-{% endif %}
 {% endblock %}
-© 2022 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-Loading complete

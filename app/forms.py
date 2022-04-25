@@ -1,3 +1,4 @@
+from email.policy import default
 from tkinter.tix import Select
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, SelectMultipleField, DateField, IntegerField
@@ -7,8 +8,10 @@ from flask_wtf.file import FileField, FileRequired, FileAllowed
 from werkzeug.utils import secure_filename
 from werkzeug.datastructures import  FileStorage
 import email_validator
+from datetime import datetime
 from app.models import User
 
+now = datetime.now
 #images = UploadSet('images', IMAGES)
 
 class LoginForm(FlaskForm): # Форма для логина с запоминанием пользователя

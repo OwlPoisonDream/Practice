@@ -108,3 +108,10 @@ class Documents(db.Model):
     name = db.Column(db.String(50), nullable=True) # имя документа
     link = db.Column(db.Text, nullable=True)
     UserID = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+class Folder(db.Model):
+    __tablename__ = 'folder'
+    id = db.Column(db.Integer, primary_key=True) # id документа
+    id_user = db.Column(db.Integer)
+    name = db.Column(db.String(50), nullable=True) # имя документа
+    link = db.Column(db.Text, nullable=True)
