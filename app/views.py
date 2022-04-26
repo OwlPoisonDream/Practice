@@ -273,7 +273,7 @@ def my_documents():
             
         return render_template('my_documents.html',list=user, error = "Чек прикреплён и внесен на яндекс диск")
     try:
-        docList = list(yToken.listdir("/чеки/" + user.name))
+        docList = list(yToken.listdir("/договора/" + user.name))
         a = 0
         for i in docList:
             d = {docList[a].name : docList[a].file}
