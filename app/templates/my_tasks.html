@@ -1,0 +1,97 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+Мои задачи
+{% endblock %}
+
+{% block body %}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+  <!-- Скрипт плавного открытия и закрытия блока -->
+  <script type='text/javascript'> 
+    $(document).ready(function() { 
+      $("A#trigger").toggle(function() { 
+        // Отображаем скрытый блок 
+        $("DIV#box").fadeIn(); // fadeIn - плавное появление
+        return false; // не производить переход по ссылке
+      },  
+      function() { 
+        // Скрываем блок 
+        $("DIV#box").fadeOut(); // fadeOut - плавное исчезновение 
+        return false; // не производить переход по ссылке
+      }); // end of toggle() 
+    }); // end of ready() 
+  </script>
+
+<!--<h1>Задачи</h1>-->
+<div id="p1" class="mdl-progress mdl-js-progress"></div>
+<script>
+  document.querySelector('#p1').addEventListener('mdl-componentupgraded', function() {
+    this.MaterialProgress.setProgress(44);
+  });
+</script><div class="kanban__title">
+      <h1><i class="material-icons"></i></h1></div>
+<div class="dd">
+
+  
+  <ol class="kanban progress">
+    <h2><i class="material-icons"></i>В процессе</h2>
+    {% for u in tasks %}
+    {% if current_user.id == u.idUser %}
+    
+       {% if u.statusСompleted == "Uncomplete" %}
+       {%if u.timeTask != today %}
+        <li class="dd-item" data-id="5">
+        <h3 class="title dd-handle"><i class=" material-icons "></i>{{u.nameTask}}</h3>
+          <div class="text" contenteditable="true">{{u.descTask}}</div>
+          <form method="post"><div class="actions">
+            <button class="addbutt" value="{{u.id}}" name="task"><i class="material-icons"></i> Сдать задачу</button>
+            </div></form>
+      </li>
+      {% endif %}
+      {% endif %}
+      {% endif %}
+    {% endfor %}
+    
+  </ol>
+  
+    
+  <ol class="kanban  Done">
+    <h2><i class="material-icons"></i>Сделано</h2>
+    {% for u in tasks %}
+      {% if current_user.id == u.idUser %}
+        {% if u.statusСompleted == "Complete" %}
+          <li class="dd-item" data-id="5">
+          <h3 class="title dd-handle"><i class=" material-icons "></i>{{u.nameTask}}</h3>
+            <div class="text" contenteditable="true">{{u.descTask}} </div><div class="actions">
+            <i class="material-icons"></i><i class="material-icons"></i><i class="material-icons"></i><i class="material-icons"></i></div>
+        </li>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </ol>
+  
+    
+  <ol class="kanban Gone">
+    <h2><i class="material-icons"></i>Дедлайн</h2>
+    {% for u in tasks %}
+      {% if current_user.id == u.idUser %}
+        {%if u.statusСompleted == "Uncomplete" %} 
+        {%if u.timeTask == today %}
+          <li class="dd-item" data-id="5">
+          <h3 class="title dd-handle"><i class=" material-icons "></i>{{u.nameTask}}</h3>
+            <div class="text" contenteditable="true">{{u.descTask}} </div>
+            <form method="post"><div class="actions">
+          <button class="addbutt" value="{{u.id}}" name="task"><i class="material-icons"></i> Сдать задачу</button>
+          </div></form>
+        </li>
+        {% endif %}
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+  </ol>
+  
+    
+</div>
+
+{% endblock %}
