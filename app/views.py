@@ -207,28 +207,53 @@ def cabinet_changer():
 @login_required  # только зарегистрированный человек сможет зайти
 def my_tasks(): 
     tasks = models.Tasks.query.all()# таблица задачь
-    today = str(now.day)
-    if now.month <10:
-        today = today + ".0" + str(now.month) + "." + str(now.year)
+    today = str(now.day) #Сегодняшний день
+    if now.month <10: #Проверка на месяц
+        today = today + ".0" + str(now.month) + "." + str(now.year) #Облегчаем проверку
     form = forms.CreateTask()# форма создания задачь
+    print(today) #Вывожу время
     # print(list(yToken.listdir("")))
     if request.method == "POST":
-        print(request.form.get("task"))
-        task_id=request.form.get("task")
-        task = db.session.query(models.Tasks).filter_by(id = task_id).one()
-        task.statusСompleted = "Complete"
-        db.session.add(task)
-        db.session.commit()
+        if request.form.get("link")==None or request.form.get("link") == "":
+            print(request.form.get("task_into"))
+            task_id=request.form.get("task_into")
+            print(task_id)
+            task = db.session.query(models.Tasks).filter_by(id = task_id).first()
+            print(task)
+            if task.idProject == models.Project.id:
+                user = models.Users_Data.query.filter_by(id = id).first()#поиск юзера
+                nameFail = user.name + " " + now.today().strftime("%d.%m.%Y")#имя файла
+                print("привет я начал работать с яндекс диском")
+                if yToken.exists("/Феникс проекты/" + str(project_name)) == False:
+                    yToken.mkdir("/Феникс проекты/"+ str(project_name))# создание папки
+                if 'files' not in request.files: #Проверяем на добавление файлов
+                    flash('No file part')
+                    return redirect(request.url)
+                file = request.files['files'] #Получаем имена файлов
+                if file.filename == '': #Если файл не был прикреплён
+                    flash('No selected file')
+                    return render_template("my_tasks.html",form = form, tasks=tasks, today=today, now=now, current_user = current_user)
+                if file and allowed_file(file.filename): #Если файл был прикреплён и обладает нужным расширением
+                    nameFail = secure_filename(file.filename)
+                    file.save(os.path.join(app.config['UPLOAD_FOLDER'], nameFail))
+                    return render_template("my_tasks.html",form = form, tasks=tasks, today=today, now=now, current_user = current_user)
+                project_name = models.Project.projectName
+                if yToken.exists("/Феникс проекты/"+ str(project_name)) == True:#если папка существует
+                    print('Папка существует')
+                    yToken.upload(os.path.join(app.config['UPLOAD_FOLDER'], nameFail), "/Феникс проекты/"+ str(project_name)+ "/" + nameFail)
+                    task.statusСompleted = "Complete"
+                    db.session.add(task)
+                    db.session.commit()
+        elif request.form.get("link")!=None or request.form.get("link") !="":
+            print(request.form.get("task_our"))
+            task_id=request.form.get("task_our")
+            task = db.session.query(models.Tasks).filter_by(id = task_id).one()
+            task.statusСompleted = "Complete"
+            task.linkDisk = request.form.get("link")
+            db.session.add(task)
+            db.session.commit()
         return render_template("my_tasks.html",form = form, tasks=tasks, today=today, now=now, current_user = current_user)
-    if form.validate_on_submit(): # надо сделать завтра
-        if len(form.timeTask.data)==2:
-            createTask = models.Tasks(idUser = form.idUser.data, idProject = form.idProject.data, 
-            nameTask = form.nameTask.data,descTask = form.descTask.data,
-            timeTask = form.timeTask.data,manyTask = form.manyTask.data, statusСompleted = "Uncomplete", linkDisk = form.descTask.data)
-        else:
-            print("Введите числовое значение месяца")
-        db.session.add(createTask)
-        db.session.commit()
+    
     return render_template("my_tasks.html",form = form, tasks=tasks, today=today, now=now, current_user = current_user)
 
 
@@ -338,7 +363,15 @@ def my_projects():
             db.session.commit()# закрытие соеденения с бд
             return redirect(url_for('my_projects'))
         
-        
+        if form.validate_on_submit(): # надо сделать завтра
+        if len(form.timeTask.data)==2:
+            createTask = models.Tasks(idUser = form.idUser.data, idProject = form.idProject.data, 
+            nameTask = form.nameTask.data,descTask = form.descTask.data,
+            timeTask = form.timeTask.data,manyTask = form.manyTask.data, statusСompleted = "Uncomplete", linkDisk = form.descTask.data)
+        else:
+            print("Введите числовое значение месяца")
+        db.session.add(createTask)
+        db.session.commit()
     return render_template("my_projects.html", projects = projects, list = info, 
                     user_project = user_project, folders = folders,tasks = tasks, error = error)
 
@@ -347,13 +380,15 @@ def my_projects():
 @login_required  # только зарегистрированный человек сможет зайти
 def salary():
     task = models.Tasks.query.filter_by(idUser = current_user.id).all()# поиск отмеченных пользователя
+    total = 0
     for u in task:
         u.timeTask = datetime.strptime(u.timeTask,'%d.%m.%Y').date()
+        total = task.manyTask + total
     a = date.today()# время сейчас
     b = date.today() - timedelta(days=7)#время неделю назад
     c = date.today() - timedelta(weeks = 4)#время месяц назад
     d = date.today() - timedelta(weeks = 48)#время год назад
-    return render_template("salary.html", task = task, a = a, b = b, c = c, d = d)
+    return render_template("salary.html", task = task, a = a, b = b, c = c, d = d, total = total)
 
 
 @app.route('/employeers', methods=['GET', 'POST'])  # Страница с сотрудниками компании. Доступна менеджеру
