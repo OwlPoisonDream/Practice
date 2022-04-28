@@ -117,3 +117,22 @@ class Folder(db.Model):
     id_progect = db.Column(db.Integer)
     link = db.Column(db.Text, nullable=True)
     name = db.Column(db.String(50), nullable=True) # имя документа
+
+class Photo(db.Model):
+    __tablename__ = 'photo'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text, nullable=True)
+    link = db.Column(db.Text, nullable=True)
+
+class Check(db.Model):
+    __tablename__ = 'receipt'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Columb(db.Text, nullable=True)
+    date =db.Column(db.String(100), nullable = True)
+    link = db.Column(db.Text, nullable = True)
+
+class Contract(db.Model):
+    __tablename__ = 'contracts'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text, nullable = True)
+    link = db.Column (db.Text, nullable =True
