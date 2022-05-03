@@ -101,6 +101,7 @@ class Users_Projects(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     User_id = db.Column(db.Integer, db.ForeignKey('users.id'))# id пользователя. Берёт из таблицы user
     Project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))# id проекта. Берёт из таблицы project
+    up = db.relationship('Users_Data', backref='user_projects', uselist=False) #Связываем таблицу user_projects с таблицей Users_Data, где первая - родитель, вторая - наследует
     
 
 class Documents(db.Model):
