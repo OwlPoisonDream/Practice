@@ -20,8 +20,7 @@ class User(db.Model,UserMixin):
     password_hash = db.Column(db.String(100), nullable=False) # пароль
     who  = db.Column(db.Integer)# 0 - user, 1 - showrunner, 2- admin
     pr = db.relationship('Users_Data', backref='user', uselist=False) #Связываем таблицу User с таблицей Users_Data, где первая - родитель, вторая - наследует
-    up = db.relationship('Users_Projects', backref='user', uselist=False) #Связываем таблицу user с таблицей Users_Projects где первая - родитель, вторая - наследует
-
+    
     def __reduce_ex__(self): # id пользователя и его почта 
         return "<{}{}>".format(self.id, self.email)
 
@@ -102,6 +101,8 @@ class Users_Projects(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     User_id = db.Column(db.Integer, db.ForeignKey('users.id'))# id пользователя. Берёт из таблицы user
     Project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))# id проекта. Берёт из таблицы project
+    up = db.relationship('Users_Data', backref='user_project', uselist=False) #Связываем таблицу user с таблицей Users_Projects где первая - родитель, вторая - наследует
+
     
 
 class Documents(db.Model):
