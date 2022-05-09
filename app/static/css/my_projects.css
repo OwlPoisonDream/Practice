@@ -1,0 +1,461 @@
+/* проекты  */
+/* це окно создания задачи */
+
+#create{
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    z-index: 1001;
+    height: 100%;
+    width: 50%;
+    left: 50%;   
+    background-color: #1112582c;
+    backdrop-filter: blur(20px);
+    color: white;
+    border-radius: 10px;
+
+    animation-name: open_create; 
+    animation-duration: 1s;
+  }
+
+  /* анимация появления справа налево */
+
+  @keyframes open_create{
+    0%{
+        left: 100%
+    }
+    100%{
+        left: 50%;
+    }
+  }
+   
+  /* пиздатый список для функции "выбрать сотрудника" в окне создания задачи */
+  #notebooks {
+    position: relative;
+    background:   #150e3b86;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    mix-blend-mode: 100px;
+    height: 30%;
+    width: 40%;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+
+    max-height: 450px;
+    margin: 1% 0 0 30%;
+  }
+
+   .person_list{
+    position: relative;
+    margin: 0 auto;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-left: none;
+    border-right: none;
+  } 
+
+  .check{
+      display: flex;
+      width: 25px;
+      height: 25px;
+  }
+  
+  .btn_create{
+  
+    width: 20%;
+    height: 10%;
+}
+
+.btn_create:hover {
+    top: 10%;
+    background-color: #5e4dc1;
+}
+
+/* общий стиль всех полей ввода текста */
+input{
+  background: #A7AAE8;
+  border-radius: 5px;
+  color: white;
+}  
+
+/* ввод названия задачи */
+#name_project{
+  width: 60%;
+  height: 5%;
+}
+
+/* ввод описания проекта
+тут подшаманить надо, чтобы тексты сверху внизу печатался
+ крч чтобы адекватный был */
+#description{
+  height: 40%;
+  width: 60%;
+
+}
+
+/* поиск перчиков */
+#perchik_search{
+  height: 5%;
+  width: 40%;
+}
+
+/*  */
+#trigger1{
+
+  }
+
+#trigger{
+  
+  }
+/* эт окно создания задачи, котороые я вообще не трогал
+тупо забыл про него */
+  .create_task{
+  position: absolute;
+  z-index: 1001;
+  height: 50%;
+  width: 50%;
+  left: 25%; 
+  top: 25%;  
+  background-color: rgba(4, 7, 75, 0.3);
+  display: none;
+  width: 40%;
+  backdrop-filter: blur(100px);
+  color: white;
+  }
+
+  .target{
+  list-style: none;
+  background-color: #3b1f68d0;  
+  padding: 10px 15px 10px 25px;
+  margin-bottom: 5px;
+  height: 70px;
+  width: 100%;
+  box-sizing: border-box;
+  cursor: pointer;
+  border-radius: 3px;
+  color: white;
+  
+  }
+
+  .target p{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 0 0 0;
+    width: 100%;
+    height: 100%;
+  }
+#open{
+  display: none;
+
+}
+
+
+  /* окно создания папки */
+  #create1{
+    background-color: #337AB7;
+    height: 10%;
+    position: relative;
+    margin-top: 10%;
+    width: 90%;
+
+    animation-name: create_folder;
+    animation-duration: 1s;
+  } 
+
+  /* анимация сдвига слева направо */
+  @keyframes create_folder {
+
+  0%{
+    left: -40%
+  }
+
+  100%{
+    left: 0%;
+  }
+
+} 
+  .folds{
+    position: relative;
+    top: 5%;
+  }
+
+.fold{
+  cursor: pointer;
+}
+  #new_folder{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+#submit{
+  background: #A7AAE8;
+  border-radius: 15px;
+  height: 40px;
+  color: white;
+  margin-top: 3%;
+  width: 40%;
+}
+
+
+
+#fold_name{
+  position: relative;
+  width: 90%;
+  height: 20px;
+  margin-top: 3%;
+}
+
+/* раздел проектов */
+.leftBody{
+    position:fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    left:30px;
+    top:0%;
+    z-index: 1;
+    background-color: white;
+    width: 20%;
+    margin: 0 0 0 10px;
+    color:black;
+    height: 100vh;
+    border-radius: 0%;
+    border-right: 4px #5e4dc1 solid;
+    overflow: auto; /* свойство для прокрутки по горизонтали. Автоматом, если содержимое больше блока */
+    list-style-type: none;
+  }
+/* название панели */
+  .panel_name{
+    font-size: 30px;
+    font-weight: 900;
+    color: #9b9898;
+    margin: 10% 0 5% 0;
+
+  } 
+.punkt_name{
+  color: #808080;
+  font-size: 13px;
+}
+.cont_n{
+
+  font-size: 20px;
+  font-weight: 700;
+}
+.cont_d{
+  display: flex;
+  height: 200px;
+  font-size: 16px;
+  font-weight:500;
+}
+.cont_s{
+  font-size: 16px;
+  font-weight:500;
+}
+
+
+  .leftBody > a{
+    position: relative;
+    margin: 0 0 10% 0;
+  
+    background-color: #5E4DC1;
+    width: 60%;
+    color: white;
+  }
+
+.side-panel {
+    position: fixed;
+    display: block;
+    z-index: 0;
+    top: 0;
+    left:22.1%;
+    transition: all 0.5s;   
+    width: 20%;
+    background-color: white;
+    color:black;
+    height: 100%;
+    border-radius: 0%;
+    border-right: 4px #5e4dc1 solid;
+    overflow: auto; /* свойство для прокрутки по горизонтали. Автоматом, если содержимое больше блока */
+}
+/*выдвежная панель*/
+#side-checkbox {
+    display: none;
+}
+  .side-panel > a{
+    position: relative;
+    background-color: #5E4DC1;
+    border-color: #5E4DC1;
+    border-style:solid;
+    width: 70%;
+    color: white;
+  }
+  .side-panel > h1{
+    position: absolute;
+    left:20%;
+    color:darkgrey;
+  }
+.side-title {
+    font-size: 20px;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #BFE2FF;
+}
+/* Оформление кнопки на странице */
+
+.side-button-1-wr {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #e9e9e9;
+    border: 1px solid #5f5f5f;
+    border-radius: 5px;
+    width: 95%;
+    height: 380px;
+    margin: 10px 0;
+    text-align: center; /* Контейнер для кнопки, чтобы было удобнее ее разместить */
+}
+.side-button-1-wr li{
+  
+  display: block;
+  text-align: left;
+}
+.side-button-1-wr li div{
+
+  margin-left: 5%;
+}
+.side-button-1-wr li p{
+  overflow: auto;
+
+}
+
+.project{
+    width:100%;
+    height: 15%;
+    margin-bottom: 10px;
+  }
+
+
+ 
+.side-button-1 {
+    display: inline-block;
+}
+.side-button-1 .side-b {
+    margin: 10px;
+    text-decoration: none;
+    position: relative;
+    font-size: 20px;
+    line-height: 20px;
+    padding: 12px 30px;
+    color: #FFF;
+    font-weight: bold;
+    text-transform: uppercase; 
+    font-family: 'Roboto', Тahoma, sans-serif;
+    background: #337AB7;
+    cursor: pointer; 
+    border: 2px solid #BFE2FF;
+}
+
+#close{
+  position: absolute;
+  left:90%;
+  cursor: pointer;
+  font-size: 200%;
+  z-index: 1001;
+}
+
+.dd{
+  display: none;
+}
+
+.dd-position{
+  position: fixed;
+  z-index: 0;
+  left: 40%;
+  width: 60%;
+  height: 100%;
+  overflow: auto;
+}
+
+
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 6px;
+  font-size: 16px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;}
+
+.people{
+  border-style:dashed;
+}
+
+#open{
+  position: absolute;
+  background-color: #5E4DC1;
+  border-color: #5E4DC1;
+  border-style: solid;
+  width: 40%;
+}
+
+
+
+
+.side-panel > h1{
+  position: absolute;
+  left: 15%;
+}
+.side-panel > form > #submit{
+  position: relative;
+  top: -15%;
+}
+.close_tab{
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  background-image: url(../icons/projects/exit.png);
+  background-color: none;
+  border: none;
+  width: 50px;
+  height: 50px;
+  right: -10%;
+}
+.close_tab:hover{
+  border: 0px solid #A7AAE8;
+}
