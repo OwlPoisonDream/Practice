@@ -550,7 +550,7 @@ def contract():
             i = 0
             for u in task:
                 i = i + 1
-                if  datEnd > datetime(u.timeTask) > datStart:
+                if  datEnd > datetime.strptime(u.timeTask,'%Y-%m-%d') > datStart:
                     if i > 1:
                         docx.tables[3].add_row()
                     docx.tables[1]
