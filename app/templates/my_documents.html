@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Мои документы
+{% endblock %}
+
+{% block body %}
+<script>
+    function functionSearch() {
+      var input = document.getElementById("Search");
+      var filter = input.value.toLowerCase();
+      var nodes = document.getElementsByClassName('target');
+
+  for (i = 0; i < nodes.length; i++) {
+    if (nodes[i].innerText.toLowerCase().includes(filter)) {
+      nodes[i].style.display = "block";
+    } else {
+      nodes[i].style.display = "none";
+    }
+  }
+}
+</script>
+
+<style>
+    h1{
+        position: relative;
+    }
+    .tabs {
+        padding: 12px;
+        background: rgba(4, 7, 75, 0.3);
+        backdrop-filter: blur(30px);
+    }
+    input[type=checkbox] { /*убираем тег чекбокс*/
+        display: none;
+        }
+        
+        input:checked + label {/* изменение выбранного блока */
+        color: purple;
+        animation: current-anim-name;
+        animation-duration: 2s;
+        background-color: #6288df;
+        
+        }
+        input:checked + label>div > .perchik1{
+        background-color: #6288df;
+        }
+</style>
+
+
+<h1>Договора:</h1>
+
+  
+<ul class="perchiki">
+<input type="text" id="Search" onkeyup="functionSearch()" placeholder="Введите имя поиска">
+
+<!--<input id="apple" type="checkbox" name="apple" />
+<label for="apple">Apple</label>-->
+<p color = "red"> {{error}}</p>
+ 
+
+  <form method="post" enctype="multipart/form-data">
+    <p><input type="file" name="file" ></p>
+    <p><input type="submit" value="Прикрепить чек" id = "submit"></p>
+    
+  </form>
+ 
+  {% for u in list %} <div class="con_block">
+  <input id="{{u.id}}" value="{{u.id}}" type="checkbox" name="{{u.id}}"/>
+  
+  <p>{{error}}</p>
+  
+  <div class="contracts"><br>
+  <p> {{u}} <a href="{{"https://" + list[u]}}" download >скачать</a></p>
+  </div></div>
+  {% endfor %}
+  </ul>
+  
+  
+{% endblock %}
