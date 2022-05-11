@@ -1,0 +1,221 @@
+
+{% extends 'base.html' %}
+
+{% block title %}
+Мои задачи
+{% endblock %}
+
+{% block body %}
+<link rel="stylesheet" href="{{ url_for ('static', filename='css/my_task.css')}}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<!-- Адаптация под мобилки через кнопку -->
+<script type='text/javascript'>
+  
+</script>
+
+<script type='text/javascript'>
+  // Стандарный input для файлов
+  var fileInput = $('#file-field');
+    
+  // ul-список, содержащий миниатюрки выбранных файлов
+  var imgList = $('ul#img-list');
+
+  // Контейнер, куда можно помещать файлы методом drag and drop
+  var dropBox = $('#img-container');
+
+  // Обработка события выбора файлов в стандартном поле
+  fileInput.bind({
+    change: function() {
+      displayFiles(this.files);
+    }
+  });
+    
+  // Обработка событий drag and drop при перетаскивании файлов на элемент dropBox
+  dropBox.bind({
+    dragenter: function() {
+      $(this).addClass('highlighted');
+      return false;
+    },
+    dragover: function() {
+      return false;
+    },
+    dragleave: function() {
+      $(this).removeClass('highlighted');
+      return false;
+    },
+    drop: function(e) {
+      var dt = e.originalEvent.dataTransfer;
+      displayFiles(dt.files);
+      return false;
+    }
+  });
+    function displayFiles(files) {
+        // Создаем элемент li и помещаем в него название, миниатюру и progress bar,
+        // а также создаем ему свойство file, куда помещаем объект File (при загрузке понадобится)
+        var li = $('<li/>').appendTo(imgList);
+        $('<div/>').text(file.name).appendTo(li);
+        var img = $('<img/>').appendTo(li);
+        $('<div/>').addClass('progress').text('0%').appendTo(li);
+        li.get(0).file = file;
+  
+        // Создаем объект FileReader и по завершении чтения файла, отображаем миниатюру и обновляем
+        // инфу обо всех файлах
+        var reader = new FileReader();
+        reader.onload = (function(aImg) {
+          return function(e) {
+            aImg.attr('src', e.target.result);
+            aImg.attr('width', 150);
+            /* ... обновляем инфу о выбранных файлах ... */
+          };
+        })(img);
+        
+        reader.readAsDataURL(file);
+      }
+    
+      function uploadFile(file, url) {
+    
+        var reader = new FileReader();
+      
+        reader.onload = function() {    
+          var xhr = new XMLHttpRequest();    
+          
+          xhr.upload.addEventListener("progress", function(e) {
+            if (e.lengthComputable) {
+              var progress = (e.loaded * 100) / e.total;
+              /* ... обновляем инфу о процессе загрузки ... */
+            }
+          }, false);
+          
+          /* ... можно обрабатывать еще события load и error объекта xhr.upload ... */
+      
+          xhr.onreadystatechange = function () {
+            if (this.readyState == 4) {
+              if(this.status == 200) {
+                /* ... все ок! смотрим в this.responseText ... */
+              } else {
+                /* ... ошибка! ... */
+              }
+            }
+          };
+          
+          xhr.open("POST", url);
+          var boundary = "xxxxxxxxx";    
+          // Устанавливаем заголовки
+          xhr.setRequestHeader("Content-Type", "multipart/form-data, boundary="+boundary);
+          xhr.setRequestHeader("Cache-Control", "no-cache");    
+          // Формируем тело запроса
+          var body = "--" + boundary + "\r\n";
+          body += "Content-Disposition: form-data; name='myFile'; filename='" + file.name + "'\r\n";
+          body += "Content-Type: application/octet-stream\r\n\r\n";
+          body += reader.result + "\r\n";
+          body += "--" + boundary + "--";
+      
+          if(xhr.sendAsBinary) {
+            // только для firefox
+            xhr.sendAsBinary(body);
+          } else {
+            // chrome (так гласит спецификация W3C)
+            xhr.send(body);
+          }
+        };
+        // Читаем файл
+        reader.readAsBinaryString(file);
+      }
+</script>
+<!--<h1>Задачи</h1>-->
+
+<!-- 
+<script>
+  document.querySelector('#p1').addEventListener('mdl-componentupgraded', function() {
+    this.MaterialProgress.setProgress(44);
+  });
+</script> -->
+
+
+  <div class="kabanchiki">
+  <ol class="kanban progress">
+    <h2></i>В процессе</h2>
+    {% for u in tasks %}
+    {% if current_user.id == u.idUser %}
+    
+       {% if u.statusСompleted == "Uncomplete" %}
+       {%if u.timeTask != today %}
+        <li class="dd-item" data-id="5">
+        <p class="task_name">{{u.nameTask}}</p>
+        <p class="proj_name"><span>Для проекта: </span>{{u.idProject}}</p>
+          <div class="text"><p>{{u.descTask}}</p> </div>
+            <div class="text1"> <p> До какой даты: {{u.timeTask}}</p></div>
+            <div class="text2"> <p>Цена: {{u.manyTask}}</p></div>
+          <form class="btns" method="post" enctype="multipart/form-data">
+            <div class="actions">
+            <div class="example-2">
+              <div class="form-group">
+                <input type="file" name="file" id="file" class="input-file" multiple>
+                <label for="file" class="btn">
+                  <span class="btn btn-tertiary js-labelFile">Загрузить файл</span>
+                </label>
+              </div>
+             </div>
+            <button class="addbutt" value="{{u.id}}" name="task_into"><span>Сдать задачу</span></button>
+            </div>
+            </form>
+      </li>
+      {% endif %}
+      {% endif %}
+      {% endif %}
+    {% endfor %}
+    
+  </ol>
+  
+    
+  <ol class="kanban  Done">
+    <h2>Сделано</h2>
+    {% for u in tasks %}
+      {% if current_user.id == u.idUser %}
+        {% if u.statusСompleted == "Complete" %}
+          <li class="dd-item" data-id="5">
+          <p class="task_name">{{u.nameTask}}</p>
+            <div class="text">{{u.descTask}} </div><div class="actions">
+          </div>
+        </li>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </ol>
+  
+    
+  <ol class="kanban Gone">
+    <h2>Дедлайн</h2>
+    {% for u in tasks %}
+      {% if current_user.id == u.idUser %}
+        {%if u.statusСompleted == "Uncomplete" %} 
+        {%if u.timeTask == today %}
+          <li class="dd-item" data-id="5">
+          <p class="dd-item">{{u.nameTask}}</p>
+            <div class="text">{{u.descTask}} </div>
+            <form method="post" enctype="multipart/form-data">
+              <div class="actions">
+              <div class="example-2">
+                <div class="form-group">
+                  <input type="file" name="file" id="file" class="input-file" multiple>
+                  <label for="file" class="btn btn-tertiary js-labelFile">
+                    <i class="icon fa fa-check"></i>
+                    <span class="js-fileName">Загрузить файл</span>
+                  </label>
+                </div>
+               </div>
+              <a class="addbutt" value="{{u.id}}" name="task_into"><span> Сдать задачу</span></a>
+              </div>
+              </form>
+        </li>
+        {% endif %}
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+  </ol>
+</div>
+    
+
+
+</div>
+{% endblock %}
