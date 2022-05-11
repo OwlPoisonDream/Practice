@@ -1,0 +1,190 @@
+body{
+    align-items: center;
+    justify-content: center;
+}
+
+/* менюшка */
+.main_doc{
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    top: 10%;
+    left: 25%;
+    width: 50%;
+    min-width: 300px;
+    height: 100%;
+    border-radius: 15px;
+}
+
+.doc_list{
+    background: rgba(113, 114, 145, 0.137);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(30px);
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 90%;
+    overflow: auto;
+}
+/* блок с документом */
+.doci{
+    position: relative;
+    background: rgba(144, 82, 206, 0.35);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    list-style: none;
+    top: 50px;
+    margin-left: 50px;
+    margin-bottom: 40px;
+    min-width: 200px;
+    max-width: 600px;
+    width: 40%;
+    height: 400px;
+    border-radius: 2%;
+    text-align: left;
+    padding-left: 20px;
+    padding-top: 20px;
+}
+
+/* поиск */
+#Search{
+    position: fixed;
+    left: 25%;
+    width: 50%;
+    min-width: 300px;
+    height: 32px;
+	border-radius: 5px;
+    top: 8%;
+    background-color: #bdc9ff;
+    color: #fafafa;
+    z-index: 1000;
+} 
+/* форма добавления и оправления чека */
+.d_file{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+    left: 20%;
+    margin-top: 20px;
+}
+
+/* кнопка отправить */
+
+#submit{
+    position: relative;
+    background: #A7AAE8;
+    border-radius: 5px;
+    height: 40px;
+    color: white;
+    width: 60%;
+    margin-top: 5%;
+  }
+
+  #submit:hover{
+      background-color: #fafafa;
+      color: #444444;
+  }
+  
+  /* блок с прикрепленными чеками */
+.doc_block{
+    position: relative;
+    flex-direction: column;
+    background: rgba(97, 101, 207, 0.815);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    
+    width: 95%;
+    height: 150px;
+    overflow: auto;
+}
+
+.check_list{
+    margin-top: 7%;
+ 
+}
+
+.check_list p{
+    color: #1b1b1b;
+    font-size: 14px;
+    margin-bottom: 2%;
+}
+
+.check_list span{
+    color: #acacac;
+}
+/* прикрепленные чеки */
+.new_check{
+    display: flex;
+    justify-content: space-between;
+    background-color: #fafafa;
+    width: 90%;
+    margin: 2% 0 0 3%;
+}
+
+/* ссылка на док */
+.d_dock{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: #fafafa;
+    background: rgba(97, 101, 207, 0.815);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    position: relative;
+    margin-top: 5%;
+    width: 74%;
+    height: 50px;
+    padding-left: 20px;
+    align-items: center;
+  }
+
+  /* кнопка скачать */
+.downl_doc{
+    position: relative;
+    background-color: #e7e7e7;
+    border-radius: 5px;
+    width: 50px;
+    height: 50px;
+    left: 22%;
+    text-align: center;
+    font-size: 11px;
+  }
+
+  .downl_doc img{
+    margin-top: 12px;
+  }
+
+  .downl_doc:hover{
+      background-color: #bdc9ff;
+  }
+
+/* чей-то стайл из html */
+  h1{
+    position: relative;
+    color: #fafafa;
+}
+.tabs {
+    padding: 12px;
+    background: rgba(4, 7, 75, 0.3);
+    backdrop-filter: blur(30px);
+}
+input[type=checkbox] { /*убираем тег чекбокс*/
+    display: none;
+    }
+    
+    input:checked + label {/* изменение выбранного блока */
+    color: purple;
+    animation: current-anim-name;
+    animation-duration: 2s;
+    background-color: #6288df;
+    
+    }
+
+    input:checked + label>div > .doci{
+    background-color: #6288df;
+    }
