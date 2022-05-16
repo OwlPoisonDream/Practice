@@ -19,7 +19,7 @@ mail.init_app(app)
 login_manager = LoginManager() #Инициализация работы с логинами
 login_manager.init_app(app)
 login_manager.login_view = 'login'
-yToken = yadisk.YaDisk(token=config['TokenYandex'])# токен для яндекс диска
+yToken = "AQAAAABetchDAAfIOoTtzk4Bd0cNm0VX3nt7gWs"# токен для яндекс диска
 
 from app import views, models,forms,email
 
