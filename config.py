@@ -8,7 +8,6 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') # Задаем токен для генерации cookie
     SQLALCHEMY_TRACK_MODIFICATIONS = False # отключаем модификацию SQLAlchemy
     SQLALCHEMY_DATABASE_URI = 'sqlite:///phoenix.db' #ссылка на SQL
-    TokenYandex="AQAAAABetchDAAfIOoTtzk4Bd0cNm0VX3nt7gWs"# токен яндекс диска
 
     ##### настройка Flask-Mail #####
     ADMINS = ['fenix4dminproba@yandex.ru']
