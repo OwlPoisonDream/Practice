@@ -1,2 +1,0 @@
-# Practice
-Phoenix animation studio
