@@ -20,6 +20,7 @@ class Models_py:
         mes_time = db.Column(db.String(255))
         mes_text = db.Column(db.Text)
         mes_owner = db.Column(db.String(255))
+        mes_file = db.Column(db.Text)
         
 class Forms_py(FlaskForm):
     class Message_Form:
@@ -189,4 +190,7 @@ class Views_py:
                     return render_template('messenger.html',error="ошибка с сервером")
             if form.message_file.data != None :
                 message_file = Config.way_file + + task.name + '/'+ filename # указываю путь к папке
+            send_message = models.Message(chat_id = task.id, mes_text = message_text, mes_time = now.today().strftime("%d.%m.%Y"), mes_owner = current_user.pr.name, mes_file = message_file)
+            db.session.add(send_message)
+            db.session.commit()
         return render_template("messenger.html", task=task, user=user, messages=messages, chat=chat)
