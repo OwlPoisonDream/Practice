@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Проекты
+{% endblock %}
+
+{% block body %}
+<link rel="stylesheet" href="{{ url_for ('static', filename='css/my_projects.css')}}">
+<script src="{{ url_for ('static', filename='js/jquery.min.js')}}"></script>
+
+
+
+<div class="context-menu">
+    <input type="text" id="Search" onkeyup="functionSearch()" placeholder="Введите имя">
+    <div id = "url"> 
+        <p>Проекты - </p>
+    </div>
+    <div class = "target">
+        <p>хуй</p>
+    </div>
+</div>
+<div class="context-menu-open">
+    <ul>
+        <li>Создать папку</li>
+        <li>Создать задачу</li>
+    </ul>
+</div>
+
+<script>
+    // обработка нажатьй и создания папок
+    let contextMenu = document.querySelectorAll('.context-menu'); 
+    let contextMenuOpen = document.querySelector('.context-menu-open'); 
+    for (let i = 0; i < contextMenu.length; i++){ 
+        contextMenu[i].addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            contextMenuOpen.style.left = e.clientX + 'px'; 
+            contextMenuOpen.style.top = e.clientY + 'px';
+            contextMenuOpen.style.display = 'block';
+        });
+    }    
+    window.addEventListener('click', function() {
+        contextMenuOpen.style.display = 'none';
+    });
+    
+    let = contextMenu = $('.context-menu-open');
+    $('.context-menu').on('contextmenu', function (e) {
+        e.preventDefault();
+        contextMenu.css({top: e.clientY + 'px', left: e.clientX + 'px' }); 
+        contextMenu.show();
+    });
+    $(document).on('click', function () {
+        contextMenu.hide();
+    });
+    //функция поиска
+    function functionSearch() {
+          var input = document.getElementById("Search");
+          var filter = input.value.toLowerCase();
+          var nodes = document.getElementsByClassName('target');
+    
+      for (i = 0; i < nodes.length; i++) {
+        if (nodes[i].innerText.toLowerCase().includes(filter)) {
+          nodes[i].style.display = "block";
+        } else {
+          nodes[i].style.display = "none";
+        }
+      }
+    }
+    // открыть создать папку
+    // открыть создать задачу 
+    // открыть создать проект
+</script>
+{% endblock %}
