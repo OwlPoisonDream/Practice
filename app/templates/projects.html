@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Проекты
+{% endblock %}
+
+{% block body %}
+<link rel="stylesheet" href="{{ url_for ('static', filename='css/my_projects.css')}}">
+<script src="{{ url_for ('static', filename='js/jquery.min.js')}}"></script>
+
+
+
+<div class="context-menu">
+    <input type="text" id="Search" onkeyup="functionSearch()" placeholder="Введите имя">
+    <div id = "url"> 
+        <p>Проекты - </p>
+    </div>
+    {% for j in list %}
+    <div class = "target">
+        <p>хуй</p>
+    </div>
+    {% endfor %}
+</div>
+<div class="context-menu-open">
+    <ul>
+        <li><a href='#' id='trigger'>Создать папку</a></li>
+        <li><a href='#' id='trigger1'>Создать задачу</a></li>
+    </ul>
+</div>
+
+<div class="create" id = "create">
+    <h1>Cоздать папку</h1>
+    <form action="" method="post">
+        <p>Название папки <input name="name_patch" type="text"></p><br>
+        <input class="btn_create" type="submit" value="Создать папку">
+    </form>
+    <div class="cl-btn-7"></div>
+</div>
+<div class="create" id = "create1">
+    <h1>Создать задачу</h1>
+    <form action="" method="post">
+        <p>id проекта:{{form.idProject}}</p>
+        <p>Название задачи:{{form.nameTask}}</p>
+        <p>Описание задачи:{{form.descTask}}</p>
+        <p>Время выполнения :{{form.timeTask}}</p>
+        <p>Деньги за задачу:{{form.manyTask}}</p>
+        <p>Ссылка на диск:{{form.linkDisk}}</p>
+        <p>id проекта:{{form.idFolder}}</p>
+        <p>{{form.submit}}</p>
+    </form>
+    <div class="cl-btn-7"></div>
+</div>
+
+<script>
+    // обработка нажатьй и создания папок
+    let contextMenu = document.querySelectorAll('.context-menu'); 
+    let contextMenuOpen = document.querySelector('.context-menu-open'); 
+    for (let i = 0; i < contextMenu.length; i++){ 
+        contextMenu[i].addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            contextMenuOpen.style.left = e.clientX + 'px'; 
+            contextMenuOpen.style.top = e.clientY + 'px';
+            contextMenuOpen.style.display = 'block';
+        });
+    }    
+    window.addEventListener('click', function() {
+        contextMenuOpen.style.display = 'none';
+    });
+    
+    let = contextMenu = $('.context-menu-open');
+    $('.context-menu').on('contextmenu', function (e) {
+        e.preventDefault();
+        contextMenu.css({top: e.clientY + 'px', left: e.clientX + 'px' }); 
+        contextMenu.show();
+    });
+    $(document).on('click', function () {
+        contextMenu.hide();
+    });
+    //функция поиска
+    function functionSearch() {
+          var input = document.getElementById("Search");
+          var filter = input.value.toLowerCase();
+          var nodes = document.getElementsByClassName('target');
+    
+      for (i = 0; i < nodes.length; i++) {
+        if (nodes[i].innerText.toLowerCase().includes(filter)) {
+          nodes[i].style.display = "block";
+        } else {
+          nodes[i].style.display = "none";
+        }
+      }
+    }
+    // открыть создать папку
+    $(document).ready(function(){
+        $("#trigger").on('click', function(){
+            $("#create").css('display','block');
+            $(".context-menu-open").css('display','none');
+            return false;
+        });
+
+        $(".cl-btn-7").on('click', function(){
+            $("#create").css('display','none');
+            return false;
+        });
+    });
+    // открыть создать задачу
+    $(document).ready(function(){
+        $("#trigger1").on('click', function(){
+            $("#create1").css('display','block');
+            $(".context-menu-open").css('display','none');
+            return false;
+        });
+
+        $(".cl-btn-7").on('click', function(){
+            $("#create1").css('display','none');
+            return false;
+        });
+    });
+
+</script>
+{% endblock %}
