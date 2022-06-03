@@ -442,9 +442,7 @@ def contract():
         datStart = datetime.strptime(request.form['start'],'%Y-%m-%d')
         datEnd = datetime.strptime(request.form.get('end'),'%Y-%m-%d')
         print(datStart.day,datEnd.day)
-        if datStart.day>datEnd.day:
-            random_day = random.randint(datEnd.day, datStart.day)
-        else:
+        if datStart.day<datEnd.day:
             random_day = random.randint(datStart.day,datEnd.day)
         print(random_day)
         del listForm['start']#удаляем элемент времени из списка, что бы заработал цикл
@@ -454,7 +452,7 @@ def contract():
         for id in listFormKeys:
             user = models.Users_Data.query.filter_by(id = id).first()#поиск юзера
             
-            nameFail = "акт" + " " + user.name + " " + now.today().strftime("%d.%m.%Y")#имя файла 
+            nameFail = "акт" + " " + user.name + " " + random_day + "." +now.today().strftime("%d.%m.%Y").month + "." + now.today().strftime("%d.%m.%Y").year#имя файла 
             # вставка задач
             docx = Document(Config.way_doc + "шаблон_акт" +".docx")# открываем шаблон
             all_tables = docx.tables
