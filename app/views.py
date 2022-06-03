@@ -442,7 +442,7 @@ def contract():
         datStart = datetime.strptime(request.form['start'],'%Y-%m-%d')
         datEnd = datetime.strptime(request.form.get('end'),'%Y-%m-%d')
         print(datStart.day,datEnd.day)
-        if datStart.day<datEnd.day:
+        if datStart.day<datEnd.day and datStart.month==datEnd.month:
             random_day = random.randint(datStart.day,datEnd.day)
         print(random_day)
         del listForm['start']#удаляем элемент времени из списка, что бы заработал цикл
