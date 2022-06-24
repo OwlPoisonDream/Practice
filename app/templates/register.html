@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Регистрация</title>
+  <link rel="stylesheet" href="{{ url_for ('static', filename='css/login.css')}}">
+</head>
+
+
+<body align="center">
+<div id="container_demo" >
+  <div id="wrapper" class="animate form">
+      <div class="login"> </div>
+      <div id="login">
+  <h1>Регистрация</h1>
+  <form action="" method="post">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.email.label }}
+        {{ form.email(size=64) }}<br>
+        {% for error in form.email.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>
+        {{ form.password.label }}
+        {{ form.password(size=32) }}<br>
+        {% for error in form.password.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>Повторите пароль</p>
+    <p>
+        {{ form.password2(size=32) }}<br>
+        {% for error in form.password2.errors %}
+        <span style="color: red;">[{{ error }}]</span>
+        {% endfor %}
+    </p>
+    <p>{{ form.submit() }}</p>
+</form>
+  <a href="/">Войти</a>
+    </div>
+  </div>
+</div>
+</body>

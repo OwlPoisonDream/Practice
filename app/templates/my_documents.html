@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Мои документы
+{% endblock %}
+
+{% block body %}
+<link rel="stylesheet" href="{{ url_for ('static', filename='css/documents.css')}}">
+<script>
+    function functionSearch() {
+      var input = document.getElementById("Search");
+      var filter = input.value.toLowerCase();
+      var nodes = document.getElementsByClassName('target');
+
+  for (i = 0; i < nodes.length; i++) {
+    if (nodes[i].innerText.toLowerCase().includes(filter)) {
+      nodes[i].style.display = "block";
+    } else {
+      nodes[i].style.display = "none";
+    }
+  }
+}
+</script>
+
+<div class="main_doc">
+
+ <input type="text" id="Search" onkeyup="functionSearch()" placeholder="Введите название договора">
+
+<!--<input id="apple" type="checkbox" name="apple" />
+<label for="apple">Apple</label>-->
+<div  class="err"><p> {{error}}</p></div>
+ <ul class="doc_list">
+  {% for u in list %} 
+ <li class="doci">
+ <h3>{{u}}</h3>
+  <div class="d_dock">
+
+ <input id="{{u.id}}" value="{{u.id}}" type="checkbox" name="{{u.id}}">
+   <p>{{u}}</p>
+  <p>{{error}}</p>
+  
+  <div class="downl_doc">
+ <a href="{{"https://" + list[u]}}" download > <img src="static/icons/download_icon_128877.svg" alt=""></a> 
+ </div> 
+
+</div>
+
+<div class="check_list">
+<!--<span>Прикреплено:</span>
+<ul class="doc_block" id = "result">  
+<li class="new_check"> <p> фаил </p> <div> ☓ </div></li>
+</ul>-->
+</div>
+{% if user.up_ooo == 0 %}
+  <form class="d_file"  method="post" enctype="multipart/form-data">
+    <input class="dl_check" type="file" name="file" >
+    <input  type="submit" value="Отправить" id = "submit">
+  </form>
+{% endif %}
+</li>
+ {% endfor %}
+</ul> 
+
+</div>
+<script>
+  // загрузка файлов
+$(document).ready(function() {
+	
+  $(".dl_check").change(function(){ // Выполняем функцию после выбора файлов
+    var name_file = []; // Создаем массив
+    for(var i = 0; i < $(this).get(0).files.length; ++i) { // Запускаем цикл и перебираем все файлы 
+      name_file.push($(this).get(0).files[i].name); // Добавляем имена файлов в массив  
+    } 
+    //$("#result").text(name_file.join(", ")); // Выводим список имен в id="result", разделенных запятой
+    
+    $.each(name_file,function(index,value){
+      $("#result").append( "<li>" + value + "</li>" );
+      console.log('Индекс: ' + index + '; Значение: ' + value);
+});
+  });
+  
+});
+
+</script>
+
+{% endblock %}

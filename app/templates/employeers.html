@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Сотрудники
+{% endblock %}
+
+{% block body %}
+  <!--  <input class="search" type="text"/> -->
+<script>
+    function functionSearch() {
+      var input = document.getElementById("Search");
+      var filter = input.value.toLowerCase();
+      var nodes = document.getElementsByClassName('target');
+
+  for (i = 0; i < nodes.length; i++) {
+    if (nodes[i].innerText.toLowerCase().includes(filter)) {
+      nodes[i].style.display = "block";
+    } else {
+      nodes[i].style.display = "none";
+    }
+  }
+}
+</script>
+  
+<ul class="perchiki">
+<input type="text" id="Search" onkeyup="functionSearch()" placeholder="Введите имя поиска">
+<p>{{error}}</p>
+{% for u in list %}
+<div class = "target">
+    <li class="perchik1">
+        <div class="peravatar"> {% if u.pr.avatar!=None %}<img proxy src="/app/{{u.pr.avatar}}">{%endif%}
+          {% if u.pr.avatar==None %} <img proxy src="/app/{{ url_for ('static', filename='x_06eb1977.jpg')}}">{%endif%}</div> <!-- автарка-->
+        <div class="indicator" >
+            <p class="n">{% if u.pr.chekManager == 0 %}0{% endif %} {% if u.pr.chekManager == 1 %}1{% endif %}{% if u.pr.chekManager == 2 %}ok{% endif %}</p>       
+        </div>
+            <div class="nikperchika">
+                <!--<p>Id = {{u.id}}</p>-->
+                <p><br>Почта: {{u.email}}</p>
+                <p class="nik"> {{u.pr.name}}</p>
+                <div class="post"> <p><a href="/completed_tasks/{{u.id}}/">Перейти к профилю</a></p></div>
+                <form  method="post" enctype="multipart/form-data"><input type="text" name = "person" value="{{u.id}}" style="display: none;"><input class="akk-compl" type="submit" value="Аккаунт проверен"></form>
+                
+            </div>
+            
+    </li>
+</div>
+{% endfor %}
+</ul>
+{% endblock %}

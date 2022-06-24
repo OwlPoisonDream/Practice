@@ -1,0 +1,83 @@
+
+ input[type=checkbox] { /*убираем тег чекбокс*/
+    display: none;
+ }
+ 
+ input:checked + label {/* изменение выбранного блока */
+       color: rgb(247, 225, 185);
+    animation: current-anim-name;
+    animation-duration: 2s;
+    background-color: #6288df;
+
+ }
+ input:checked + label>div > .perchik1{
+  background-color: #6288df;
+  }
+
+.cr_cont{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    position: fixed;
+    top: 0%;
+    width: 100%;
+    height: 200px;
+      background: rgba(0, 0, 0, 0.411);
+    backdrop-filter: blur(30px);
+    z-index: 1001;
+}
+
+.doc_perchiki{
+    position: relative;
+    margin-top: 250px;
+    width: 100%;
+    height: auto;
+    overflow: auto;
+}
+
+.perchik1{
+    background: rgba(90, 90, 90, 0.1);
+    backdrop-filter: blur(30px);
+}
+
+#Search{
+    position: relative;
+    width:  50%;
+    height: 40px;
+    background-color: #636580;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 500;
+    z-index: 1000;
+} 
+
+#Search::placeholder{
+    color: #fafafa;
+    padding-left: 20px;
+}
+
+#Search:focus {
+    color: #212529;
+    background-color: #fffffffd;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25);
+    padding-left: 20px;
+  }
+
+.cr-akt-btn{
+    width: 310px;
+    background-color: aquamarine;
+    color:#070707;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 18px;
+}
+
+.date{
+    width: 310px;
+    background-color: rgb(255, 255, 255);
+    color:#070707;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 18px;
+}
