@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Туториал
+{% endblock %}
+
+{% block body %}
+<link rel="stylesheet" href="{{ url_for ('static', filename='css/tutorial.css')}}">
+<img class="tutor-img" src="static/tutorial-img.svg">
+{% endblock %}

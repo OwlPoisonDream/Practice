@@ -1,0 +1,224 @@
+{% extends 'base.html' %}
+
+{% block title %} Личный кабинет {% endblock %}
+
+{% block body %}
+<script type="text/javascript" src="{{ url_for ('static', filename='js/jquery.min.js')}}"></script>
+
+<link rel="stylesheet" href="{{ url_for ('static', filename='css/cabinet.css')}}">
+<div class="container" >
+ <!-- основная панель-->
+ <div class="glassmorf"> 
+ <div class="info1"> 
+    <div class="avatar_rainbow"></div>
+     <div class="avatar"> {% if current_user.pr.avatar!=None %}<img proxy src="/app/{{current_user.pr.avatar}}">{%endif%}
+        {% if current_user.pr.avatar==None %} <img proxy src="/app/{{ url_for ('static', filename='x_06eb1977.jpg')}}">{%endif%}
+     </div> <!-- автарка-->
+        <div class="login">{{current_user.pr.nickname}}<p id="info">{{info}}</p></div>
+    </div>
+            <div class="info">
+                <div class="personal_data"> <!-- инфа под автаркой-->
+                <h1>Личные данные</h1>
+                <h3>Ф.И.О:</h3> 
+                <p class = "idName" id="{{current_user.who}}">{{current_user.pr.name}}</p>
+                <h3>Статус странички: </h3>
+                <p>{% if current_user.who==32 %}Особый доступ {% endif %}
+                    {% if current_user.who==2 %}Менеджер {% endif %} 
+                     {% if current_user.who==1 %}Шоураннер {% endif %} 
+                     {% if current_user.who==0 %}Исполнитель{% endif %}
+                     {% if current_user.who==3%}Страница с ограничнием{% endif %}
+                    </p>
+                <h3>Дата рождения: </h3>
+                <p>{{current_user.pr.birthDAy}}</p>
+            </div>
+            <div class="passport">
+                <h1>Паспортные данные</h1>
+                <h3>Серия и номер паспорта:</h3>
+                <p class="infotext">{{current_user.pr.passport}}</p>
+                <h3>Дата выдачи:</h3> 
+                <p class="infotext">{{current_user.pr.passportData}}</p>
+                <h3>Кем выдан:</h3> 
+                <p class="infotext">{{current_user.pr.passportBy}}</p>
+                <h3>Код подразделения:</h3>
+                 <p class="infotext">{{current_user.pr.passportCod}}</p>
+            </div>
+        </div>
+
+            <div class = "main_cab">
+                 <div class="info-group"> <!-- основная инфа-->
+                     <div class="email_cab"> <!-- почта-->
+                        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <rect width="50" height="50" fill="url(#pattern0)"/>
+                            <defs>
+                            <pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
+                            <use xlink:href="#image0_17_54" transform="scale(0.0078125)"/>
+                            </pattern>
+                            <image id="image0_17_54" width="128" height="128" xlink:href="data:image/png;base64,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"/>
+                            </defs>
+                            </svg><p>Электронная почта: {{current_user.email}}</p></div>
+                     <div class="vk_link"> <!-- вк-->
+                        <a  href="{{current_user.pr.link_vk}}"><svg width="50" height="50" viewBox="0 0 50 50" fill="none">
+                            <path d="M25 50C38.8071 50 50 38.8071 50 25C50 11.1929 38.8071 0 25 0C11.1929 0 0 11.1929 0 25C0 38.8071 11.1929 50 25 50Z" fill="#4D76A1"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M24.0556 35.9648H26.0178C26.0178 35.9648 26.6105 35.8997 26.9131 35.5735C27.1916 35.274 27.1827 34.7116 27.1827 34.7116C27.1827 34.7116 27.1444 32.0787 28.3663 31.691C29.5709 31.3091 31.1178 34.2357 32.7573 35.3609C33.9971 36.2126 34.9392 36.0258 34.9392 36.0258L39.3231 35.9648C39.3231 35.9648 41.6164 35.8235 40.529 34.0204C40.4398 33.8729 39.8957 32.6866 37.2695 30.2489C34.5207 27.6975 34.8888 28.1102 38.2 23.697C40.2166 21.0093 41.0228 19.3684 40.771 18.6656C40.5308 17.9962 39.0476 18.1731 39.0476 18.1731L34.1116 18.2039C34.1116 18.2039 33.7458 18.154 33.4744 18.3162C33.2092 18.4753 33.0385 18.8461 33.0385 18.8461C33.0385 18.8461 32.2573 20.9259 31.2154 22.6947C29.0174 26.427 28.1386 26.624 27.7794 26.3922C26.9438 25.8521 27.1524 24.2224 27.1524 23.0646C27.1524 19.4477 27.701 17.9396 26.0842 17.5492C25.5476 17.4196 25.1528 17.334 23.7806 17.3202C22.0194 17.3019 20.5287 17.3255 19.6846 17.7391C19.1231 18.014 18.69 18.6268 18.9538 18.662C19.28 18.7057 20.0189 18.8612 20.4106 19.3947C20.9164 20.0827 20.8986 21.6283 20.8986 21.6283C20.8986 21.6283 21.1892 25.886 20.2199 26.415C19.5545 26.7777 18.6418 26.0371 16.6823 22.651C15.6783 20.9166 14.9202 18.9994 14.9202 18.9994C14.9202 18.9994 14.774 18.6411 14.5133 18.4494C14.1969 18.2173 13.7548 18.1433 13.7548 18.1433L9.06439 18.174C9.06439 18.174 8.36027 18.1936 8.10179 18.4998C7.87184 18.7721 8.08352 19.3354 8.08352 19.3354C8.08352 19.3354 11.7557 27.9266 15.9136 32.2561C19.7261 36.2255 24.0556 35.9648 24.0556 35.9648Z" fill="white"/>
+                            </svg>
+                            <p>Ссылка на ВК: <br>{{current_user.pr.link_vk}}</p> </a> </div>
+                    <div class="phone"> <!-- телефон-->
+                        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                        	 viewBox="0 0 64 64" style="enable-background:new 0 0 64 64;" xml:space="preserve">
+                        <style type="text/css">
+                        	.st0{fill:#77B3D4;}
+                        	.st1{opacity:0.2;}
+                        	.st2{fill:#231F20;}
+                        	.st3{fill:#FFFFFF;}
+                        </style>
+                        <g id="Layer_1">
+                        	<g>
+                        		<circle class="st0" cx="32" cy="32" r="32"/>
+                        	</g>
+                        	<g class="st1">
+                        		<g>
+                        			<path class="st2" d="M29,25.3c-0.4-4.8-5.4-7.1-5.6-7.2C23.1,18,22.9,18,22.7,18c-5.8,1-6.6,4.3-6.7,4.5c0,0.2,0,0.4,0,0.6
+                        				c6.9,21.4,21.2,25.3,25.9,26.6c0.4,0.1,0.7,0.2,0.9,0.3c0.1,0,0.2,0.1,0.3,0.1c0.2,0,0.3,0,0.5-0.1c0.1-0.1,3.5-1.7,4.4-6.9
+                        				c0-0.2,0-0.5-0.1-0.7c-0.1-0.1-1.9-3.5-6.8-4.7c-0.3-0.1-0.7,0-1,0.2c-1.6,1.3-3.7,2.7-4.6,2.9c-6.2-3-9.7-8.9-9.8-10
+                        				c-0.1-0.6,1.3-2.8,3-4.6C28.9,26,29,25.6,29,25.3z"/>
+                        		</g>
+                        	</g>
+                        	<g>
+                        		<g>
+                        			<path class="st3" d="M29,23.3c-0.4-4.8-5.4-7.1-5.6-7.2C23.1,16,22.9,16,22.7,16c-5.8,1-6.6,4.3-6.7,4.5c0,0.2,0,0.4,0,0.6
+                        				c6.9,21.4,21.2,25.3,25.9,26.6c0.4,0.1,0.7,0.2,0.9,0.3c0.1,0,0.2,0.1,0.3,0.1c0.2,0,0.3,0,0.5-0.1c0.1-0.1,3.5-1.7,4.4-6.9
+                        				c0-0.2,0-0.5-0.1-0.7c-0.1-0.1-1.9-3.5-6.8-4.7c-0.3-0.1-0.7,0-1,0.2c-1.6,1.3-3.7,2.7-4.6,2.9c-6.2-3-9.7-8.9-9.8-10
+                        				c-0.1-0.6,1.3-2.8,3-4.6C28.9,24,29,23.6,29,23.3z"/>
+                        		</g>
+                        	</g>
+                        </g>
+                        <g id="Layer_2">
+                        </g>
+                        </svg>
+                            <p>Номер телефона: <br> {{current_user.pr.phone_number}}</p></div>
+                     <div class="inn_cab"> <!--инн-->
+                        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M25 50C38.8071 50 50 38.8071 50 25C50 11.1929 38.8071 0 25 0C11.1929 0 0 11.1929 0 25C0 38.8071 11.1929 50 25 50Z" fill="#EA8E43"/>
+                            <path opacity="0.3" d="M25.3604 26.5175H30.7748L25.3604 21.103V26.5175Z" fill="black"/>
+                            <path opacity="0.3" d="M24.3838 20.6146H14.0625V37.1846H31.2632V27.4941H24.3838V20.6146Z" fill="black"/>
+                            <path opacity="0.3" d="M31.5972 14.8663V20.2808H37.0116L31.5972 14.8663Z" fill="black"/>
+                            <path opacity="0.3" d="M30.6206 21.2573V14.3779H20.2993V19.6382H25.2767L32.2398 26.6012V30.9479H37.5V21.2573H30.6206Z" fill="black"/>
+                            <path d="M24.5791 25.7362H29.9936L24.5791 20.3218V25.7362Z" fill="white"/>
+                            <path d="M23.6025 19.8334H13.2812V36.4033H30.482V26.7128H23.6025V19.8334Z" fill="white"/>
+                            <path d="M30.8159 14.0851V19.4995H36.2303L30.8159 14.0851Z" fill="white"/>
+                            <path d="M29.8394 20.4761V13.5967H19.5181V18.857H24.4955L31.4585 25.82V30.1666H36.7188V20.4761H29.8394Z" fill="white"/>
+                            </svg>
+                            
+                            <p>ИНН: <br>{{current_user.pr.inn}}</p>
+                        </div>
+                    <div class="bank_account_cab">
+                        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M25 50C38.8071 50 50 38.8071 50 25C50 11.1929 38.8071 0 25 0C11.1929 0 0 11.1929 0 25C0 38.8071 11.1929 50 25 50Z" fill="#33B476"/>
+                        <path d="M36.7188 20.3657H13.2812V23.1733H36.7188V20.3657Z" fill="white"/>
+                        <path d="M36.711 19.3892C36.6716 18.0753 35.6004 17.0205 34.2769 17.0205H15.7222C14.3988 17.0205 13.3275 18.0753 13.2881 19.3892H36.711Z" fill="white"/>
+                        <path d="M13.2812 24.1499V30.5382C13.2812 31.8866 14.3743 32.9796 15.7227 32.9796H34.2773C35.6257 32.9796 36.7188 31.8866 36.7188 30.5382V24.1499H13.2812ZM30.7652 27.4573H31.7417V28.4338H30.7652V27.4573ZM28.3237 27.4573H29.3003V28.4338H28.3237V27.4573ZM34.1831 30.715H24.1734V29.7385H34.1831V30.715ZM34.1831 28.4338H33.2066V27.4573H34.1831V28.4338Z" fill="white"/>
+                        </svg>
+                                                    
+                            <p>Личный счёт: <br>{{current_user.pr.bankAccount}}</p>
+                    </div>
+                     <div class="bank_details_cab"><!-- реквезиты банка-->
+                        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" >
+                            <path d="M25 50C38.8071 50 50 38.8071 50 25C50 11.1929 38.8071 0 25 0C11.1929 0 0 11.1929 0 25C0 38.8071 11.1929 50 25 50Z" fill="#9233B4"/>
+                            <path opacity="0.3" d="M37.5 21.1469H14.0625V23.9545H37.5V21.1469Z" fill="black"/>
+                            <path opacity="0.3" d="M37.4927 20.1703C37.4533 18.8564 36.3821 17.8016 35.0586 17.8016H16.5039C15.1805 17.8016 14.1092 18.8564 14.0698 20.1703H37.4927Z" fill="black"/>
+                            <path opacity="0.3" d="M14.0625 24.931V31.3193C14.0625 32.6677 15.1555 33.7607 16.5039 33.7607H35.0586C36.4069 33.7607 37.5 32.6677 37.5 31.3193V24.931H14.0625ZM31.5464 28.2384H32.523V29.2149H31.5464V28.2384ZM29.105 28.2384H30.0816V29.2149H29.105V28.2384ZM34.9644 31.4961H24.9546V30.5196H34.9644V31.4961V31.4961ZM34.9644 29.2149H33.9878V28.2384H34.9644V29.2149Z" fill="black"/>
+                            <path d="M36.7188 20.3656H13.2812V23.1732H36.7188V20.3656Z" fill="white"/>
+                            <path d="M36.7114 19.3891C36.6721 18.0752 35.6008 17.0204 34.2774 17.0204H15.7227C14.3992 17.0204 13.3279 18.0752 13.2886 19.3891H36.7114Z" fill="white"/>
+                            <path d="M13.2812 24.1498V30.5381C13.2812 31.8864 14.3743 32.9795 15.7227 32.9795H34.2773C35.6257 32.9795 36.7188 31.8864 36.7188 30.5381V24.1498H13.2812ZM30.7652 27.4571H31.7417V28.4337H30.7652V27.4571ZM28.3237 27.4571H29.3003V28.4337H28.3237V27.4571ZM34.1831 30.7149H24.1734V29.7383H34.1831V30.7149V30.7149ZM34.1831 28.4337H33.2066V27.4571H34.1831V28.4337Z" fill="white"/>
+                            </svg>
+                            <p>Реквизиты банка: {{current_user.pr.bank_details}}</p></div>
+                     <div class="bname"> <!--название банка-->
+                        <svg width="50" height="50" viewBox="0 0 50 50" fill="none">
+                            <path d="M25 50C38.8071 50 50 38.8071 50 25C50 11.1929 38.8071 0 25 0C11.1929 0 0 11.1929 0 25C0 38.8071 11.1929 50 25 50Z" fill="#33B476"/>
+                            <path opacity="0.3" d="M32.1542 27.482C35.1025 27.482 37.4925 25.9758 37.4925 24.1179C37.4925 22.2599 35.1025 20.7537 32.1542 20.7537C29.2059 20.7537 26.8159 22.2599 26.8159 24.1179C26.8159 25.9758 29.2059 27.482 32.1542 27.482Z" fill="black"/>
+                            <path opacity="0.3" d="M32.1543 28.4582C29.99 28.4582 28.1164 27.7436 26.9837 26.634C26.8781 26.8979 26.8159 27.1726 26.8159 27.4572C26.8159 29.3151 29.206 30.8214 32.1542 30.8214C35.1024 30.8214 37.4925 29.3151 37.4925 27.4572C37.4925 27.1727 37.4303 26.898 37.3248 26.6341C36.1921 27.7437 34.3185 28.4582 32.1543 28.4582Z" fill="black"/>
+                            <path opacity="0.3" d="M32.1543 31.7974C29.99 31.7974 28.1164 31.0829 26.9837 29.9733C26.8781 30.2371 26.8159 30.5119 26.8159 30.7965C26.8159 32.6544 29.206 34.1606 32.1542 34.1606C35.1024 34.1606 37.4925 32.6544 37.4925 30.7965C37.4925 30.512 37.4303 30.2372 37.3248 29.9734C36.1921 31.083 34.3185 31.7974 32.1543 31.7974Z" fill="black"/>
+                            <path opacity="0.3" d="M32.1543 35.1369C29.99 35.1369 28.1164 34.4224 26.9837 33.3127C26.8781 33.5766 26.8159 33.8513 26.8159 34.1359C26.8159 35.9938 29.206 37.5 32.1542 37.5C35.1024 37.5 37.4925 35.9938 37.4925 34.1359C37.4925 33.8514 37.4303 33.5767 37.3248 33.3128C36.1921 34.4224 34.3185 35.1369 32.1543 35.1369Z" fill="black"/>
+                            <path opacity="0.3" d="M19.4081 20.7909C22.3563 20.7909 24.7463 19.2847 24.7463 17.4267C24.7463 15.5687 22.3563 14.0625 19.4081 14.0625C16.4598 14.0625 14.0698 15.5687 14.0698 17.4267C14.0698 19.2847 16.4598 20.7909 19.4081 20.7909Z" fill="black"/>
+                            <path opacity="0.3" d="M19.4082 21.7671C17.2439 21.7671 15.3702 21.0526 14.2375 19.9429C14.132 20.2068 14.0698 20.4815 14.0698 20.7661C14.0698 22.624 16.4598 24.1302 19.4081 24.1302C22.3563 24.1302 24.7463 22.624 24.7463 20.7661C24.7463 20.4817 24.6841 20.2069 24.5786 19.943C23.4459 21.0527 21.5723 21.7671 19.4082 21.7671Z" fill="black"/>
+                            <path opacity="0.3" d="M19.4082 25.1064C17.2439 25.1064 15.3702 24.3919 14.2375 23.2822C14.132 23.5461 14.0698 23.8208 14.0698 24.1055C14.0698 25.9634 16.4598 27.4696 19.4081 27.4696C22.3563 27.4696 24.7463 25.9634 24.7463 24.1055C24.7463 23.8209 24.6841 23.5462 24.5786 23.2824C23.4459 24.392 21.5723 25.1064 19.4082 25.1064Z" fill="black"/>
+                            <path opacity="0.3" d="M19.4082 28.4458C17.2439 28.4458 15.3702 27.7312 14.2375 26.6216C14.132 26.8855 14.0698 27.1602 14.0698 27.4449C14.0698 29.3028 16.4598 30.809 19.4081 30.809C22.3563 30.809 24.7463 29.3028 24.7463 27.4449C24.7463 27.1603 24.6841 26.8856 24.5786 26.6217C23.4459 27.7314 21.5723 28.4458 19.4082 28.4458Z" fill="black"/>
+                            <path opacity="0.3" d="M19.4082 31.7851C17.2439 31.7851 15.3702 31.0706 14.2375 29.9609C14.132 30.2248 14.0698 30.4996 14.0698 30.7842C14.0698 32.642 16.4598 34.1483 19.4081 34.1483C22.3563 34.1483 24.7463 32.642 24.7463 30.7842C24.7463 30.4997 24.6841 30.225 24.5786 29.961C23.4459 31.0707 21.5723 31.7851 19.4082 31.7851Z" fill="black"/>
+                            <path opacity="0.3" d="M19.4082 35.1245C17.2439 35.1245 15.3702 34.4099 14.2375 33.3003C14.132 33.5641 14.0698 33.8388 14.0698 34.1235C14.0698 35.9814 16.4598 37.4876 19.4081 37.4876C22.3563 37.4876 24.7463 35.9814 24.7463 34.1235C24.7463 33.839 24.6841 33.5643 24.5786 33.3004C23.4459 34.41 21.5723 35.1245 19.4082 35.1245Z" fill="black"/>
+                            <path d="M31.373 26.7008C34.3212 26.7008 36.7112 25.1946 36.7112 23.3366C36.7112 21.4786 34.3212 19.9724 31.373 19.9724C28.4247 19.9724 26.0347 21.4786 26.0347 23.3366C26.0347 25.1946 28.4247 26.7008 31.373 26.7008Z" fill="white"/>
+                            <path d="M31.373 27.677C29.2088 27.677 27.3351 26.9624 26.2024 25.8528C26.0969 26.1166 26.0347 26.3914 26.0347 26.676C26.0347 28.5339 28.4247 30.0401 31.3729 30.0401C34.3212 30.0401 36.7112 28.5339 36.7112 26.676C36.7112 26.3915 36.649 26.1168 36.5436 25.8528C35.4108 26.9625 33.5372 27.677 31.373 27.677Z" fill="white"/>
+                            <path d="M31.373 31.0162C29.2088 31.0162 27.3351 30.3017 26.2024 29.192C26.0969 29.4559 26.0347 29.7306 26.0347 30.0152C26.0347 31.8731 28.4247 33.3794 31.3729 33.3794C34.3212 33.3794 36.7112 31.8731 36.7112 30.0152C36.7112 29.7308 36.649 29.456 36.5436 29.1921C35.4108 30.3018 33.5372 31.0162 31.373 31.0162Z" fill="white"/>
+                            <path d="M31.373 34.3557C29.2088 34.3557 27.3351 33.6411 26.2024 32.5315C26.0969 32.7953 26.0347 33.07 26.0347 33.3547C26.0347 35.2126 28.4247 36.7188 31.3729 36.7188C34.3212 36.7188 36.7112 35.2126 36.7112 33.3547C36.7112 33.0702 36.649 32.7955 36.5436 32.5316C35.4108 33.6412 33.5372 34.3557 31.373 34.3557Z" fill="white"/>
+                            <path d="M18.6268 20.0097C21.5751 20.0097 23.9651 18.5035 23.9651 16.6455C23.9651 14.7875 21.5751 13.2812 18.6268 13.2812C15.6786 13.2812 13.2886 14.7875 13.2886 16.6455C13.2886 18.5035 15.6786 20.0097 18.6268 20.0097Z" fill="white"/>
+                            <path d="M18.6269 20.9858C16.4626 20.9858 14.589 20.2713 13.4562 19.1616C13.3507 19.4255 13.2886 19.7003 13.2886 19.9849C13.2886 21.8428 15.6786 23.349 18.6269 23.349C21.575 23.349 23.9651 21.8428 23.9651 19.9849C23.9651 19.7004 23.9029 19.4256 23.7974 19.1618C22.6646 20.2714 20.7911 20.9858 18.6269 20.9858Z" fill="white"/>
+                            <path d="M18.6269 24.3252C16.4626 24.3252 14.589 23.6106 13.4562 22.501C13.3507 22.7649 13.2886 23.0396 13.2886 23.3242C13.2886 25.1821 15.6786 26.6883 18.6269 26.6883C21.575 26.6883 23.9651 25.1821 23.9651 23.3242C23.9651 23.0397 23.9029 22.765 23.7974 22.5011C22.6646 23.6107 20.7911 24.3252 18.6269 24.3252Z" fill="white"/>
+                            <path d="M18.6269 27.6645C16.4626 27.6645 14.589 26.95 13.4562 25.8403C13.3507 26.1042 13.2886 26.379 13.2886 26.6636C13.2886 28.5215 15.6786 30.0277 18.6269 30.0277C21.575 30.0277 23.9651 28.5215 23.9651 26.6636C23.9651 26.3791 23.9029 26.1044 23.7974 25.8405C22.6646 26.9501 20.7911 27.6645 18.6269 27.6645Z" fill="white"/>
+                            <path d="M18.6269 31.0039C16.4626 31.0039 14.589 30.2893 13.4562 29.1797C13.3507 29.4435 13.2886 29.7183 13.2886 30.0029C13.2886 31.8608 15.6786 33.367 18.6269 33.367C21.575 33.367 23.9651 31.8608 23.9651 30.0029C23.9651 29.7184 23.9029 29.4437 23.7974 29.1798C22.6646 30.2894 20.7911 31.0039 18.6269 31.0039Z" fill="white"/>
+                            <path d="M18.6269 34.3432C16.4626 34.3432 14.589 33.6286 13.4562 32.519C13.3507 32.7829 13.2886 33.0576 13.2886 33.3422C13.2886 35.2001 15.6786 36.7064 18.6269 36.7064C21.575 36.7064 23.9651 35.2001 23.9651 33.3422C23.9651 33.0577 23.9029 32.7831 23.7974 32.5191C22.6646 33.6287 20.7911 34.3432 18.6269 34.3432Z" fill="white"/>
+                            </svg>
+                            <p>Наименование банка: <br>{{current_user.pr.bankName}}</p></div>
+                    <div  class="spec_tags">
+                        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="25" cy="25" r="25" fill="#B79CE3"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M25.3333 29.1667C29.9357 29.1667 33.6667 25.4357 33.6667 20.8333C33.6667 16.231 29.9357 12.5 25.3333 12.5C20.731 12.5 17 16.231 17 20.8333C17 25.4357 20.731 29.1667 25.3333 29.1667ZM25.333 27.0832C28.7848 27.0832 31.583 24.285 31.583 20.8332C31.583 17.3814 28.7848 14.5832 25.333 14.5832C21.8812 14.5832 19.083 17.3814 19.083 20.8332C19.083 24.285 21.8812 27.0832 25.333 27.0832Z" fill="white"/>
+                        <path d="M24.3518 22.504C24.3118 22.088 24.3318 21.736 24.4118 21.448C24.4918 21.152 24.5998 20.9 24.7358 20.692C24.8798 20.476 25.0398 20.292 25.2158 20.14C25.3998 19.98 25.5678 19.828 25.7198 19.684C25.8798 19.54 26.0118 19.392 26.1158 19.24C26.2198 19.08 26.2718 18.892 26.2718 18.676C26.2718 18.396 26.1918 18.172 26.0318 18.004C25.8798 17.836 25.6038 17.752 25.2038 17.752C25.0758 17.752 24.9398 17.768 24.7958 17.8C24.6518 17.824 24.5078 17.864 24.3638 17.92C24.2198 17.968 24.0798 18.028 23.9438 18.1C23.8158 18.164 23.6998 18.232 23.5958 18.304L22.9958 17.152C23.2998 16.944 23.6478 16.772 24.0398 16.636C24.4398 16.5 24.9198 16.432 25.4798 16.432C26.2318 16.432 26.8198 16.616 27.2438 16.984C27.6678 17.344 27.8798 17.832 27.8798 18.448C27.8798 18.856 27.8238 19.196 27.7118 19.468C27.6078 19.732 27.4758 19.96 27.3158 20.152C27.1558 20.336 26.9798 20.5 26.7878 20.644C26.5958 20.788 26.4198 20.944 26.2598 21.112C26.0998 21.272 25.9638 21.46 25.8518 21.676C25.7398 21.892 25.6838 22.168 25.6838 22.504H24.3518ZM24.1118 24.208C24.1118 23.928 24.1998 23.708 24.3758 23.548C24.5518 23.38 24.7838 23.296 25.0718 23.296C25.3758 23.296 25.6158 23.38 25.7918 23.548C25.9678 23.708 26.0558 23.928 26.0558 24.208C26.0558 24.488 25.9678 24.712 25.7918 24.88C25.6158 25.048 25.3758 25.132 25.0718 25.132C24.7838 25.132 24.5518 25.048 24.3758 24.88C24.1998 24.712 24.1118 24.488 24.1118 24.208Z" fill="#FFF7F7"/>
+                        <path d="M13 37.4997C22.9663 31.901 28.1233 31.9874 38 37.4997" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+                        <path d="M13 37.5002C22.9663 31.9015 28.1233 31.9879 38 37.5002" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                            <p>Специальность: <br> {% if current_user.pr.tags==None %}Вы не ввели свои специальности {% endif %}
+                            {% if current_user.pr.tags!=None %}{{current_user.pr.tags}}{% endif %} </p>
+                    </div>
+                    <div  class="ooo">
+                        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="25" cy="25" r="25" fill="#B79CE3"/>
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M26.3333 28.1667C30.9357 28.1667 34.6667 24.4357 34.6667 19.8333C34.6667 15.231 30.9357 11.5 26.3333 11.5C21.731 11.5 18 15.231 18 19.8333C18 24.4357 21.731 28.1667 26.3333 28.1667ZM26.333 26.0832C29.7848 26.0832 32.583 23.285 32.583 19.8332C32.583 16.3814 29.7848 13.5832 26.333 13.5832C22.8812 13.5832 20.083 16.3814 20.083 19.8332C20.083 23.285 22.8812 26.0832 26.333 26.0832Z" fill="white"/>
+                        <path d="M26.0888 23.117C25.7468 23.105 25.4468 23.069 25.1888 23.009C24.9308 22.949 24.7298 22.88 24.5858 22.802L24.9368 21.785C25.0448 21.851 25.1948 21.914 25.3868 21.974C25.5848 22.034 25.8188 22.076 26.0888 22.1V20.255C25.9028 20.171 25.7168 20.078 25.5308 19.976C25.3508 19.874 25.1888 19.751 25.0448 19.607C24.9008 19.463 24.7838 19.292 24.6938 19.094C24.6098 18.89 24.5678 18.65 24.5678 18.374C24.5678 17.858 24.7028 17.459 24.9728 17.177C25.2488 16.889 25.6208 16.703 26.0888 16.619V15.8H27.0248V16.583C27.2888 16.601 27.5198 16.637 27.7178 16.691C27.9158 16.745 28.0988 16.808 28.2668 16.88L27.9428 17.879C27.8408 17.831 27.7118 17.783 27.5558 17.735C27.3998 17.687 27.2228 17.651 27.0248 17.627V19.31C27.2108 19.394 27.3968 19.49 27.5828 19.598C27.7748 19.7 27.9428 19.823 28.0868 19.967C28.2368 20.111 28.3568 20.282 28.4468 20.48C28.5428 20.672 28.5908 20.903 28.5908 21.173C28.5908 21.725 28.4498 22.157 28.1678 22.469C27.8918 22.775 27.5108 22.973 27.0248 23.063V23.9H26.0888V23.117ZM27.4208 21.308C27.4208 21.116 27.3428 20.96 27.1868 20.84C27.0368 20.714 26.8538 20.6 26.6378 20.498V22.1C26.9018 22.07 27.0968 21.986 27.2228 21.848C27.3548 21.71 27.4208 21.53 27.4208 21.308ZM25.7378 18.275C25.7378 18.455 25.8068 18.605 25.9448 18.725C26.0888 18.845 26.2658 18.956 26.4758 19.058V17.6C26.1938 17.612 25.9988 17.681 25.8908 17.807C25.7888 17.933 25.7378 18.089 25.7378 18.275Z" fill="#FFF7F7"/>
+                        <path d="M14 36.4997C23.9663 30.901 29.1233 30.9874 39 36.4997" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+                        <path d="M14 36.5002C23.9663 30.9015 29.1233 30.9879 39 36.5002" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        <p>Имеешь ООО или ИП: <br> {% if current_user.pr.up_ooo=="1" %} да {% endif %}{% if current_user.pr.up_ooo=="0" %} нет {% endif %} </p>
+                    </div>
+                    <div  class="adress">
+                        <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="25" cy="25" r="25" fill="#B79CE3"/>
+                        <rect x="15" y="23" width="20" height="19" rx="1" fill="white"/>
+                        <path d="M24.2654 9.79518C24.6614 9.36658 25.3386 9.36658 25.7346 9.79518L37.3058 22.3215C37.8975 22.9619 37.4432 24 36.5713 24H13.4287C12.5568 24 12.1025 22.9619 12.6942 22.3214L24.2654 9.79518Z" fill="white"/>
+                        <path d="M22 33C22 32.4477 22.4477 32 23 32H27C27.5523 32 28 32.4477 28 33V42H22V33Z" fill="#B79CE3"/>
+                        </svg>
+                        <p>Адрес проживания: {{ current_user.pr.address}}</p>
+                    </div>
+                    <div class="ogrn_cab">
+                            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="25" cy="25" r="25" fill="#B79CE3"/>
+                            <path d="M30.2873 32.676H38.4073C38.7247 32.676 38.9953 32.788 39.2193 33.012C39.462 33.236 39.5833 33.5067 39.5833 33.824C39.5833 34.1413 39.462 34.4213 39.2193 34.664C38.9953 34.888 38.7247 35 38.4073 35H30.2873C29.97 35 29.6993 34.888 29.4753 34.664C29.2513 34.4213 29.1393 34.1413 29.1393 33.824C29.1393 33.5067 29.2513 33.236 29.4753 33.012C29.6993 32.788 29.97 32.676 30.2873 32.676ZM34.3473 21.728C32.8353 21.728 32.0793 22.9413 32.0793 25.368C32.0793 27.7947 32.8353 29.008 34.3473 29.008C35.878 29.008 36.6433 27.7947 36.6433 25.368C36.6433 22.9413 35.878 21.728 34.3473 21.728ZM38.3793 29.792C37.39 30.8747 36.046 31.416 34.3473 31.416C32.6487 31.416 31.3047 30.8747 30.3153 29.792C29.3447 28.7093 28.8593 27.2347 28.8593 25.368C28.8593 23.5013 29.3447 22.0267 30.3153 20.944C31.3047 19.8613 32.6487 19.32 34.3473 19.32C36.046 19.32 37.39 19.8613 38.3793 20.944C39.3687 22.0267 39.8633 23.5013 39.8633 25.368C39.8633 27.2347 39.3687 28.7093 38.3793 29.792ZM15.4193 35C14.99 35 14.6167 34.8413 14.2993 34.524C13.982 34.2067 13.8233 33.8333 13.8233 33.404V16.156C13.8233 15.7267 13.982 15.3533 14.2993 15.036C14.6167 14.7187 14.99 14.56 15.4193 14.56H16.5393C17.0247 14.56 17.4633 14.6907 17.8553 14.952C18.2473 15.2133 18.5367 15.568 18.7233 16.016L24.0153 29.008C24.0153 29.0267 24.034 29.036 24.0713 29.036C24.09 29.036 24.0993 29.0267 24.0993 29.008V16.156C24.0993 15.7267 24.2487 15.3533 24.5473 15.036C24.8647 14.7187 25.238 14.56 25.6673 14.56H26.1433C26.5727 14.56 26.946 14.7187 27.2633 15.036C27.5807 15.3533 27.7393 15.7267 27.7393 16.156V33.404C27.7393 33.8333 27.5807 34.2067 27.2633 34.524C26.946 34.8413 26.5727 35 26.1433 35H25.0233C24.538 35 24.0993 34.8693 23.7073 34.608C23.3153 34.3467 23.026 33.992 22.8393 33.544L17.5193 20.552C17.5193 20.5333 17.51 20.524 17.4913 20.524C17.4727 20.524 17.4633 20.5333 17.4633 20.552V33.404C17.4633 33.8333 17.3047 34.2067 16.9873 34.524C16.67 34.8413 16.2967 35 15.8673 35H15.4193Z" fill="#FFF7F7"/>
+                            </svg>
+                            <p> ОГРН: <br> {{current_user.pr.ogrn}}</p>
+                    </div> 
+              </div>
+            </div>
+        </div>
+        </div>
+    <div class="changing"> <!-- кнопка "изменить"-->
+        <a href="/cabinet_changer">
+            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" border="0">
+                <circle cx="25" cy="25" r="25" fill="url(#paint0_linear_270_493)"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M31.4239 15.0432C30.8394 15.1761 31.3459 14.6967 23.3303 22.7033L15.9708 30.0547L15.4805 32.5223C15.2109 33.8796 14.9947 34.9945 15.0001 34.9999C15.0055 35.0053 16.1201 34.7878 17.4768 34.5164L19.9436 34.0231L27.2951 26.6656C35.3601 18.5941 34.827 19.1596 34.959 18.5363C35.0563 18.0771 34.9801 17.6216 34.7326 17.1827C34.5606 16.8778 33.1206 15.438 32.8157 15.2661C32.3836 15.0225 31.8738 14.9408 31.4239 15.0432ZM32.1959 16.0512C32.3807 16.1069 33.8042 17.5108 33.9215 17.7529C34.0313 17.9798 34.0338 18.312 33.9274 18.5454C33.87 18.6714 33.5902 18.9771 32.9432 19.6208L32.0392 20.5201L30.7585 19.2396L29.4777 17.959L30.3772 17.0568C30.8719 16.5605 31.3245 16.1292 31.383 16.0981C31.6247 15.9698 31.8778 15.9552 32.1959 16.0512ZM29.9664 20.0513L31.2373 21.3224L25.6831 26.8759L20.1289 32.4293L18.8476 31.1487L17.5664 29.868L23.1111 24.3241C26.1607 21.2749 28.6647 18.7801 28.6756 18.7801C28.6865 18.7801 29.2674 19.3521 29.9664 20.0513ZM19.3109 33.1233C19.2924 33.1417 16.3012 33.7196 16.2887 33.7071C16.2801 33.6985 16.6802 31.5903 16.8273 30.8693L16.8703 30.6583L18.097 31.8844C18.7717 32.5587 19.318 33.1162 19.3109 33.1233Z" fill="white"/>
+                <defs>
+                <linearGradient id="paint0_linear_270_493" x1="50" y1="0" x2="0" y2="50" gradientUnits="userSpaceOnUse">
+                <stop offset="0.242857" stop-color="#E4765D"/>
+                <stop offset="0.785714" stop-color="#DB1DC9"/>
+                </linearGradient>
+                </defs>
+         </svg>
+        </a>
+       </div>
+    <script>
+        //alert($(".idName").attr('id'));
+        if ($(".idName").attr('id') == 3){
+            alert("Ваш профиль еще не заполнен, вы должны заполнить профиль. Сайт для вас работает с ограничением");
+        }
+    </script>
+{% endblock %}
+
+
+
