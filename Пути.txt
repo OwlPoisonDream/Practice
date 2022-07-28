@@ -1,0 +1,25 @@
+Файлы запуска сервера и инициализации путей: www/phoenix-management.fun/
+
+Файлы функционала сервера: www/phoenix-management.fun/app/
+
+Страницы сайта: www/phoenix-management.fun/app/templates
+
+Где сохраняются все загружаемые файлы и хранятся остальные дополнительные файлы: www/phoenix-management.fun/app/static
+
+Где сохраняются чеки: www/phoenix-management.fun/app/static/checkTemplates
+
+Где сохраняются css файлы: www/phoenix-management.fun/app/static/css
+
+Где сохраняются иконки: www/phoenix-management.fun/app/static/icons
+
+Где сохраняются JS скрипты: www/phoenix-management.fun/app/static/js
+
+Где сохраняются иконки в боковой менюшке: www/phoenix-management.fun/app/static/nav
+
+Где сохраняются фотографии фонов проекта: www/phoenix-management.fun/app/static/photoProjekt
+
+Где сохраняются фотографии аватарок: www/phoenix-management.fun/app/static/photos
+
+Где сохраняются шаблоны документов: www/phoenix-management.fun/app/static/wordTemplates
+
+Где сохраняются загруженные файлы задач: www/phoenix-management.fun/app/static/workTemplates
