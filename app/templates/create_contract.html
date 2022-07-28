@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Создание договора
+{% endblock %}
+
+{% block body %}
+<link rel="stylesheet" href="{{ url_for ('static', filename='css/create_contracts.css')}}">
+<!--<form action="" method="post">
+    <p>
+   <select name="human">
+          <option selected>Выбрать человека</option>
+       {% for u in list %}
+       <option value="{{u.id}}">{{u.pr.name}}</option>
+       {% endfor %}
+</select>
+
+    <p><input type="submit">
+</form>-->
+
+
+    <script>
+        function functionSearch() {
+          var input = document.getElementById("Search");
+          var filter = input.value.toLowerCase();
+          var nodes = document.getElementsByClassName('perchik1');
+    
+      for (i = 0; i < nodes.length; i++) {
+        if (nodes[i].innerText.toLowerCase().includes(filter)) {
+          nodes[i].style.display = "block";
+        } else {
+          nodes[i].style.display = "none";
+        }
+      }
+    }
+    </script>
+
+<div class="cr_cont">
+  <input type="text" id="Search" onkeyup="functionSearch()" placeholder="Введите имя">
+    <div> C <input class="date" type="date" name="start" form="form" required> ДО <input class="date" form="form" type="date" name = "end" required></div>
+    <div ><input class="cr-akt-btn" type="submit" form="form" value="Создать акт выполненных работ" ></div>
+    
+  <div class="not-compl"><p> {{error}}</p></div>
+</div>
+<form  method="post" action="" id = "form">
+    <ul class="doc_perchiki">
+    <!--<input id="apple" type="checkbox" name="apple" />
+    <label for="apple">Apple</label>-->
+
+     
+    {% for u in list %}
+    <input id="{{u.id}}" value="{{u.id}}" type="checkbox" name="{{u.id}}"/>
+    <label for="{{u.id}}">
+   <div class = "target" for="{{u.id}}">
+        <li class="perchik1" id = "{{u.id}}">
+            <div class="peravatar"> {% if u.pr.avatar!=None %}<img proxy src="/app/{{u.pr.avatar}}">{%endif%}
+              {% if u.pr.avatar==None %} <img proxy src="{{ url_for ('static', filename='x_06eb1977.jpg')}}">{%endif%} </div> <!-- автарка-->
+            <div class="indicator" >
+                <p class="n">
+                    {% if u.pr.chekManager == 0 %}
+                    ?
+                    {% endif %}
+                    {% if u.pr.chekManager == 1 %}
+                    !
+                    {% endif %}
+                    {% if u.pr.chekManager == 2 %}
+                    ✓
+                    {% endif %}
+                    </p>        
+            </div>
+                <div class="nikperchika">
+                    <!--<input type="checkbox" value="{{u.id}}">-->
+                    <!--<p>Id = {{u.id}}</p>-->
+                    <p>{{u.email}}</p>
+                    <p class="nik"> {{u.pr.name}}</p>
+                </div>
+        </li>
+</div>
+  </label>
+
+    {% endfor %} 
+
+    </ul>
+</form>
+{% endblock %}

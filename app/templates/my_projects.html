@@ -1,0 +1,254 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Проекты
+{% endblock %}
+
+{% block body %}
+
+
+<link rel="stylesheet" href="{{ url_for ('static', filename='css/my_projects.css')}}">
+<script src="{{ url_for ('static', filename='js/jquery.min.js')}}"></script>
+
+<div class="container">
+<!-- поле с элементами -->
+<div class="search-menu">
+    <div class="navigation">
+        <!-- <input type="text" id="task-search" onkeyup="functionSearch1()" placeholder="Введите имя"> -->
+       <a class='trigger' href=""><div> Создать проект</div></a>
+    
+    </div>
+    <div id = "url"> 
+        <a>Проекты</a>
+    </div>
+    </div>
+<div class="context-menu">
+    
+        <ul class="project_list" >
+            {% for u in projects %}
+                <li class = "cell" style = "background-image: url(app/{{u.linkPoto}})">
+                    <div class="proj-notification"></div>
+                    <div>
+                    <a class="per_list" href = "projects/{{u.id}}/-1/">
+                    <div  class = "project" >
+                        <h2 class="name" >{{u.projectName}}</h2>
+                    </div>
+                    </a>
+                    <div class ="low">
+                        <div class="descover"></div>
+                        <div class="hidden"><p>{{u.descProject}}</p></div>
+                        <div class="people"></div>
+                        <div class="list-j">
+                            <ul class="j-list">
+                                {% for j in user_project %}
+                                    {% if u.id == j.Project_id%}
+                                     <li data-title="{{j.up.name}}"><div id = "tiger" data-name = "{{j.up.name}}"><img src="/app/{{j.up.avatar}}" class = "people_logo" id = "{{j.Project_id}}"></div></li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                         <div class ="people_plus" id ="{{u.id}}"></div>
+                        <div class="backgr" id = "{{u.id}}"></div> 
+                    </div>
+                </div>
+                </li>
+            {% endfor %}
+         </ul>
+</div>
+
+
+<div class="create" id = "create">
+    <form action="" method="post">
+        <div class="cr">
+      <h2>Создание проекта</h2>
+    <div class="cr-proj-info">
+    <div>
+      <p class="input_name"> Введите название проекта</p>
+      <input class="proj-in" type="text" name="projectName" required>
+    </div>
+    <div>
+      <p class="input_name"> Введите описание</p>
+      <input class="proj-in" type="text" name="descProject" required>
+    </div>
+    </div>
+    <input type="text" id="perchik_search" onkeyup="functionSearch()" placeholder="Введите имя поиска">
+    <div class="notebooks" ng-app="notebooks" ng-controller="NotebookListCtrl">
+        <div class="person_list">
+            <ul>
+            {% for j in list %}
+            <li class="person">
+                <div class="person-flex">
+                {% if j.pr.avatar!=None %}<img class="person_ava" src="/app/{{j.pr.avatar}}">{%endif%}
+                {% if j.pr.avatar==None %} <img class="person_ava" src="{{ url_for ('static', filename='x_06eb1977.jpg')}}">{%endif%}
+                <p class="person_name">{{j.pr.name}}</p><input class="check" type="checkbox" value="id_sel" name = "{{j.id}}" >
+            </div>
+            </li>
+                
+            {% endfor %}
+            </ul> 
+        </div>
+    </div>
+  
+    <input class="btn_create" type="submit" value="Создать проект">
+</div>
+</form>
+    <div class="cl-btn-7"></div>
+</div>
+
+<!--Форма добовления людей-->
+<div class="create" id = "create1">
+    <form action="" method="post">
+    <input name="thePiple" type="text" id="id_project" style="display: none;">
+    <h3>Выбрать человека</h3>
+    <input type="text" id="perchik_search" onkeyup="functionSearch()" placeholder="Введите имя поиска">
+    <div class="notebooks" ng-app="notebooks" ng-controller="NotebookListCtrl">
+        <div class="person_list">
+            <ul>
+            {% for j in list %}
+            <li class="person">
+                    <div class="person-flex">
+                {% if j.pr.avatar != None %} <img class="person_ava" src="/app/{{j.pr.avatar}}">{%endif%}
+                {% if j.pr.avatar == None %} <img class="person_ava" src="/app/{{ url_for ('static', filename='x_06eb1977.jpg')}}">{%endif%}
+                <p class="person_name">{{j.pr.name}}</p><input class="check" type="checkbox" value="id_sel" name = "{{j.id}}" >
+                </div>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <input class="btn_create" type="submit" value="добавить людей в проект">
+</form>
+    <div class="cl-btn-7"></div>
+</div>
+
+<!--Форма добавления фона-->
+<div class="create" id = "create2">
+<form method="post" id="bg_form" enctype="multipart/form-data">
+    <div class="cr2-f">
+    <h2>Выберите фото</h2>
+    <input name="theBackground" type="text" id="theBackground" style="display: none;">
+    <input name="file_bg" id="myInput" type="file" multiple style="display: none;">
+    <!-- <input class = "foto" name="file" type="file"> -->
+    <button id="myButton" type="button" >+ Add Files</button>
+    <div id="myFiles"></div>
+    <!-- <input name="theBackground" type="text" id="theBackground" style="display: none;">
+    <input class = "foto" name="file" type="file"> -->
+    <input id="add" class="btn_create" type="submit" value="Добавить фон">
+</div>
+</form>
+    <div class="cl-btn-7"></div>
+
+</div>
+
+</div>
+<script>
+
+    //функция поиска проектов 
+    function functionSearch1() {
+          var input = document.getElementById("Search");
+          var filter = input.value.toLowerCase();
+          var nodes = document.getElementsByClassName('cell');
+    
+      for (i = 0; i < nodes.length; i++) {
+        if (nodes[i].innerText.toLowerCase().includes(filter)) {
+          nodes[i].style.display = "block";
+        } else {
+          nodes[i].style.display = "none";
+        }
+      }
+    };
+        //функция поиска людей
+        function functionSearch() {
+          var input = document.getElementById("perchik_search");
+          var filter = input.value.toLowerCase();
+          var nodes = document.getElementsByClassName("person");
+    
+      for (i = 0; i < nodes.length; i++) {
+        if (nodes[i].innerText.toLowerCase().includes(filter)) {
+          nodes[i].style.display = "block";
+        } else {
+          nodes[i].style.display = "none";
+        }
+      }
+    };
+
+    // открыть создать проект
+    $(document).ready(function(){
+        $(".trigger").on('click', function(){
+            $("#create").css('display','block');
+            $(".context-menu-open").css('display','none');
+            return false;
+        });
+
+        $(".cl-btn-7").on('click', function(){
+            $("#create").css('display','none');
+            return false;
+        });
+    });
+// открытие формы добавления людей
+$(document).ready(function(){
+        $(".people_plus").on('click', function(){
+            var clickId = $(this).attr('id');// значения открытыго проекта 
+            $("#create1").css('display','block');
+            $(".context-menu-open").css('display','none');
+            $("#id_project").val(clickId);
+            return false;
+        });
+
+        $(".cl-btn-7").on('click', function(){
+            $("#create1").css('display','none');
+            return false;
+        });
+    });
+// открытие формы добавить фон
+$(document).ready(function(){
+        $(".backgr").on('click', function(){
+            var clickId = $(this).attr('id');// значения
+            $("#create2").css('display','block');
+            $(".context-menu-open").css('display','none');
+            $("#theBackground").val(clickId);
+            return false;
+        });
+
+        $(".cl-btn-7").on('click', function(){
+            $("#create2").css('display','none');
+            return false;
+        });
+    });
+
+    // кнопка добавления файла
+$(function(){
+  let inputFile = $('#myInput');
+  let button = $('#myButton');
+  let filesContainer = $('#myFiles');
+  let files = [];
+  
+  inputFile.change(function() {
+    let newFiles = []; 
+    for(let index = 0; index < inputFile[0].files.length; index++) {
+      let file = inputFile[0].files[index];
+      newFiles.push(file);
+      files.push(file);
+    }
+    
+    newFiles.forEach(file => {
+      let fileElement = $(`<p>${file.name}</p>`);
+      fileElement.data('fileData', file);
+      filesContainer.append(fileElement);
+      
+      fileElement.click(function(event) {
+        let fileElement = $(event.target);
+        let indexToRemove = files.indexOf(fileElement.data('fileData'));
+        fileElement.remove();
+        files.splice(indexToRemove, 1);
+      });
+    });
+  });
+  
+  button.click(function() {
+    inputFile.click();
+  });
+});
+</script>
+
+{% endblock %}
