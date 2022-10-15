@@ -8,15 +8,15 @@ app_dir = os.path.abspath(os.path.dirname(__file__)) # путь файла дл�
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') # Задаем токен для генерации cookie
     SQLALCHEMY_TRACK_MODIFICATIONS = False # отключаем модификацию SQLAlchemy
-    SQLALCHEMY_DATABASE_URI = 'mysql://u1673160_admin:Cfyz_cfyz229@localhost/u1673160_phoenix' #ссылка на SQL
+    SQLALCHEMY_DATABASE_URI = '' #ссылка на SQL
 
     ##### настройка Flask-Mail #####
-    ADMINS = ['fenix4dminproba@yandex.ru'] 
+    ADMINS = [''] 
     MAIL_SERVER = 'smtp.yandex.com'#название сервиса почты
     MAIL_PORT = 465 #порт почты
     MAIL_USE_SSL = True
-    MAIL_USERNAME = os.environ.get('fenix4dminproba@yandex.ru')# логин, а именно почта 
-    MAIL_PASSWORD = os.environ.get('pmdufnoeqlwfnwbq')# пароль от почты 
+    MAIL_USERNAME = os.environ.get('')# логин, а именно почта 
+    MAIL_PASSWORD = os.environ.get('')# пароль от почты 
     MAIL_DEFAULT_SENDER = MAIL_USERNAME #email отправителя
     
     way_photo = 'static/photos/' #Путь хранения фотографий для аватарок
