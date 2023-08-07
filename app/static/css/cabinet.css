@@ -1,6 +1,7 @@
-/* ----------------------------------------------------------------------------- п⌡п≤пїп²п╚п≥ п п░п▒п≤п²п∙п╒ --------------------------------------------------------------------*/
-/* п╟п╡я┌п╟я─п╨п╟ */
+/* ----------------------------------------------------------------------------- ЛИЧНЫЙ КАБИНЕТ --------------------------------------------------------------------*/
+/* автарка */
 
+  
 .info1{
     position: relative;
     top: 20px;
@@ -14,14 +15,14 @@
     border-radius: 15px;
     padding: 10px;
   }
-  /* п■п╩я▐ пҐп╦п╨пҐп╣п╧п╪п╟ */
+  /* Для никнейма */
   .login{
       position: absolute;
       font-size: 30pt;
       font-weight: 700;
       top: 70%;
   }
-  /* п©п╟я─п╟п╪п╣я┌я─я▀ п╨п╟я─я┌п╦пҐп╨п╦ п╡ п╟п╡я┌п╟я─п╨п╣ */
+  /* параметры картинки в автарке */
   
   svg{
       width: 100px;
@@ -38,7 +39,7 @@
       background-color: aqua;
   } */
 
-  /* п╞я┤п╣п╧п╨п╟ я│ п©п╟я─п╟п╪п╣я┌я─п╟п╪п╦ */
+  /* Ячейка с параметрами */
   .main_cab{
       max-width: 100%;
       height: 1100px;
@@ -107,7 +108,7 @@
   }
 
   .container{
-    max-width: 1920px;
+    max-width: 1680px;
     margin: 0px auto;
     top: 10%;
     padding-left: 5%;
@@ -117,16 +118,9 @@
     margin: 0px 0px 20px 0px;
   }
   
-   @media (max-width: 1880px){
-    .container{
-      max-width: 1681px;
-    }
-}
-    @media (max-width: 1576px){
-    .container{
-      max-width: 1280px;
-    }
-}
+ 
+  
+
   @media (max-width: 1180px){
     .container{
       max-width: 767px;
@@ -139,14 +133,14 @@
       max-width: 300px;
     }
   }
-  /* п■п╩я▐ пєп≤п· */
+  /* Для ФИО */
   .FIO{
       position: absolute;
       top:2%;
       left:34%;
   }
   
-  /* пЄп╩я▐ п╬я┌п╬п╠я─п╟пІп╣пҐп╦я▐ п©я─п╟п╡ пЄп╬я│я┌я┐п©п╟ */
+  /* для отображения прав доступа */
   .status{
       position: absolute;
       top:6%;
@@ -158,24 +152,24 @@
       width: 100%;
       height: 60%;
   }
-  /* пЄп╩я▐ п╬я┌п╬п╠я─п╟пІп╣пҐп╦я▐ пЄп╟я┌я▀ п═п╬пІпЄп╣пҐп╦я▐ */
+  /* для отображения даты Рождения */
   .birthday{
     text-align: left;
   }
-  /* пЄп╩я▐ п╬я┌п╬п╠я─п╟пІп╣пҐп╦я▐ я█п╩п╣п╨я┌я─п╬пҐпҐп╬п╧ п©п╬я┤я┌я▀ */
+  /* для отображения электронной почты */
   .email_cab{
       position: absolute;
       margin: 0 auto;
       left:70%;
       width: 20%;
   }
-  /* пЄп╩я▐ п╬я┌п╬п╠я─п╟пІп╣пҐп╦я▐ я│я│я▀п╩п╨п╦ пҐп╟ п╡п╨ */
+  /* для отображения ссылки на вк */
   .vk_link{
       position: absolute;
       left:10%;
       width: 20%;
   }
-  /* п■п╩я▐ п╬я┌п╬п╠я─п╟пІп╣пҐп╦я▐ п≤п²п² */
+  /* Для отображения ИНН */
   .inn_cab{
       position: absolute;
       top: 40%;
@@ -183,27 +177,27 @@
       width: 20%;
 
   }
-  /* п■п╩я▐ п╬я┌п╬п╠я─п╟пІп╣пҐп╦я▐ я─п╣п╨п╡п╦пЇп╦я┌п╬п╡ п╠п╟пҐп╨п╟ */
+  /* Для отображения реквизитов банка */
   .bank_details_cab{
       position: absolute;
       top:40%;
       left:40%;
       width: 20%;
   }
-  /* п■п╩я▐ п╬я┌п╬п╠я─п╟пІп╣пҐп╦я▐ п╦п╪п╣пҐп╦ п╠п╟пҐп╨п╟ */
+  /* Для отображения имени банка */
   .bname{
       position: absolute;
       top: 40%;
       left:10%;
       width: 20%;
   }
-  /* пЄп╩я▐ п╬я┌п╬п╠я─п╟пІп╣пҐп╦я▐ пҐп╬п╪п╣я─п╟ я┌п╣п╩п╣я└п╬пҐп╟ */
+  /* для отображения номера телефона */
   .phone{
       position: absolute;
       left:40%;
       width: 20%;
   }
-  /* п║я│я▀п╩п╨п╟ пҐп╟ п╦пЇп╪п╣пҐп╣пҐп╦п╣ пЄп╟пҐпҐя▀я┘ */
+  /* Ссылка на изменение данных */
   .changing{
       position: fixed;
    bottom: 50px;
@@ -239,7 +233,7 @@
     border-radius: 15px;
   }
   
-  /* п╒п╬ пІп╣ я│п╟п╪п╬п╣, пҐп╬ пЄп╩я▐ я│п╪п╣пҐя▀ пЄп╟пҐпҐя▀я┘ */
+  /* То же самое, но для смены данных */
   .name_ch{
       position: absolute;
       top:2%;
@@ -410,7 +404,7 @@
       width: 200px;
       height: 200px;
       border-radius: 100%;
-      object-fit: cover;
+      
   }
 
   .avatar_rainbow{
@@ -453,33 +447,26 @@
 #photo{
     opacity: 0;
     position: absolute;
-
+    width: 1000px;
+    height: 1000px;
 }
 
 #photo input {
     display: none;
 }
 
-/*#photo + label{*/
-/*    position: absolute;*/
-/*    top:10%;*/
-/*    width: 200px;*/
-/*    height: 200px;*/
-/*    border-radius: 100%;*/
-/*    background-color: #c8d2db;*/
-/*    background-image: url(/static/base-ava.svg);*/
-/*    background-size: cover;*/
-/*    background-repeat: no-repeat;*/
-/*    background-position: center;*/
-/*    color: #1f3c44;*/
-/*}*/
-
-#profile-image{
+#photo + label{
+    position: absolute;
+    top:10%;
     width: 200px;
     height: 200px;
+    border-radius: 100%;
+    background-color: #c8d2db;
     background-image: url(/static/base-ava.svg);
-    /*background-size: cover;*/
-    object-fit: cover; 
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    color: #1f3c44;
 }
 
 #email{

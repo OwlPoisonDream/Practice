@@ -29,6 +29,7 @@
         <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
     </p>
+    <p>Повторите пароль</p>
     <p>
         {{ form.password2(size=32) }}<br>
         {% for error in form.password2.errors %}

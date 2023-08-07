@@ -2,15 +2,9 @@ body{
 
 }
 
-.fold-link{
-width: 200px;
-height: 100px;
-}
 ul li{
     list-style-type: none;
 }
-
-
 
 .context-menu-open {
     display: none;
@@ -64,22 +58,7 @@ ul li{
     }
   }
 
- .edit{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
-    display: none;
-    background: rgba(109, 109, 109, 0.171);
-    box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
-    backdrop-filter: blur(30px);
-    z-index: 1000;
-    position: fixed;
-    height: 700px;
-    width: 600px;
-    padding: 20px;
- }
+ 
   /* @media (max-width: 1180px){
     .context-menu{
       max-width: 767px;
@@ -154,7 +133,9 @@ ul li{
     background-color: #fffffffd;
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25);
+    padding-left: 20px;
   }
+    
 #url{
     display: flex;
     flex-wrap: nowrap;
@@ -503,7 +484,6 @@ ul li{
     border-radius: 100%;
     width: 45px;
     height: 45px;
-    object-fit: cover;
   }
 
 /* всплывающая подсказка*/
@@ -622,7 +602,13 @@ ul li{
     color: #1f3c44;
   }
   
-
+  .btn_create{
+    margin-top: 10px;
+  }
+  #perchik_search{
+    margin-bottom: 10px;
+  }
+  
   .project_foto{
     width: 100%;
     height: 100%;
@@ -711,13 +697,13 @@ ul li{
     margin-right: -50%;
     transform: translate(-50%, -50%);
     display: none;
-    background: rgba(109, 109, 109, 0.171);
+    background: rgba(162, 163, 216, 0.171);
     box-shadow: 0px 4px 4px rgb(0 0 0 / 25%);
     backdrop-filter: blur(30px);
     z-index: 1000;
     position: fixed;
-    height: 700px;
-    width: 600px;
+    height: 600px;
+    width: 500px;
     padding: 20px;
 
     border-radius: 15px;
@@ -727,16 +713,23 @@ ul li{
     -o-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);   */
   }
-
+  
+  .cr-task-info{
+    position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  height: 200px;
+  }
 
 #myButton{
     border-radius: 5px; 
-    width: 200px;
-    height: 50px;
     background-color: #fff;
-    color: rgb(27, 27, 27);
+    color: green;
   }
-
+  
   .post{
     position: relative;
   }
@@ -756,59 +749,22 @@ ul li{
     color: white;
     
   }
-  .notebooks{
-    position: relative;
-    width: 600px;
-  }
-.cr{
-  height: 650px;
-  display: flex;
-  flex-direction: column;
-    align-items: center;
-    flex-wrap: nowrap;
-    justify-content: space-evenly;
-}
   /* список долбоебиков */
   .person_list{
     position: relative;
-    background-color: #0c0c0c5b;
-    width: 580px;
+    background-color: #190c469d;
+    width: 80%;
     height: 300px;
-    border-radius: 10px;
-    padding-left: 20px;
     overflow: auto;
-  }
-  .btn_create{
-    margin-top: 10px;
-  }
-  #perchik_search{
-    width: 600px;
-    height: 30px;
-    border-radius: 5px;
-    background-color: #868686;
-  }
-  #perchik_search::placeholder{
-    color: #fafafa;
-    padding-left: 20px;
-}
-
-#perchik_search:focus {
-    color: #212529;
-    background-color: #fffffffd;
-    outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(158, 158, 158, 0.25);
-    padding-left: 20px;
+    margin-left:10%;
   }
   /* свойства долбоебика */
   .person{
-    display: block;
-  }
-  .person-flex{
+    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    position: relative;
     list-style: none;
     background-color: #572dc9;  
     padding: 10px 15px 10px 25px;
@@ -851,153 +807,18 @@ ul li{
     height: 100%;
   }
   /* создание проекта - ебучая инфа сверху */
-  .cr-task-info{
+  .cr_task_info{
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: stretch;
     flex-wrap: nowrap;
-    justify-content: space-around;
     margin-top: 20px;
-    height: 240px;
-    text-align: left;
-  }
-  .cr-task-info p{
-    font-size: 14px;
-    padding-left: 20px;
-  }
-
-  .cr-task-info input{
-   width: 590px;
-   height: 30px;
-   background-color: #A7AAE8;
-   border-radius: 5px;
-   padding-left: 10px;
-   font-size: 16px;
-   font-weight: 500;
-  }
-
-  input::placeholder{
-    color: #fafafa;
-  }
-  input:focus{
-    background-color: #fafafa;
-    color: #212529;
-  }
-  .date-money{
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    width: 600px;
-    height: 70px;
-    flex-direction: row;
-  }
-
-  .date-money input{
-    width: 270px;
-  }
-
-  .cr-btn input{
-    outline: none;
-    border: none;
-    width: 180px;
-    height: 40px;
-    border-radius: 10px;
-    margin-top: 10px;
-    font-size: 16px;
-    background-color: #f5f5f5;
-  }
-
-  .proj-in{
-    width: 590px;
-    height: 30px;
-    background-color: #A7AAE8;
-    border-radius: 5px;
-    padding-left: 10px;
-    font-size: 16px;
-    font-weight: 500;
-   }
-
-  .proj-in::placeholder{
-    color: #fafafa;
-  }
-  .proj-in:focus{
-    background-color: #fafafa;
-    color: #212529;
-  }
-  
-  .cr-btn input:hover{
-    background-color: #D9AA63;
-    color: #ffffff;
-  }
-
-  #create{
-
-  }
-
-  #create2{
-    width: 500px;
-    height: 500px;
-  }
-  
-  .cr2-f{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-items: center;
-    justify-content: center;
-    height: 500px;
-  }
-
-  .cr-fold{
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  align-items: center;
-  text-align: left;
-  }
-
-  .cr-proj-info{
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    flex-wrap: nowrap;
-    justify-content: space-around;
-    margin-top: 20px;
-    width: 600px;
-    height: 150px;
     margin-bottom: 20px;
-    text-align: left;
+  }
+  .cr_task_info input{
+    margin-bottom: 10px;
   }
 
-  .cr-proj-info p{
-    font-size: 14px;
-    padding-left: 20px;
-  }
-  .cr-proj-info input{
-   width: 590px;
-   height: 30px;
-   background-color: #A7AAE8;
-   border-radius: 5px;
-   padding-left: 10px;
-   font-size: 16px;
-   font-weight: 500;
-  }
-
-  .btn_create{
-    outline: none;
-    border: none;
-    padding: 10px;
-    height: 40px;
-    border-radius: 10px;
-    margin-top: 10px;
-    font-size: 16px;
-    background-color: #f5f5f5;
-  }
-  
-  .btn_create:hover{
-    background-color: #D9AA63;
-    color: #ffffff;
-  }
   /* окно задача */
   .task{
     max-width: 1000px;
@@ -1030,7 +851,7 @@ ul li{
     flex-wrap: nowrap;
     align-items: center;
     justify-content: space-between;
-    width: 750px;
+    width: 500px;
     height: 70px;
     padding-left: 30px;
 }
@@ -1045,25 +866,7 @@ ul li{
   width: 200px;
   height: 50px;
 }
-.delete_task{
-position: relative;
-  background: #ea1b25;
-  text-align: center;
-  color: #ffff;
-  cursor: pointer;
-  border-radius: 15px;
-  width: 200px;
-  height: 50px;
-}
-.edit_task{
-  background: #efbc19;
-  text-align: center;
-  color: #0000;
-  cursor: pointer;
-  border-radius: 15px;
-  width: 200px;
-  height: 50px;    
-}
+
 .chek-task{
   position: relative;
   background: #2b67c8;

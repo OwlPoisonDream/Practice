@@ -6,10 +6,11 @@
     <title>{% block title %} {% endblock %}</title>
     <link rel="stylesheet" href="{{ url_for ('static', filename='css/style.css')}}">
     <link rel="shortcut icon" href="{{ url_for ('static', filename='icons/logo.ico')}}" type="image/x-icon">
-    <script src="{{ url_for ('static', filename='js/jquery.min.js')}}"></script>
 </head>
 <body align="center">
-
+    <script type="text/javascript">
+    
+    </script>
 
     <input type="checkbox" id="nav-toggle" hidden>
     <nav class="nav">
@@ -26,29 +27,12 @@
             </div>
         </div>
         <ul>
-    {% if current_user.who == 32 %} 
-                
-                <!-- <li> <a href="/cabinet">Личный кабинет</a> </li> -->
-                <li > <a href="/my_tasks"> <img class="nav_icon" src="/app/static/nav/Мои задачи.svg" alt=""> Мои задачи</a>
-                <div class="notification"></div> </li>
-                <li><a href="/my_projects"><img class="nav_icon" src="/app/{{url_for ('static',filename = 'nav/Мои задачи.svg')}}">Мои проекты </a>
-                <div class="notification"></div></li>
-                <li><a href="/employeers"><img class="nav_icon" src="/app/static/nav/Список сотрудников.svg">Список сотрудников </a>
-                <div class="notification"></div> </li>
-                <li><a href="/my_documents"><img class="nav_icon" src="/app/static/nav/Мои документы.svg">Мои документы</a>
-                <div class="notification"></div> </li>
-                <li><a href="/create_contract"> <img class="nav_icon" src="/app/static/nav/Создание договоров.svg">Создание актов</a> </li>
-                <li><a href="/salary"><img class="nav_icon" src="/app/static/nav/Зарплата.svg">Мой доход</a> </li>
-                <!--<li><a href="complete_tasks"> Список выполненных задач по людям </a>-->
-
-                <li><a href="/logout"> <img class="nav_icon" src="/app/static/nav/Выход.svg"> Выход</a> </li>
-        
-    {% endif %}
     {% if current_user.who == 1 %}
          
             <!-- <li><a href="/cabinet"><img class="nav_icon" src="static/nav/Выход.svg">Личный кабинет</a></li> -->
             <li><a href="/my_tasks"><img class="nav_icon" src="/app/{{url_for ('static',filename = 'nav/Мои задачи.svg')}}">Мои задачи</a>
-            <div class="notification"></div> </li>
+            <div class="notification"></div> 
+            </li>
             <li><a href="/my_projects"><img class="nav_icon" src="/app/{{url_for ('static',filename = 'nav/Мои задачи.svg')}}">Мои проекты </a>
             <div class="notification"></div></li>
             <li><a href="/my_documents"><img class="nav_icon" src="/app/{{url_for ('static',filename='nav/Мои документы.svg')}}">Мои документы </a>
@@ -83,7 +67,7 @@
                     <div class="notification"></div> </li>
                     <li><a href="/my_documents"><img class="nav_icon" src="/app/static/nav/Мои документы.svg">Мои документы</a>
                     <div class="notification"></div> </li>
-                    <li><a href="/salary"><img class="nav_icon" src="/app/static/nav/Зарплата.svg">Мой доход</a> </li>
+                    <li><a href="/salary"><img class="nav_icon" src="/app.static/nav/Зарплата.svg">Мой доход</a> </li>
                     <li><a href="/logout"> <img class="nav_icon" src="/app/static/nav/Выход.svg"> Выход</a> </li>
     {% endif %}
 
@@ -92,27 +76,13 @@
         <li><a href="/logout"> <img class="nav_icon" src="/app/static/nav/Выход.svg">Выход</a> </li>
     {% endif %}
 </ul>
-<a id = "tutorial" href="/tutorial"><div class="tutor">Туториал по использованию сайта</div><img src="static/icons/tutor.svg" alt=""></a>
+<a id = "tutorial" href=""><div class="tutor">Туториал по использованию сайта</div><img src="static/icons/tutor.svg" alt=""></a>
 <a id = "connection" href="https://vk.com/mark_gurchenko"><div class="question">Спросить онлайн</div><img src="static/icons/connect.svg" alt=""></a>
 </nav>
-
-<div class ="user" id ="{{current_user.id}}"  style ="none"> </div>
 
     {% block body %} 
 
     {% endblock %}
-    <script>
-        console.log($('.user').attr('id'));
-        $.post(document.location.protocol+'/time', {user: $('.user').attr('id')}, function(data){
-	       console.log(data); 
-	       var json = jQuery.parseJSON(data);// ждем ответа
-                if (json.success == 'true') {
-                    $.each(json, function(i, item) {
-                        console.log(item);
-                    });
-                };
-        });
-        
-    </script>
+
 </body>
 </html>

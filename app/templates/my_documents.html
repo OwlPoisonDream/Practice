@@ -33,23 +33,22 @@
   {% for u in list %} 
  <li class="doci">
  <h3>{{u}}</h3>
-   
+  <div class="d_dock">
+
+ <input id="{{u.id}}" value="{{u.id}}" type="checkbox" name="{{u.id}}">
+   <p>{{u}}</p>
+  <p>{{error}}</p>
+  
   <div class="downl_doc">
- <a href="{{list[u]}}" rel="noreferrer" download> <img src="static/icons/download_icon_128877.svg" alt=""></a> 
- <!--{{list[u]}}-->
+ <a href="{{"https://" + list[u]}}" download > <img src="static/icons/download_icon_128877.svg" alt=""></a> 
  </div> 
 
-<!--  <div class="d_dock">-->
-
-<!-- <input id="{{u.id}}" value="{{u.id}}" type="checkbox" name="{{u.id}}">-->
-  <!-- <p>{{u}}</p>-->
-  <!--<p>{{error}}</p>-->
-<!--</div>-->
+</div>
 
 <div class="check_list">
 <!--<span>Прикреплено:</span>
 <ul class="doc_block" id = "result">  
-<li class="new_check"> <p> файл </p> <div> ☓ </div></li>
+<li class="new_check"> <p> фаил </p> <div> ☓ </div></li>
 </ul>-->
 </div>
 {% if user.up_ooo == 0 %}

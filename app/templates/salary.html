@@ -7,7 +7,7 @@
 {% block body %}
 <link rel="stylesheet" href="{{ url_for ('static', filename='css/salary.css')}}">
 
-<div class="tabs">
+    <div class="tabs">
 
     <p class="all_money">Получено за все время: {{total}}₽</p>
 
@@ -28,21 +28,20 @@
 <!-- </div> -->
     <div class="zp" id="txt_1">
         {% for u in task %}
-        {% if u.timeTask == a %}
-        {% if u.statusСompleted == "Сomplete" %}
-        <h3 align = "left">{{u.timeTask}}</h3>
-        <div class="lins">
-            <div class="zp_info">
-            <p><span>Задача: </span>{{u.nameTask}} </p>
-            <p><span>Проект: </span>проект</p> 
-        </div>
-            <div class="money"><p>{{u.manyTask}} ₽</p></div>
-        </div>
+            {% if u.timeTask == a %}
+            {% if u.statusСompleted == "Сomplete" %}
+            <h2>{{u.timeTask}}</h2>
+            <div class="lins">
+                <div class="zp_info">
+                <p><span>Задача: </span>{{u.nameTask}} </p>
+                <p><span>Проект: </span>проект</p> 
+            </div>
+                <div class="money"><p>{{u.manyTask}} ₽</p></div>
+            </div>
             {% endif %}
             {% endif %}
         {% endfor %}
     </div>
-    
     <div class="zp" id="txt_2">
         {% for u in task %}
             {% if  u.timeTask >= b %}
@@ -59,7 +58,6 @@
         {% endif %}
         {% endfor %}
     </div>
-    
     <div class="zp" id="txt_3">
     {% for u in task %}
         {% if  u.timeTask >= c %}
@@ -74,11 +72,11 @@
             </div>
         {% endif %}
         {% endif %}
-        {% endfor %}
+    {% endfor %}
     </div>
 
     <div class="zp" id="txt_4">
-        {% for u in task %}
+    {% for u in task %}
         {% if  u.timeTask >= d %}
         {% if u.statusСompleted=="Сomplete" %}
             <h3 align = "left">{{u.timeTask}}</h3>
@@ -87,11 +85,12 @@
                 <p><span>Задача: </span>{{u.nameTask}} </p>
                 <p><span>Проект: </span>проект</p> 
             </div>
-                <div class="money"><p>{{u.manyTask}} ₽ </p></div>
+                <div class="money"><p>{{u.manyTask}} ₽</p></div>
+            </div>
             </div>
         {% endif %}
         {% endif %}
-        {% endfor %}
-        </div>
+    {% endfor %}
+    </div>
 </div>
 {% endblock %}

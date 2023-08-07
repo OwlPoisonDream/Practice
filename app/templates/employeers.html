@@ -21,35 +21,25 @@
   }
 }
 </script>
-                  <div class="error"><p>{{error}}</p></div>
+  
 <ul class="perchiki">
 <input type="text" id="Search" onkeyup="functionSearch()" placeholder="Введите имя поиска">
-
+<p>{{error}}</p>
 {% for u in list %}
 <div class = "target">
     <li class="perchik1">
         <div class="peravatar"> {% if u.pr.avatar!=None %}<img proxy src="/app/{{u.pr.avatar}}">{%endif%}
           {% if u.pr.avatar==None %} <img proxy src="/app/{{ url_for ('static', filename='x_06eb1977.jpg')}}">{%endif%}</div> <!-- автарка-->
         <div class="indicator" >
-            <p class="n">
-                {% if u.pr.chekManager == 0 %}
-                ?
-                {% endif %}
-                {% if u.pr.chekManager == 1 %}
-                !
-                {% endif %}
-                {% if u.pr.chekManager == 2 %}
-                ✓
-                {% endif %}
-                </p>       
+            <p class="n">{% if u.pr.chekManager == 0 %}0{% endif %} {% if u.pr.chekManager == 1 %}1{% endif %}{% if u.pr.chekManager == 2 %}ok{% endif %}</p>       
         </div>
             <div class="nikperchika">
                 <!--<p>Id = {{u.id}}</p>-->
-                <p><br>{{u.email}}</p>
+                <p><br>Почта: {{u.email}}</p>
                 <p class="nik"> {{u.pr.name}}</p>
                 <div class="post"> <p><a href="/completed_tasks/{{u.id}}/">Перейти к профилю</a></p></div>
-                <form  method="post" enctype="multipart/form-data"><input type="text" name = "person" value="{{u.id}}" style="display: none;"><input class="akk-compl" type="submit" value="Проверить аккаунт"></form>
-
+                <form  method="post" enctype="multipart/form-data"><input type="text" name = "person" value="{{u.id}}" style="display: none;"><input class="akk-compl" type="submit" value="Аккаунт проверен"></form>
+                
             </div>
             
     </li>

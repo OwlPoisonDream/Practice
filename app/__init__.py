@@ -6,7 +6,7 @@ from flask_migrate import Migrate
 from flask_mail import Mail
 import yadisk # библиотека для работы с яндекс диском
 import ssl
-from flask_json import FlaskJSON, JsonError, json_response, as_json
+from flask_socketio import SocketIO#для работами с сокетами
 
 
 #создание экземпляра приложения
@@ -22,12 +22,8 @@ mail.init_app(application)
 login_manager = LoginManager() #Инициализация работы с логинами
 login_manager.init_app(application)
 login_manager.login_view = 'login'
-yToken = yadisk.YaDisk(token="AQAAAABetchDAAfIOoTtzk4Bd0cNm0VX3nt7gWs")# токен для яндекс диска. Следует потом заменить на принадлежащий Фениксу.
-#application = SocketIO(application)
-FlaskJSON(application)
-
-
-
-
+yToken = yadisk.YaDisk(token="AQAAAABetchDAAfIOoTtzk4Bd0cNm0VX3nt7gWs")# токен для яндекс диска
+socketio = SocketIO(application)# подключение сокета
 
 from app import views, models,forms,email
+

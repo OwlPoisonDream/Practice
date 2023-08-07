@@ -6,7 +6,7 @@
 <script type="text/javascript" src="{{ url_for ('static', filename='js/jquery.min.js')}}"></script>
 
 <link rel="stylesheet" href="{{ url_for ('static', filename='css/cabinet.css')}}">
-<div class="container" >
+<div class="container" max-width="1600px">
  <!-- основная панель-->
  <div class="glassmorf"> 
  <div class="info1"> 
@@ -20,10 +20,9 @@
                 <div class="personal_data"> <!-- инфа под автаркой-->
                 <h1>Личные данные</h1>
                 <h3>Ф.И.О:</h3> 
-                <p class = "idName" id="{{current_user.who}}">{{current_user.pr.name}}</p>
+                <p class = "idName"id="{{current_user.who}}">{{current_user.pr.name}}</p>
                 <h3>Статус странички: </h3>
-                <p>{% if current_user.who==32 %}Особый доступ {% endif %}
-                    {% if current_user.who==2 %}Менеджер {% endif %} 
+                <p>{% if current_user.who==2 %}Менеджер {% endif %} 
                      {% if current_user.who==1 %}Шоураннер {% endif %} 
                      {% if current_user.who==0 %}Исполнитель{% endif %}
                      {% if current_user.who==3%}Страница с ограничнием{% endif %}
@@ -165,8 +164,7 @@
                         <path d="M13 37.4997C22.9663 31.901 28.1233 31.9874 38 37.4997" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
                         <path d="M13 37.5002C22.9663 31.9015 28.1233 31.9879 38 37.5002" stroke="white" stroke-width="2" stroke-linecap="round"/>
                         </svg>
-                            <p>Специальность: <br> {% if current_user.pr.tags==None %}Вы не ввели свои специальности {% endif %}
-                            {% if current_user.pr.tags!=None %}{{current_user.pr.tags}}{% endif %} </p>
+                            <p>Специальность: <br> {% if current_user.pr.tags==None %}Вы не выбрали специальности {% endif %}{% if current_user.pr.tags!=None %}{{current_user.pr.tags}}{% endif %} </p>
                     </div>
                     <div  class="ooo">
                         <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">

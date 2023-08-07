@@ -18,22 +18,18 @@
 }
 </script>
 <link rel="stylesheet" href="{{ url_for ('static', filename='css/cabinet.css')}}">
-<form method="post" enctype="multipart/form-data">
+
 <div class="container" max-width="1600px">
-    
+    <form action="" method="post" enctype="multipart/form-data">
     {{ form.hidden_tag() }}   
     <!-- основная панель-->
     <div class="info1"> 
         <div class="avatar">
-            <div  id="image-cont">
-                <img  id="profile-image" src="{{ url_for ('static', filename='x_06eb1977.jpg')}}">
-                <!--<img  id="profile-image">-->
-                </div>
-                <input type="file" name="file" class="input_file" id="photo" placeholder="Photo"  capture multiple>
-                <!--<label class="input_file_label" for="photo" >-->
-                <!--</label>-->
+                <!--<img for="photo" src="{{ url_for ('static', filename='x_06eb1977.jpg')}}">-->
+                {{form.photo}}
+                <label for="photo" ></label>
         </div> <!-- автарка-->
-           <div class="login">Просто введите, что хотите изменить
+           <div class="login">Просто введите, что хотите изменить<br>
             {{error}}
            </div>
            
@@ -43,7 +39,7 @@
                    <div class="personal_data"> <!-- инфа под автаркой-->
                    <h1>Личные данные</h1>
                    <h3>Ф.И.О: {{ form.name(value=current_user.pr.name)}}</h3><br>
-                   <h3> Никнейм: {{form.nickname(value=current_user.pr.nickname)}}</h3><br>
+                   <h3> Ваше прозвище: {{form.nickname(value=current_user.pr.nickname)}}</h3><br>
                    <h3>Статус странички: </h3>
                    <p>{% if current_user.who==2 %}Менеджер {% endif %} 
                         {% if current_user.who==1 %}Шоураннер {% endif %} 
@@ -79,7 +75,7 @@
                                <path d="M25 50C38.8071 50 50 38.8071 50 25C50 11.1929 38.8071 0 25 0C11.1929 0 0 11.1929 0 25C0 38.8071 11.1929 50 25 50Z" fill="#4D76A1"/>
                                <path fill-rule="evenodd" clip-rule="evenodd" d="M24.0556 35.9648H26.0178C26.0178 35.9648 26.6105 35.8997 26.9131 35.5735C27.1916 35.274 27.1827 34.7116 27.1827 34.7116C27.1827 34.7116 27.1444 32.0787 28.3663 31.691C29.5709 31.3091 31.1178 34.2357 32.7573 35.3609C33.9971 36.2126 34.9392 36.0258 34.9392 36.0258L39.3231 35.9648C39.3231 35.9648 41.6164 35.8235 40.529 34.0204C40.4398 33.8729 39.8957 32.6866 37.2695 30.2489C34.5207 27.6975 34.8888 28.1102 38.2 23.697C40.2166 21.0093 41.0228 19.3684 40.771 18.6656C40.5308 17.9962 39.0476 18.1731 39.0476 18.1731L34.1116 18.2039C34.1116 18.2039 33.7458 18.154 33.4744 18.3162C33.2092 18.4753 33.0385 18.8461 33.0385 18.8461C33.0385 18.8461 32.2573 20.9259 31.2154 22.6947C29.0174 26.427 28.1386 26.624 27.7794 26.3922C26.9438 25.8521 27.1524 24.2224 27.1524 23.0646C27.1524 19.4477 27.701 17.9396 26.0842 17.5492C25.5476 17.4196 25.1528 17.334 23.7806 17.3202C22.0194 17.3019 20.5287 17.3255 19.6846 17.7391C19.1231 18.014 18.69 18.6268 18.9538 18.662C19.28 18.7057 20.0189 18.8612 20.4106 19.3947C20.9164 20.0827 20.8986 21.6283 20.8986 21.6283C20.8986 21.6283 21.1892 25.886 20.2199 26.415C19.5545 26.7777 18.6418 26.0371 16.6823 22.651C15.6783 20.9166 14.9202 18.9994 14.9202 18.9994C14.9202 18.9994 14.774 18.6411 14.5133 18.4494C14.1969 18.2173 13.7548 18.1433 13.7548 18.1433L9.06439 18.174C9.06439 18.174 8.36027 18.1936 8.10179 18.4998C7.87184 18.7721 8.08352 19.3354 8.08352 19.3354C8.08352 19.3354 11.7557 27.9266 15.9136 32.2561C19.7261 36.2255 24.0556 35.9648 24.0556 35.9648Z" fill="white"/>
                                </svg>
-                               <p>Cсылка на ВК: {{ form.link_vk(value=current_user.pr.link_vk) }}</p>
+                               <p>Cсылка на ВК: {{ form.link_vk(value = current_user.pr.link_vk) }}</p>
                         </div>
                        <div class="phone"> <!-- телефон-->
                            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -128,7 +124,7 @@
                                <path d="M29.8394 20.4761V13.5967H19.5181V18.857H24.4955L31.4585 25.82V30.1666H36.7188V20.4761H29.8394Z" fill="white"/>
                                </svg>
                                
-                               <p>ИНН: <br><b>{{ form.inn(value=current_user.pr.inn)}}</b></p>
+                               <p>ИНН: <br><b>{{ form.inn(value=current_user.pr.INN)}}</b></p>
                         </div>
                         <div class="bank_account_cab">
                             <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -137,7 +133,7 @@
                         <path d="M36.711 19.3892C36.6716 18.0753 35.6004 17.0205 34.2769 17.0205H15.7222C14.3988 17.0205 13.3275 18.0753 13.2881 19.3892H36.711Z" fill="white"/>
                         <path d="M13.2812 24.1499V30.5382C13.2812 31.8866 14.3743 32.9796 15.7227 32.9796H34.2773C35.6257 32.9796 36.7188 31.8866 36.7188 30.5382V24.1499H13.2812ZM30.7652 27.4573H31.7417V28.4338H30.7652V27.4573ZM28.3237 27.4573H29.3003V28.4338H28.3237V27.4573ZM34.1831 30.715H24.1734V29.7385H34.1831V30.715ZM34.1831 28.4338H33.2066V27.4573H34.1831V28.4338Z" fill="white"/>
                         </svg>
-                            <p>{{form.bankAccount.label}} <br>{{form.bankAccount(value=current_user.pr.bankAccount)}}</p>
+                            <p>{{form.bankAccount.label}} <br>{{form.bankAccount}}</p>
                         </div>
                         <div class="bank_details_cab"><!-- реквезиты банка-->
                            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" >
@@ -174,7 +170,7 @@
                                <path d="M18.6269 31.0039C16.4626 31.0039 14.589 30.2893 13.4562 29.1797C13.3507 29.4435 13.2886 29.7183 13.2886 30.0029C13.2886 31.8608 15.6786 33.367 18.6269 33.367C21.575 33.367 23.9651 31.8608 23.9651 30.0029C23.9651 29.7184 23.9029 29.4437 23.7974 29.1798C22.6646 30.2894 20.7911 31.0039 18.6269 31.0039Z" fill="white"/>
                                <path d="M18.6269 34.3432C16.4626 34.3432 14.589 33.6286 13.4562 32.519C13.3507 32.7829 13.2886 33.0576 13.2886 33.3422C13.2886 35.2001 15.6786 36.7064 18.6269 36.7064C21.575 36.7064 23.9651 35.2001 23.9651 33.3422C23.9651 33.0577 23.9029 32.7831 23.7974 32.5191C22.6646 33.6287 20.7911 34.3432 18.6269 34.3432Z" fill="white"/>
                                </svg>
-                               <p>Наименование банка: {{ form.bankName(value=current_user.pr.bankName)}}</p></div>
+                               <p>Наименование банка: {{ form.bankName(value=current_user.pr.bank_name)}}</p></div>
                         <div  class="spec_tags">
                            <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="25" cy="25" r="25" fill="#B79CE3"/>
@@ -183,7 +179,7 @@
                         <path d="M13 37.4997C22.9663 31.901 28.1233 31.9874 38 37.4997" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
                         <path d="M13 37.5002C22.9663 31.9015 28.1233 31.9879 38 37.5002" stroke="white" stroke-width="2" stroke-linecap="round"/>
                         </svg>
-                               <p>{{form.tags.label}}: <br> {{form.tags(value=current_user.pr.tags)}}</p>
+                               <p>Специальность: <br> {{form.tags(multiple=True)}}</p>
                         </div>
                         <div  class="ooo_up">
                             <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -213,6 +209,7 @@
                         </div> 
                  </div>
                </div>
+           
             </div>
            <!-- кнопка "изменить"-->
        <div class="changing"> 
@@ -231,25 +228,15 @@
            <div class="sub_ch">
             {{ form.submit() }}
             </div>
+        </form>
           </div>
-</form>
+       </div>
+
 
     <script>
-        
-        //добавление аватарки
-        $("#profile-image").click(function(e) {
-    $("#photo").click();
-});
-
-function fasterPreview( uploader ) {
-    if ( uploader.files && uploader.files[0] ){
-          $('#profile-image').attr('src', 
-             window.URL.createObjectURL(uploader.files[0]) );
-    }
-}
-
-$("#photo").change(function(){
-    fasterPreview( this );
-});
+        $('#passport').mask('99-99 999999');
+        $('#passportCod').mask('999-999');
+        $('#phone_number').mask('+7 (999) 999-99-99');
+        $('#inn').mask('999999999999');
     </script>
 {% endblock %}      

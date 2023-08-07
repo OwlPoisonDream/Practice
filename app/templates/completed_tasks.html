@@ -10,7 +10,7 @@
 <!-- основная панель-->
 <div class="info1"> 
     <div class="avatar"> {% if infoUser.avatar!=None %}<img proxy src="/app/{{infoUser.avatar}}">{%endif%}
-        {% if infoUser.avatar==None %} <img proxy src="/app/{{ url_for ('static', filename='x_06eb1977.jpg')}}">{%endif%}
+        {% if infoUser.avatar==None %} <img proxy src="{{ url_for ('static', filename='x_06eb1977.jpg')}}">{%endif%}
     </div> <!-- автарка-->
         <div class="login">{{infoUser.nickname}}</div>
     </div>
@@ -168,7 +168,7 @@
                         <path d="M14 36.4997C23.9663 30.901 29.1233 30.9874 39 36.4997" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
                         <path d="M14 36.5002C23.9663 30.9015 29.1233 30.9879 39 36.5002" stroke="white" stroke-width="2" stroke-linecap="round"/>
                         </svg>
-                             <p>Имеешь ООО или ИП: <br> {% if infoUser.up_ooo=="1" %} да {% endif %}{% if infoUser.up_ooo=="0" %} нет {% endif %} </p>
+                            <p>Имеешь ООО или ИП: <br> {% if infoUser.up_ooo== 1 %} да {% endif %}{% if infoUser.up_ooo== 0 %} нет {% endif %} </p>
                         </div>
                         <div  class="adress">
                             <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">

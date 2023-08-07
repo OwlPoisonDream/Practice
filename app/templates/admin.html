@@ -11,7 +11,7 @@
   <h1>Тут отображаем таблицы баз данных</h1>
   <ul>
 {% for u in list %}
-<li>id: {{u.id}}, email: {{u.email}}, password: {{u.password_hash}}, Access: {{u.who}}
+<li>id: {{u.id}}, email: {{u.email}}, password: {{u.password_hash}}, Access: {{u.who}}</p>
          <ul>
          <li>Имя: {{u.pr.name}}</li>
          <li>Дата рождения: {{u.pr.birthDAy}}</li>
@@ -32,7 +32,6 @@
 </li>
 {% endfor %}
 </ul>
-<ul>
   {% for u in projects %}
          <li>ID проекта: {{u.id}}</li>
          <li>Имя проекта: {{u.projectName}}</li>
@@ -51,5 +50,7 @@
            <li>Статус выполнения: {{u.statusСompleted}}</li>
            <li>Получен: {{u.receipt}}</li>
            <li>Ссылка на задачу: {{u.linkDisk}} <p></p></li>
+</li>
 {% endfor %}
+</ul>
 {% endblock %}

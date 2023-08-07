@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="{{ url_for ('static', filename='css/my_task.css')}}">
 
 <script src="{{ url_for ('static', filename='js/jquery.min.js')}}"></script>
+
 <div class="container">
 <div class="search-menu">
   <div class="tabs-menu">
@@ -30,36 +31,17 @@
 <div class="context-menu"> 
 <!-- Блок "в процессе" -->
       <ul class="tasks_list" id="content-1" style="display: none;">
-           <div class="flex-cont">
       {% for u in tasks %}
          {% if u.statusСompleted == "Uncomplete" %}
          <li>
-         <a class ="triggerTask" id="{{u.id}}" href="#">
+         <a class ="triggerTask" href="#">
           <div class="task-card" >
             <p class="task-fname">{{u.nameTask}}</p>
       </div>
       </a>
             <div class = "task" id="tg{{u.id}}">
-                
               <div class="task-up">
-                  <div class="form-group">
-            <form id="form228" method="post" enctype="multipart/form-data">
-                
-                <input class="finish-task" type="submit" value="Отправить на проверку"/>
-                <input type="text" name = "tascChek" value="{{u.id}}" style="display: none;">
-                <input type="file" name="file" class="input_file" multiple />
-                <!-- Прекрепленные файлы -->
-              
-                  <!--<form id="form228" method="post" enctype="multipart/form-data">-->
-                  <!--<input type="text" name = "tascChek" value="{{u.id}}" style="display: none;">-->
-                  <!--<input type="file" name="file{{u.id}}" class="input_file" multiple />-->
-                  <ul id="result{{u.id}}">
-                      <!-- загрузки будут показаны здесь -->
-                  </ul>
-              <!--</form>-->
-            
-                </form>
-                </div>
+                <input class="finish-task" type="submit" form="form228" value="Отправить на проверку"/>
               </div>
               <div class="task-info">
               <p class="task_name">{{u.nameTask}}</p>
@@ -68,8 +50,19 @@
               <div class="task-date"> <p> {{u.timeTask}}</p></div>
               <div class="task-money"> <p>{{u.manyTask}}</p></div>
               </div>
-              
-             <!-- чат -->
+
+              <!-- Прекрепленные файлы -->
+              <div class="form-group">
+                <form id="form228" method="post" enctype="multipart/form-data">
+                  <input type="text" name = "tascChek" value="{{u.id}}" style="display: none;">
+                  <input type="file" name="file" class="input_file" multiple />
+                  <ul id="result">
+                      <!-- загрузки будут показаны здесь -->
+                  </ul>
+              </form>
+            </div>
+
+              <!-- чат -->
               <form action="" class="form1" id = "chat{{u.id}}" method="post">
                 <div class="chat_name">
                   <ul class="chat-massages" id = "chat{{u.id}}">
@@ -77,8 +70,8 @@
                     {% if i.id_task == u.id %}
                      <li class="chat-mass" id="mass{{u.id}}">
                         <div class="mass-ava" >
-                            {% if i.img != None %}<img class="mass-ava" src="/app/{{i.img}}">{%endif%}
-                            {% if i.img == None %} <img class="mass-ava" src="/app/{{ url_for ('static', filename = 'x_06eb1977.jpg')}}">{%endif%}    
+                            {% if i.img != None %}<img class="mass-ava" src="{{url_for ('static',filename = i.img)}}">{%endif%}
+                            {% if i.img == None %} <img class="mass-ava" src="{{ url_for ('static', filename = 'x_06eb1977.jpg')}}">{%endif%}    
                         </div>
                            <div class="mass-text"> 
                             {{i.text}}
@@ -104,17 +97,15 @@
         </li>
         {% endif %}
       {% endfor %}
-      </div>
     </ul>
       
 
       <!-- Блок "Переделать" -->
       <ul class="tasks_list" id="content-2"  style="display: none;">
-           <div class="flex-cont">
       {% for u in tasks %}
          {% if u.statusСompleted == "Сheck" %}
          <li>
-         <a class ="triggerTask" id="{{u.id}}" href="#">
+         <a class ="triggerTask" href="#">
           <div class="task-card" >
       
             <p class="task-fname">{{u.nameTask}}</p>
@@ -124,7 +115,7 @@
             <div class = "task" id="tg{{u.id}}">
               <div class="task-up">
                 <div class="finish-task"><a  value="{{u.id}}" name="task_into"> <p>Отправить на проверку</p></a></div>
-                <div class="downloads"> <a href="{{u.linkDisk}}"> <p> Загруженные файлы</p></a></div>
+                <div class="downloads"> <a href=""> <p> Загруженные файлы</p></a></div>
         </div>
               <div class="task-info">
               <p class="task_name">{{u.nameTask}}</p>
@@ -173,17 +164,15 @@
             </li>
             {% endif %}
           {% endfor %}
-          </div>
           </ul>
           
  
  <!-- Блок "выполнено" -->
 <ul class="tasks_list" id="content-3"  style="display: none;">
-     <div class="flex-cont">
   {% for u in tasks %}
     {% if u.statusСompleted == "Сomplete" %}
     <li>
-    <a class ="triggerTask" id="{{u.id}}" href="#">
+    <a class ="triggerTask" href="#">
      <div class="task-card" >
  
        <p class="task-fname">{{u.nameTask}}</p>
@@ -204,7 +193,6 @@
         </li>
         {% endif %}
       {% endfor %}
-      </div>
       </ul>
     </div>
 
@@ -213,7 +201,6 @@
 
 <script>
   
-  //открытие задачи
   $(document).ready(function() {
     $('a.triggerTask').click( function(event){
         var clickId = $(this).attr('id');// значения открытыго проекта 
@@ -221,11 +208,21 @@
     });
 
     $('.cl-btn-7').click( function(){
-        $('.task').css('display', 'none');
+        $('.task#tg').css('display', 'none');
     });
 });
 
+$(document).ready(function(){
+        $("a.triggerTask").on('click', function(){
+            $(".task").css('display','block');
+            return false;
+        });
 
+        $(".cl-btn-7").on('click', function(){
+            $(".task").css('display','none');
+            return false;
+        });
+    });
 // открытие выбранного input 
     $(document).ready(function(){
       if ($('#tab-btn-1').is(':checked')){
@@ -306,7 +303,6 @@ $(document).ready(function () {
             });
         }
 // загрузка файлов
-
 $(document).ready(function() {
 	
   $(".input_file").change(function(){ // Выполняем функцию после выбора файлов
@@ -317,9 +313,7 @@ $(document).ready(function() {
     //$("#result").text(name_file.join(", ")); // Выводим список имен в id="result", разделенных запятой
     
     $.each(name_file,function(index,value){
-    {% for u in tasks %}
-      $("#result{{u.id}}").append( "<li>" + value + "</li>" );
-      {% endfor %}
+      $("#result").append( "<li>" + value + "</li>" );
       console.log('Индекс: ' + index + '; Значение: ' + value);
 });
   });

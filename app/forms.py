@@ -6,7 +6,7 @@ from flask_wtf.file import FileField, FileAllowed
 from datetime import datetime
 from app.models import User
 
-now = datetime.now #Текущее время
+now = datetime.now
 #images = UploadSet('images', IMAGES)
 
 class LoginForm(FlaskForm): # Форма для логина с запоминанием пользователя
@@ -20,7 +20,7 @@ class RegistrationForm(FlaskForm): # Форма регистрации
     email = StringField('Почта', validators=[DataRequired(), Email()], render_kw={"placeholder": "Электронная почта"})
     password = PasswordField('Пароль', validators=[DataRequired()], render_kw={"placeholder": "Пароль"})
     password2 = PasswordField(
-    ' ', validators=[DataRequired(), EqualTo('password')], render_kw={"placeholder": "Повторите пароль"})
+    'Повторите пароль', validators=[DataRequired(), EqualTo('password')], render_kw={"placeholder": "Повторите пароль"})
     submit = SubmitField('Зарегистрироваться')
 
     def validate_username(self, username): #Проверка на несовпадение имён пользователя
@@ -39,16 +39,15 @@ class ResetPasswordRequestForm(FlaskForm): # Форма восстановлен
 
 class ResetPasswordForm(FlaskForm): # Форма сброса пароля
     password = PasswordField('Пароль', validators=[DataRequired()], render_kw={"placeholder": "Пароль"})
-    password2 = PasswordField(
-    ' ', validators=[DataRequired(), EqualTo('password')], render_kw={"placeholder": "Повторите пароль"})
+
     submit = SubmitField('Сбросить пароль')
 
 class PersonalForm(FlaskForm): # Форма для заполнения таблицы users_Data
     name = StringField('ФИО', validators=[]) #ФИО
-    nickname = StringField('Никнейм', validators=[]) # прозвище
+    nickname = StringField('Прозвище', validators=[]) # прозвище
     link_vk = StringField('Ссылка на ВК', validators=[]) # ссылка на вк
     birthDAy = DateField('Дата Рождения', validators=[])# Дата рождения 
-    passport = StringField('Номер паспорта', validators=[Length(min = 11, max = 11)], render_kw={"placeholder": "11 11 111111"})# номер паспорта
+    passport = StringField('Номер паспорта', validators=[Length(min = 11, max = 11)], render_kw={"placeholder": "1111 111111"})# номер паспорта
     passportData = DateField('Дата выдачи ', validators=[])# дата выдачи 
     passportBy = StringField('Кем выдан паспорт', validators=[])# кем выдан паспорт
     passportCod = StringField('Код подразделения', validators=[Length(min = 7, max = 7)], render_kw={"placeholder": "111-111"})# код подразделения
@@ -58,10 +57,35 @@ class PersonalForm(FlaskForm): # Форма для заполнения табл
     bankName = StringField('Название банка', validators=[]) # название банка
     phone_number = StringField('Номер телефона', validators=[Length(min = 11, max = 25)], render_kw={"placeholder": "+7/8"}) # номер телефона
     email = StringField('Email', validators=[Email()]) # почта
-    tags = StringField('Специальности', validators=[], render_kw={"placeholder": "Фоновик, программист и т.д."}) #инн
-    up_ooo = RadioField('ooo', choices=[(1,'Да'),(0,'Нет')]) #Определение юридического статуса пользователя
+    photo = FileField(validators=[
+        FileAllowed(['jpg', 'png', 'jpeg', 'webp', 'svg'], 'Images only')
+        ])
+    tags = SelectMultipleField("Специальность",choices=[("Сценарист","Сценарист"),# специальность
+                                                ("Раскадровщик","Раскадровщик"),
+                                                ("Черновая анимация","Черновая анимация"),
+                                                ("Клин","Клин"),
+                                                ("Фоновик","Фоновик"),
+                                                ("3D-шник","3D-шник"),
+                                                ("Композер","Композер"),
+                                                ("Лейаут","Лейаут"),
+                                                ("Художник общего профиля","Художник общего профиля"),
+                                                ("Монтажер","Монтажер"),
+                                                ("Оператор","Оператор"),
+                                                ("Актёр озвучки","Актёр озвучки"),
+                                                ("Саунд-дизайнер","Саунд-дизайнер"),
+                                                ("Композитор","Композитор"),
+                                                ("Сведение и чистка звука","Сведение и чистка звука"),
+                                                ("Бухгалтер","Бухгалтер"),
+                                                ("Юрист","Юрист"),
+                                                ("Менеджер","Менеджер"),
+                                                ("Шрифтовик","Шрифтовик"),
+                                                ("Супервайзер","Супервайзер"),
+                                                ("Режиссёр","Режиссёр"),
+                                                ("Программист","Программист")], validators=[]) #Теги, отображающие специальности человека
+    up_ooo = RadioField('ooo', choices=[(1,'Да'),(0,'Нет')])
     address = StringField('Адрес проживания', validators=[]) # адрес пользователя
     ogrn = StringField("ОГРН", validators=[Length(min = 13, max = 13)], render_kw={"placeholder": "1234567891234"})#ОГРН пользователя
+    #SelectMultipleField("ООО или ИП",choices= ['Нет','Да'])
     submit = SubmitField('')
 
 

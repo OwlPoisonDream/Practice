@@ -29,15 +29,14 @@ class User(db.Model,UserMixin):
         return check_password_hash(self.password_hash, password)
 
     def get_reset_password_token(self, expires_in=600): #сброс пароля
-        reset= jwt.encode(
+        return jwt.encode(
             {'reset_password': self.id, 'exp': time() + expires_in},
-            str(Config.SECRET_KEY), algorithm='HS256')
-        return str(reset)
+            Config['SECRET_KEY'], algorithm='HS256')
 
     @staticmethod
     def verify_reset_password_token(token): #подтверждение сброса пароля
         try:
-            id = jwt.decode(token, str(Config.SECRET_KEY),
+            id = jwt.decode(token, Config['SECRET_KEY'],
                             algorithms=['HS256'])['reset_password']
         except:
             return
@@ -79,16 +78,17 @@ class Project(db.Model):
 class Users_Projects(db.Model):
     __tablename__ = 'user_project'
     id = db.Column(db.Integer, primary_key = True)
-    User_id = db.Column(db.Integer)# id пользователя. Берёт из таблицы user
+    User_id = db.Column(db.Integer, db.ForeignKey('users_Data.id'))# id пользователя. Берёт из таблицы user
     Project_id = db.Column(db.Integer, db.ForeignKey('projects.id'))# id проекта. Берёт из таблицы project
     up = db.relationship('Users_Data', backref='user_project', uselist=False) #Связываем таблицу user с таблицей Users_Projects где первая - родитель, вторая - наследует
+
 
 # Модель Users_Data - модель для юзера
 class Users_Data(db.Model):
     __tablename__ = 'users_Data'
 
     id = db.Column(db.Integer, primary_key =True) #id
-    idUser = db.Column(db.Integer,db.ForeignKey('user_project.User_id'), db.ForeignKey('users.id'),db.ForeignKey('massege.id_user'))  # id пользователя. Берёт из user
+    idUser = db.Column(db.Integer, db.ForeignKey('users.id'),db.ForeignKey('massege.id_user'))  # id пользователя. Берёт из user
     name = db.Column(db.String(100), nullable=True) #ФИО
     nickname = db.Column(db.String(20), nullable=True) # прозвище
     link_vk = db.Column(db.String(50), nullable=True) # ссылка на вк
@@ -103,7 +103,7 @@ class Users_Data(db.Model):
     bank_details = db.Column(db.String(100), nullable=True) # реквизиты банка  
     bankName = db.Column(db.String(100), nullable=True) # название банка
     phone_number = db.Column(db.String(11), nullable=True) # номер телефона
-    tags = db.Column(db.String(100), nullable=True)# Специализация
+    tags = db.Column(db.Text, nullable=True),#специализация
     avatar = db.Column(db.String(100), nullable=True)#аватарка пользователя
     up_ooo = db.Column(db.Integer, nullable=True) # проверка ИП и ООО, 0 - нет, 1 - да
     ogrn = db.Column(db.String(13), nullable=True)#ОГРН Пользователя
@@ -119,6 +119,13 @@ class Folder(db.Model):
     link = db.Column(db.Text, nullable=True)# ссылка для диска 
     name = db.Column(db.String(50), nullable=True) # имя папки
     color = db.Column(db.String(), nullable=True) # цвет папки
+
+# 
+class Photo(db.Model):
+    __tablename__ = 'photo'
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.Text, nullable=True)
+    link = db.Column(db.Text, nullable=True)
 
 # Таблица чеков
 class Check(db.Model):
@@ -137,7 +144,7 @@ class Documents(db.Model):
     name = db.Column(db.String(50), nullable=True) # имя документа
     link = db.Column(db.Text, nullable=True)# ссылка на документ
     UserID = db.Column(db.Integer, db.ForeignKey('users.id'))# id usera
-# Таблица с актами
+
 class Contract(db.Model):
     __tablename__ = 'contracts'
     id = db.Column(db.Integer, primary_key=True)
